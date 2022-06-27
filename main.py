@@ -1,7 +1,6 @@
-from Controllers.Players import Player, create_player
-from Models.Players import Player
-from Views.Players import CreatePlayer
+from Views import display_board
 
+def main():
 
-list_of_players = CreatePlayer()
-print(list_of_players)
+    if __name__ == "__main__":
+        main()

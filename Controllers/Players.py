@@ -12,5 +12,8 @@ class create_player():
         user_input['sex'],
         user_input['rank']
         )
-                
-    
+
+    # Serializing created player          
+    serialized_player = player.get_serialized_player()
+    print(serialized_player)
+
