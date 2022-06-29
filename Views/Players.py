@@ -1,9 +1,7 @@
 
+class ViewPlayer:
 
-
-class CreatePlayer:
-
-    def interface_menu(self):
+    def create_player(self):
 
         lastname = input("Player's last name:\n> ")
         firstname = input("Player's first name:\n> ")
@@ -28,16 +26,17 @@ class CreatePlayer:
             "total score": 0,
         }
 
-class UploadPlayers():
-    
-    def interface_menu(self, players_to_load):
+    def upload_players():
+        
+        def interface_menu(self, players_to_load):
 
-        list_of_all_players = []
+            list_of_all_players = []
 
-        for i in range(players_to_load):
-            print(f"You have {str(players_to_load - i)} players to chose from.")
-            
-            
+            for i in range(players_to_load):
+                print(f"You have {str(players_to_load - i)} players to chose from.")
+                    
 
-
+    def update_player():
+        pass
+       
     

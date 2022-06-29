@@ -1,11 +1,11 @@
-from Models.Players import Player
-from Views.Players import CreatePlayer
+from models.players import Player
+from views.players import ViewPlayer
 
 
 
-class create_player():
+class ccontroller_player():
 
-    user_input = CreatePlayer().interface_menu()
+    user_input = ViewPlayer().create_player()
 
     player = Player(
         user_input['last name'],

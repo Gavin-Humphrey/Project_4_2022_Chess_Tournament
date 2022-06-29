@@ -1,4 +1,4 @@
-from Views import display_board
+from views import display_board
 
 def main():
 

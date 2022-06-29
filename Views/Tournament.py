@@ -1,4 +1,4 @@
-from Controllers.TournamentTime import get_timestamp
+from controllers.tournamentTime import get_timestamp
 
 class CreateTournament:
     

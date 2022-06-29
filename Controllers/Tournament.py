@@ -1,5 +1,5 @@
-from Models.Tournament import Tournament
-from Views.Tournament import CreateTournament
+from models.tournament import Tournament
+from views.tournament import CreateTournament
 
 
 class create_tournament():
