@@ -4,17 +4,19 @@ class CreateTournament:
     
     def show_content(self):
 
-        date = get_timestamp()
+        print("Create Tournament")
+  
+        date = input("Date (DD/MM/YYYY):\n> ")
 
-        print("We have a new tournament today:" +date)
-
-        time = input("At:\n >")
+        time = input("Time (H:M):\n > ")
 
         name = input("Tournament name:\n> ")
 
         venue = input("Venue:\n> ")
 
         rounds = input("Rounds:\n> ")
+
+        print(f"{name} Tournament is created!")
 
         return {
                 "date": date,

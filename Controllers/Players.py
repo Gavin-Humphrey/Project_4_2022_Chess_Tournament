@@ -1,9 +1,11 @@
 from Models.Players import Player
 from Views.Players import CreatePlayer
 
+
+
 class create_player():
 
-    user_input = CreatePlayer().display_input()
+    user_input = CreatePlayer().interface_menu()
 
     player = Player(
         user_input['last name'],
@@ -12,8 +14,7 @@ class create_player():
         user_input['sex'],
         user_input['rank']
         )
-
-    # Serializing created player          
-    serialized_player = player.get_serialized_player()
-    print(serialized_player)
+         
+    player = player.get_player()
+    print(player)
 

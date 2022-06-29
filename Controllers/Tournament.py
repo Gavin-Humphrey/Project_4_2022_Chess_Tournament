@@ -8,7 +8,7 @@ class create_tournament():
 
     tournament = Tournament(
         user_input['name'],
-        user_input['place'],
+        user_input['venue'],
         user_input['date'],
         user_input['time'],
         user_input['rounds']

@@ -1,3 +1,5 @@
+
+
 class Player:
 
     def __init__(self, lastname, firstname, dob, sex, total_score, rank=0):
@@ -15,8 +17,8 @@ class Player:
             
         return f"{self.firstname} {self.lastname}"
 
-    def get_serialized_player(self):
-        serialized_player= {
+    def get_player(self):
+        player= {
             'lastname': self.lastname,
             'firstname':self.firstname,
             'dob': self.dob,
@@ -24,6 +26,6 @@ class Player:
             'total_score': self.total_score,
             'rank': self.rank
     }
-        return serialized_player
+        return player
 
      
