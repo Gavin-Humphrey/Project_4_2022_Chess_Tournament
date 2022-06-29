@@ -36,7 +36,7 @@ class ViewPlayer:
                 print(f"You have {str(players_to_load - i)} players to chose from.")
                     
 
-    def update_player():
-        pass
+    #def update_player():
+     #   pass
        
     
