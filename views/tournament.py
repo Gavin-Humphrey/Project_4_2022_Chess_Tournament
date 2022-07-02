@@ -1,4 +1,4 @@
-from controllers.tournamentTime import get_timestamp
+"""from controllers.tournamentTime import get_timestamp
 
 class CreateTournament:
     
@@ -24,7 +24,7 @@ class CreateTournament:
                 "name": name,
                 "venue": venue,
                 "rounds": rounds
-        }
+        }"""
 
 
 

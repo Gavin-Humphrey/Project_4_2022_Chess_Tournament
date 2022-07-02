@@ -1,31 +1,18 @@
 
-
 class Player:
+    def __init__(self, id_player_, last_name_, first_name_, sex_, rank_, score_):
+        self.id_player = id_player_
+        self.last_name = last_name_
+        self.first_name = first_name_
+        #self.dob = dob_
+        self.sex = sex_
+        self.rank = rank_
+        self.score = score_
+    
+    def update_score(self, new_score):
+        self.score = new_score
+    
 
-    def __init__(self, lastname, firstname, dob, sex, total_score, rank=0):
-
-        self.lastname = lastname
-        self.firstname = firstname
-        self.dob = dob
-        self.sex = sex
-        self.match_score = 0
-        self.total_score = 0
-        self.rank = rank
-
-
-    def __str__(self):
-            
-        return f"{self.firstname} {self.lastname}"
-
-    def get_player(self):
-        player= {
-            'lastname': self.lastname,
-            'firstname':self.firstname,
-            'dob': self.dob,
-            'sex': self.sex,
-            'total_score': self.total_score,
-            'rank': self.rank
-    }
-        return player
-
-     
+    def __str__(self) -> str:
+        return " je suis le joueur {} {} qui le score {} mon rank est {}".format(self.last_name, self.first_name, self.score, self.rank)
+    
