@@ -11,7 +11,8 @@ player_table = db.table('Player')
 get_all_players(player_table.all())
 list_player_order = player_classment(player_table.all())
 print(list_player_order)
-
-print('--------------------------------------------------------------')
+print("")
+print('===========================================================')
+print("")
 for p1, p2 in make_match(list_player_order):
     print(p1 , " vs " , p2)
