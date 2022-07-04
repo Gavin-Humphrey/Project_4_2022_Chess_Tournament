@@ -1,4 +1,5 @@
 from datetime import datetime, date
+from controllers.database import save_player_in_db
 from models.players import Player
 
 
@@ -21,7 +22,7 @@ def create_player():
                 first_name = input("Please enter player {} first name: ".format(i+1))
                 while not stop_dob:
                     try:
-                        dob = datetime.strptime(input("Please enter player {} date of birth in (DD/MM/YYYY): ".format(i+1)), "%d/%m/%Y").strftime("%d/%m/%Y")# a travailler
+                        dob = datetime.strptime(input("Please enter player {} date of birth in (DD/MM/YYYY): ".format(i+1)), "%d/%m/%Y").strftime("%d/%m/%Y")
                         stop_dob = True
                     except:
                         print("Please enter player's date of birth in format (DD/MM/YYYY")
@@ -44,12 +45,6 @@ def create_player():
                 list_player.append(p)
             return list_player
 
-def save_player_in_db(list_player, player_table):
-    choice = input('Would you like to eraze the content of this table? Type Y for yes ')
-    if choice == 'Y':
-        player_table.truncate()
-    for p in list_player:
-        player_table.insert({'Last name':p.last_name, 'First name': p.first_name, 'Date of birth': p.dob, 'Sex':p.sex, 'Rank':p.rank, 'Score':p.score})
 
 def ordre(ditc_player):
     return ditc_player ['Rank']

@@ -16,3 +16,4 @@ class Player:
     def __str__(self) -> str:
         return "Player's Name: {} {}; Date of birth: {}; Sex: {}; Rank: {}; Score: {}".format(self.last_name, self.first_name, self.dob, self.sex, self.rank, self.score)
     
+    
