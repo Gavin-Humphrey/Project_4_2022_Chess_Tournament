@@ -1,7 +1,9 @@
 
 from datetime import datetime, date
 from models.tournament import Tournament
-from controllers.database import load_tournament
+from controllers.database import save_tournament
+from controllers.players import create_player
+
 
 def create_tournament():
 
@@ -10,37 +12,41 @@ def create_tournament():
     stop_create_tournament = False
     while not stop_create_tournament:
         try:
-          create_tournament_choice = input("Do you want to create a tournament? Enter Y for Yes: ")
+          create_tournament_choice = input("Do you want to create a tournament? Enter Y for yes: ")
+          stop_create_tournament = True
         except: 
             print("Please enter Y for yes and any other letter for no")
         else:     
             if create_tournament_choice == "Y":
                 stop_date = False
-                stop_time_control = False
+                stop_time = False
                 name = input("Please enter tournament name: ")
                 place = input("please enter tournament venue: ")
                 
                 while not stop_date:
                     try:
-                        date = datetime.strptime(input("Please enter tournament date in (DD/MM/YYYY): ".format()), "%d/%m/%Y").strftime("%d/%m/%Y")
+                        date = datetime.strptime(input("Please enter tournament date in (DD/MM/YYYY): "), "%d/%m/%Y").strftime("%d/%m/%Y")
                         stop_date = True
                     except:
                         print("Please enter date of tournament in format (DD/MM/YYYY")
 
-                while not stop_time_control:
+                while not stop_time:
                     try:
-                        time_control = datetime.strptime(input("please enter tournament time in (HH:MM): "), "%H:%M")
-                        stop_time_control = True
+                        time = input("please enter tournament time in (HH:MM): ")
+                        stop_time = True
                     except:
                         print("Please enter tournament time in (HH:MM) format")
 
-                players = input("Please enter the number of players: ")
-
-                t = Tournament(name, place, date, time_control, players)
+                players = input("Please enter the number of players for this tournament: ")
+                    
+                t = Tournament(name, place, date, time, players )
                 print(t)
                 tournament_list.append(t)
-
+              
             return tournament_list
+               
+
+   
 
 
 

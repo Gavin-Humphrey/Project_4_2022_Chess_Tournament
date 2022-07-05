@@ -1,15 +1,20 @@
 
 class Tournament:
 
-    def __init__(self, name_, place_, date_, time_control_, players_):
+    def __init__(self, name_, place_, date_, time_, players_,  nb_rounds_=0):
         self.name = name_
         self.place = place_
         self.date = date_
-        self.time_control = time_control_
+        self.time = time_
         self.players = players_
+        self.nb_rounds = nb_rounds_
+        self.rounds = []
 
-    def __str__(self):
-        return "Tournament: {}\nVenue: {}\nDate: {}\nTime: {}" .format(self.name, self.place, self.date, self.time_control)
+    def __str__(self) -> str:
+        return "Tournament: {}; Venue: {}; Date: {}; Time: {}" .format(self.name, self.place, self.date, self.time)
+
+    
+
 
 
 
