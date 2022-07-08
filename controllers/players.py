@@ -1,6 +1,7 @@
 from datetime import datetime, date
 from controllers.database import save_player_in_db
 from models.players import Player
+from views.players import *
 
 
 def create_player():
@@ -40,7 +41,7 @@ def create_player():
                     except:
                         print("Attributed score should be a number")
 
-                p = Player(i, last_name, first_name, dob, sex, rank, score)
+                p = Player(i, last_name, first_name, dob, sex, rank, score=0)
                 print(p)
                 list_player.append(p)
             return list_player
@@ -54,9 +55,9 @@ def player_classment(list_player):
     if len(list_player) != 8:
         return "We are sorry we can't start a tournament, the number of players has to be 8 and not {}".format(len(list_player))
     else:
-        return sorted(list_player,key = ordre)
+        return [ e ['Last name'] + ' '+ e ['First name'] for e in sorted(list_player,key = ordre, reverse=True)]
+    
 
-
-def make_match(list_player_ranking):
+def player_pair(list_player_ranking):
     if isinstance(list_player_ranking, list):
         return list(zip(list_player_ranking[:4], list_player_ranking[4:]))

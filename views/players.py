@@ -2,6 +2,7 @@ import json
 from datetime import datetime
 from certifi import where
 
+
 def get_all_players(list_player):
     print(" ")
     print('=================== PLAYERS TABLE ========================')
@@ -14,6 +15,6 @@ def get_all_players(list_player):
     print('===================== Player By Rank =====================')
     print("")
     
-
+    
 
 

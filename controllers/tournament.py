@@ -1,14 +1,12 @@
 
 from datetime import datetime, date
+from models.players import Player
 from models.tournament import Tournament
 from controllers.database import save_tournament
-from controllers.players import create_player
-
+from controllers.players import * #create_player
 
 def create_tournament():
-
     tournament_list = []
-    
     stop_create_tournament = False
     while not stop_create_tournament:
         try:
@@ -38,12 +36,15 @@ def create_tournament():
                         print("Please enter tournament time in (HH:MM) format")
 
                 players = input("Please enter the number of players for this tournament: ")
-                    
-                t = Tournament(name, place, date, time, players )
-                print(t)
-                tournament_list.append(t)
+                     
+            t = Tournament(name, place, date, time, players)
+            print(t)
+            tournament_list.append(t)
               
             return tournament_list
+
+    
+
                
 
    

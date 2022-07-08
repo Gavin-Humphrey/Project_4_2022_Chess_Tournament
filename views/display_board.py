@@ -17,7 +17,7 @@ print(list_player_order)
 print("")
 print('===================== Player By Pair =====================')
 print("")
-for p1, p2 in make_match(list_player_order):
+for p1, p2 in player_pair(list_player_order):
     print(p1 , " vs " , p2)
 
 tdb = TinyDB('tournament_db.json')
@@ -25,4 +25,5 @@ serialized_tournament_table = tdb.table('Tournament')
 #save_tournament(create_tournament(), serialized_tournament_table)
 get_all_tournament(serialized_tournament_table.all())
 create_tournament()
-print(create_tournament())
+#print(create_tournament)
+
