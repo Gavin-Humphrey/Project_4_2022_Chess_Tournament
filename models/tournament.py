@@ -4,41 +4,22 @@ from .round import*
 class Tournament:
 
     
-    def __init__(self, name_, place_, date_, time_, nb_player_, players_,  nb_rounds_, state_="Create"):
+    def __init__(self, name_, place_, date_, time_control_, nb_player_, players_,  nb_rounds_, desc_="Create"):
         self.name = name_
         self.place = place_
         self.date = date_
-        self.time = time_
+        self.time_control = time_control_ # changed from time
         self.nb_player = nb_player_
         self.players = players_
         self.nb_rounds = nb_rounds_
         self.rounds = []
-        self.state = state_
+        self.desc = desc_ # changed from state
 
 
     def __str__(self) -> str:
-        return "Tournament: {}; Venue: {}; Date: {}; Time: {}" .format(self.name, self.place, self.date, self.time)
+        return "Tournament: {}; Venue: {}; Date: {}; Time control: {}" .format(self.name, self.place, self.date, self.time_control)
 
-
-    def create_rounds(self, list_player, round_name="round 1"):
-        pass
-
-    def ordre(self, ditc_player):
-        return ditc_player ['Rank']
-
-    
-    def player_classment(self):
-        list_player = self.players.copy()
-        if len(list_player) % 2 == 0:
-            return "We are sorry we can't start a tournament, the number of players has to be pair"
-        else:
-            return [ e ['Last name'] +' '+ e ['First name'] for e in sorted(list_player,key = self.ordre, reverse=True)]
-        
-
-    def player_pair(self, list_player_ranking):
-        if isinstance(list_player_ranking, list):
-            return list(zip(list_player_ranking[:4], list_player_ranking[4:]))
-
+   
 
 
 

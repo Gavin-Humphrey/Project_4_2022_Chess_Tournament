@@ -8,6 +8,32 @@ class Round:
         self.date_end = date_end_
         self.tournament = tournament_
         self.list_match = list_match_
+
+        # ajouté
+        if list_match_:
+            self.matchs = []
+        else:
+            self.matchs = self.create_matchs()
+
+        self.start_date = ""
+        self.end_date = ""
+
+
+
+    def __str__(self):
+        return self.Round_name
+
+
+    def create_matchs(self):
+        matchs = []
+        for i, pair in enumerate(self.players_pairs):
+            matchs.append(Match(name=f"Match {i+1}", players_pair=pair))
+
+        return matchs
+        
+
+
+
     
 
 

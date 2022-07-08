@@ -1,5 +1,5 @@
 from datetime import datetime, date
-from controllers.database import save_player_in_db
+#from controllers.database_controller import save_player_in_db
 from models.players import Player
 from views.players import *
 
@@ -27,7 +27,7 @@ def create_player():
                         stop_dob = True
                     except:
                         print("Please enter player's date of birth in format (DD/MM/YYYY")
-                sex = input("Please enter player {} sex: ".format(i+1))
+                gender = input("Please enter player {} gender: ".format(i+1))
                 while not stop_rank:
                     try:
                         rank = int(input("Please enter player {} rank: ".format(i+1)))
@@ -41,7 +41,7 @@ def create_player():
                     except:
                         print("Attributed score should be a number")
 
-                p = Player(i, last_name, first_name, dob, sex, rank, score=0)
+                p = Player(i, last_name, first_name, dob, gender, rank, score=0)
                 print(p)
                 list_player.append(p)
             return list_player

@@ -1,6 +1,6 @@
-from views import display_board
+from views.display_board import main
 
-def main():
 
-    if __name__ == "__main__":
-        main()
+
+if __name__ == "__main__":
+    main()

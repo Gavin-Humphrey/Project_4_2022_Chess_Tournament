@@ -2,8 +2,8 @@
 from datetime import datetime, date
 from models.players import Player
 from models.tournament import Tournament
-from controllers.database import save_tournament
-from controllers.players import * #create_player
+#from controllers.database_controller import save_tournament
+from controllers.players_controller import * #create_player
 
 def create_tournament():
     tournament_list = []
