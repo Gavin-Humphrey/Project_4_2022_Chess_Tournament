@@ -9,7 +9,7 @@ class MatchController:
         stop_match_date = False
         while not stop_match_date:
             try:
-                input_match_date = datetime.strptime(input("Please enter match date in (DD/MM/YYYY): ".format(i+1)), "%d/%m/%Y").strftime("%d/%m/%Y")
+                input_match_date = datetime.strptime(input("Please enter match date in (DD/MM/YYYY): "), "%d/%m/%Y").strftime("%d/%m/%Y")
                 stop_match_date = True
             except:
                 print("Please enter match date in format (DD/MM/YYYY")

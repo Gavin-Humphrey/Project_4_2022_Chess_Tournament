@@ -4,7 +4,7 @@ from .round import*
 class Tournament:
 
     
-    def __init__(self, name_, place_, date_, time_control_, nb_player_, players_,  nb_rounds_, desc_="Create"):
+    def __init__(self, name_, place_, date_, time_control_, nb_player_, players_,  nb_rounds_, round_, desc_="Create"):
         self.name = name_
         self.place = place_
         self.date = date_
@@ -12,12 +12,12 @@ class Tournament:
         self.nb_player = nb_player_
         self.players = players_
         self.nb_rounds = nb_rounds_
-        self.rounds = []
+        self.rounds = round_
         self.desc = desc_ # changed from state
 
 
     def __str__(self) -> str:
-        return "Tournament: {}; Venue: {}; Date: {}; Time control: {}" .format(self.name, self.place, self.date, self.time_control)
+        return "Tournament: {}; Venue: {}; Date: {}; " .format(self.name, self.place, self.date,)
 
    
 

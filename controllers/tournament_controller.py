@@ -1,5 +1,5 @@
 from datetime import datetime, date
-from models import tournament, match, round
+from models import tournament
 from models.players import Player
 from controllers.database_controller import DatabaseWorker
 import controllers.round_controller as RC
@@ -25,14 +25,16 @@ class TournamentController:
         list_players = cls.get_player_name(int(input_nb_player), db)
         nb_rounds = input("Please enter the number of rounds for this tournament")
         if list_players != []:
-            
+            print('list_players', list_players)
             list_players_ranking = cls.player_classment(list_players)
+            print('list_players_ranking', list_players_ranking)
             list_pair = cls.player_pair(list_players_ranking)
+            print('list_pair',list_pair )
             list_match = cls.create_matchs(list_pair)
             round1 = RC.RoundController.create_round(input_name, list_match)
-            tournament = tournament.Tournament(input_name, input_place, start_date, input_time,
+            tournament_ = tournament.Tournament(input_name, input_place, start_date, input_time,
                     input_nb_player, list_players, nb_rounds, [round1])
-
+            return tournament_
 
     @classmethod
     def create_matchs(cls, list_pair):
@@ -46,16 +48,17 @@ class TournamentController:
         list_player = []
         for i in range(nb_player):
             print(f"Player {i+1} ")
-            first_name = input("Please enter player's first name")
-            last_name = input("Please enter players last name")
-            p = DatabaseWorker.get_player_by_name(first_name, last_name, db)
-            if not p:
-                print(f"Player {first_name} {last_name} does not exist in the database. Please register this player and try again")
+            first_name = input("Please enter player's first name: ")
+            last_name = input("Please enter players last name: ")
+            p, pfound = DatabaseWorker.get_player_by_name(last_name, first_name, db)
+            if not pfound:
+                print(f"Player {last_name} {first_name} does not exist in the database. Please register this player and try again")
                 # To do: add menu choice. 1st choice: reenter new player name; 2nd choice: go to the main menu to create a new player
                 return []
             else:
                 
                 list_player.append(p)
+        return list_player
 
     @classmethod   
     def order(cls, ditc_player):
@@ -63,15 +66,15 @@ class TournamentController:
 
     @classmethod
     def player_classment(cls, list_player):
-        if len(list_player) % 2 == 0:
+        if len(list_player) % 2 != 0:
             return "We are sorry we can't start a tournament, the number of players has to be pair"
         else:
-            return [ e ['Last name'] +' '+ e ['First name'] for e in sorted(list_player, key = self.order, reverse=True)]
+            return [ e ['Last name'] +' '+ e ['First name'] for e in sorted(list_player, key = cls.order, reverse=True)]
         
     @classmethod
     def player_pair(cls, list_player_ranking):
         if isinstance(list_player_ranking, list):
-            return list(zip(list_player_ranking[:4], list_player_ranking[4:]))
+            return list(zip(list_player_ranking[:int(len(list_player_ranking)/2)], list_player_ranking[int(len(list_player_ranking)/2):]))
 
 
         

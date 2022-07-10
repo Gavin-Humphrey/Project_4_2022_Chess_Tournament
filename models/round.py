@@ -9,14 +9,6 @@ class Round:
         self.tournament = tournament_
         self.list_match = list_match_
 
-        # ajouté
-        if list_match_:
-            self.matchs = []
-        else:
-            self.matchs = self.create_matchs()
-
-        self.start_date = ""
-        self.end_date = ""
 
 
 

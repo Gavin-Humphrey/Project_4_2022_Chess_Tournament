@@ -3,16 +3,21 @@ from tinydb import  Query
 #mport models.players
 #from models.tournament import Tournament
 
-         
-
-
 
 class DatabaseWorker:
     @classmethod
-    def get_player_by_name(cls, first_name_, last_name_, db):
-        Player = Query()
-        return db.search(Player.first_name ==  first_name_, Player.last_name == last_name_)
-
+    def get_player_by_name(cls, last_name_, first_name_,db):
+        list_found = []
+        #Player = Query()
+        table_player = db.table('Player')
+        list_all_player= table_player.all()
+        #print('all',list_all_player  )
+        for player in list_all_player:
+            if player['Last name'] == last_name_ and player['First name'] == first_name_:
+                list_found.append(player)
+                return player,list_found
+        return list_found
+        
 
     """def save_player_in_db(list_player, serialized_player_table):
         choice = input('Would you like to eraze the content of this table? Type Y for yes ')
