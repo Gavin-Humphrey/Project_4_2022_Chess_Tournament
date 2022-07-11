@@ -20,10 +20,41 @@ class TournamentController:
                     except:
                         print("Please enter tournament's start date in format (DD/MM/YYYY")
 
-        input_time = input("Please enter time for the tournament") # time_control au lieu
-        input_nb_player = input("Please enter the number of players in the tournament") 
+        #input_time = input("Please enter time for the tournament") # time_control au lieu
+        input_nb_player = input("Please enter the number of players in the tournament: ") 
         list_players = cls.get_player_name(int(input_nb_player), db)
-        nb_rounds = input("Please enter the number of rounds for this tournament")
+        #nb_rounds = input("Please enter the number of rounds for this tournament")
+
+        def nb_rounds(cls):   
+            nb_rounds = 4
+            print("the number of rounds is 4 by default\n"
+                    "Do you want to change this number ?")
+            valid_number = False
+            while not valid_number:
+                print("Enter 'Y' to change, and 'N' to continuer")
+                choice = input(": ")
+                if choice == "Y":
+                    nb_rounds = input("Enter number of rounds :")
+                    if nb_rounds.isdigit():
+                        valid_number = True
+                    else:
+                        print("Enter digits")
+                if choice == "N":
+                    valid_number = True
+            return nb_rounds
+
+        def add_time_control(cls):
+            print("Please chose time-control: ")
+            time_control = None
+            entry = input("Enter 1 for Bullet; 2 for Blitz; or 3 for Rapid: ")
+            if entry == "1":
+                time_control = "Bullet"
+            if entry == "2":
+                time_control = "Blitz"
+            if entry == "3":
+                time_control = "Rapid"
+            return time_control
+
         if list_players != []:
             print('list_players', list_players)
             list_players_ranking = cls.player_classment(list_players)
@@ -32,8 +63,8 @@ class TournamentController:
             print('list_pair',list_pair )
             list_match = cls.create_matchs(list_pair)
             round1 = RC.RoundController.create_round(input_name, list_match)
-            tournament_ = tournament.Tournament(input_name, input_place, start_date, input_time,
-                    input_nb_player, list_players, nb_rounds, [round1])
+            tournament_ = tournament.Tournament(input_name, input_place, start_date, add_time_control(cls),
+                    input_nb_player, list_players, nb_rounds(cls), round)
             return tournament_
 
     @classmethod

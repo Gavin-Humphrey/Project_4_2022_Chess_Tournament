@@ -7,7 +7,7 @@ class RoundController:
     @classmethod
     def create_round(cls, tournament, list_match):
         
-        input_Round_name = input("Please enter round name")
+        input_Round_name = input("Please enter round name: ")
 
         stop_date_begin = False
         while not stop_date_begin:

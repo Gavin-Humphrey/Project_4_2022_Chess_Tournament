@@ -1,9 +1,9 @@
 from tinydb import TinyDB, Query, where
-
 import controllers.players_controller as pc
 from views.players import *
 import controllers.tournament_controller as tc
 from views.tournament import *
+
 
 def main():
 
