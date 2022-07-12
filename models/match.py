@@ -1,12 +1,11 @@
 
 
 class Match:
-    def __init__(self, name_player1_, name_player2_, match_date_, round_name_="round 1", score_=0):
+    def __init__(self, name_player1_, name_player2_, match_date_, score_=0):
 
         self.player1 = name_player1_
         self.player2 = name_player2_
         self.match_date = match_date_
-        self.round_name = round_name_
         self.score = score_
         
 

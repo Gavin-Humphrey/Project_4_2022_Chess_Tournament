@@ -1,14 +1,13 @@
 
 class Player:
-    def __init__(self, id_player_, last_name_, first_name_, dob_, gender_, rank_, score_, total_score_):
-        self.id_player = id_player_
+    def __init__(self,  last_name_, first_name_, dob_, gender_, rank_, score_):
         self.last_name = last_name_
         self.first_name = first_name_
         self.dob = dob_
         self.gender = gender_
         self.rank = rank_
         self.score = score_
-        self.total_score = total_score_
+        
         
     
     def update_score(self, new_score):

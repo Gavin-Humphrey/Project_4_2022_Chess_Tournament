@@ -56,15 +56,13 @@ class TournamentController:
             return time_control
 
         if list_players != []:
-            print('list_players', list_players)
-            list_players_ranking = cls.player_classment(list_players)
-            print('list_players_ranking', list_players_ranking)
-            list_pair = cls.player_pair(list_players_ranking)
-            print('list_pair',list_pair )
+           
+            list_players_ranking = cls.player_classment(list_players) 
+            list_pair = cls.player_pair(list_players_ranking) 
             list_match = cls.create_matchs(list_pair)
-            round1 = RC.RoundController.create_round(input_name, list_match)
+            round1 = RC.RoundController.create_round(list_match)
             tournament_ = tournament.Tournament(input_name, input_place, start_date, add_time_control(cls),
-                    input_nb_player, list_players, nb_rounds(cls), round)
+                    input_nb_player, list_players, nb_rounds(cls), [round1])
             return tournament_
 
     @classmethod

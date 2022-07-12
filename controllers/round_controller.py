@@ -5,7 +5,7 @@ from models.round import Round
 class RoundController:
 
     @classmethod
-    def create_round(cls, tournament, list_match):
+    def create_round(cls, list_match):
         
         input_Round_name = input("Please enter round name: ")
 
@@ -26,5 +26,5 @@ class RoundController:
             except:
                 print("Please enter round end date in format (DD/MM/YYYY")
     
-        return Round(input_Round_name, input_date_begin, input_end_date, tournament, list_match)
+        return Round(input_Round_name, input_date_begin, input_end_date, list_match)
     
