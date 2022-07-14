@@ -26,15 +26,15 @@ class ShowTournament:
          
     def __call__(self):
         tdb = TinyDB('tournament_db.json')
-        tournament_not_yet_started = False
+        not_started_tournament = False
         tournaments_db = mt.tdb
 
         for t in tournaments_db:
             if t.rounds == []:
                 print({'Name':t.name, 'Venue':t.place})
-                tournament_not_yet_started = True
+                not_started_tournament = True
 
-        return tournament_not_yet_started
+        return not_started_tournament
 
 
 class ShowPlayers:
