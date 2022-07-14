@@ -9,8 +9,6 @@ class Round:
         self.list_match = list_match_
 
 
-
-
     def __str__(self):
         return self.Round_name
 

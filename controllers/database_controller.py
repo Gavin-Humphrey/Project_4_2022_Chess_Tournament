@@ -6,7 +6,7 @@ from tinydb import  Query
 
 class DatabaseWorker:
     @classmethod
-    def get_player_by_name(cls, last_name_, first_name_,db):
+    def get_player_by_name(cls, last_name_, first_name_, db):
         list_found = []
         #Player = Query()
         table_player = db.table('Player')
@@ -15,7 +15,6 @@ class DatabaseWorker:
         for player in list_all_player:
             if player['Last name'] == last_name_ and player['First name'] == first_name_:
                 list_found.append(player)
-
                 return player, list_found
         return None, list_found 
         

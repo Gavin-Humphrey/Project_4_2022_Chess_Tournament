@@ -4,17 +4,21 @@ from views.players import *
 import controllers.tournament_controller as tc
 from views.tournament import *
 import controllers.database_controller as dc
-
+from views.display_menu import ShowMain
+from controllers import main_menu_controller as mmc
+from controllers import create_menu
 
 
 def main():
 
+    
+    controller = mmc.MainMenuController()
+    controller()
     #print(create_player())
     db = TinyDB('data_base.json')
     Player = Query()
     Table_player = db.table('Player')
     #print('trouver', Table_player.all())
-
     serialized_player_table = db.table('Player')
     #dc.DatabaseWorker.save_player_in_db(pc.PlayerController.create_player(), serialized_player_table, db)
     #get_all_players()
@@ -30,19 +34,17 @@ def main():
     tdb = TinyDB('tournament_db.json')
     serialized_tournament_table = tdb.table('Tournament')
     #save_tournament(create_tournament(), serialized_tournament_table)
-    get_all_tournament(serialized_tournament_table.all())
-    t1 = tc.TournamentController.create_tournament(db)
+    #get_all_tournament(serialized_tournament_table.all())
+    #t1 = tc.TournamentController.create_tournament(db)
     serialized_tournament_table = tdb.table('Tournament')
 
     #print('avant', t1.__dict__)
-    dict_tournament = t1.__dict__
+    """dict_tournament = t1.__dict__
     list_round = [e.__dict__ for e in dict_tournament['rounds']]
     list_match = [e.__dict__  for e in list_round[0]['list_match']]
     list_round[0]['list_match'] = list_match
-
     dict_tournament['rounds'] = list_round
-    
-    serialized_tournament_table.insert(dict_tournament)
+    serialized_tournament_table.insert(dict_tournament)"""
 
     
     #print(create_tournament)

@@ -1,4 +1,6 @@
 from datetime import datetime, date
+
+from tinydb import TinyDB
 from models import tournament
 from models.players import Player
 from controllers.database_controller import DatabaseWorker
@@ -64,14 +66,14 @@ class TournamentController:
             tournament_ = tournament.Tournament(input_name, input_place, start_date, add_time_control(cls),
                     input_nb_player, list_players, nb_rounds(cls), [round1])
             return tournament_
-
+       
     @classmethod
     def create_matchs(cls, list_pair):
         list_match = []
         for name_p1, name_p2 in list_pair:
             list_match.append(MC.MatchController.create_match(name_p1, name_p2))
         return list_match
-
+     
     @classmethod
     def get_player_name(cls, nb_player, db):
         list_player = []
