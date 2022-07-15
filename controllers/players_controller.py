@@ -2,6 +2,7 @@ from datetime import datetime, date
 #from controllers.database_controller import save_player_in_db
 from models.players import Player
 from views.players import *
+from controllers import menu_controller
 
 class PlayerController:
 

@@ -1,23 +1,24 @@
 import sys
-from controllers.players_controller import PlayerController
+from controllers.players_controller import *
 from controllers.tournament_controller import TournamentController
 import models.players as  mp
-from .create_menu import CreateMenu
-import views.display_menu as vdm
+from controllers import create_menu
+from views.display_menu import *
 from tinydb import TinyDB, Query, where # just added
+from controllers.database_controller import *
+import controllers.players_controller as pc
 
 
 class MainMenuController:
-    
     def __init__(self):
-        self.view = vdm.ShowMain()
-        self.create_menu = CreateMenu()
+        self.view = ShowMain()
+        self.menu_to_create = create_menu.CreateMenu()
         self.controller_choice = None
 
     def __call__(self):
     
         self.view.show_menu_detail()
-        entry = self.create_menu(self.create_menu.main_menu)
+        entry = self.menu_to_create(self.menu_to_create.main_menu)
 
         if entry == "1":
             self.controller_choice = PlayerMenuController()
@@ -42,15 +43,16 @@ class PlayerMenuController(MainMenuController):
 
     def __init__(self):
         super().__init__()
-        self.create_player = PlayerController()
+        self.db = TinyDB('data_base.json') 
+        self.serialized_player_table = self.db.table('Player')
+        self.create_player = pc.PlayerController()
         self.main_menu_controller = MainMenuController()
-        #self.player_model = mp.Player()
-        self.player_model = PlayerController.create_player()
-
+        
     def __call__(self):
-        entry = self.create_menu(self.create_menu.player_menu)
+        entry = self.menu_to_create(self.menu_to_create.player_menu)
         if entry == "1":
-            self.controller_choice = self.create_player()
+            self.players_controller = database_controller.DatabaseWorker.save_player_in_db(self.create_player.create_player(), self.db)
+            self.controller_choice = self.main_menu_controller()
         if entry == "2":
             self.controller_choice = self.main_menu_controller()
 
@@ -59,16 +61,18 @@ class TournamentMenuController(MainMenuController):
      
     def __init__(self):
         super().__init__()
-        tdb = TinyDB('data_base.json') 
-        self.create_tournament = TournamentController()
+        self.db = TinyDB('data_base.json')
+        self.tdb = TinyDB('tournament_db.json')
+        self.serialized_tournament_table = self.db.table('Tournament')
+        self.create_tournament = TournamentController()  
         self.main_menu_controller = MainMenuController()
-        self.tournament_control = TournamentController.create_tournament(tdb)
-
+         
 
     def __call__(self):
-        entry = self.create_menu(self.create_menu.tournament_menu)
+        entry = self.menu_to_create(self.menu_to_create.tournament_menu)
         if entry == "1":
-            self.controller_choice = self.create_tournament()
+            self.tournament_control = database_controller.DatabaseWorker.save_tournament_in_db(self.create_tournament.create_tournament(self.db), self.tdb)
+            self.controller_choice = self.main_menu_controller()
         if entry == "2":
             self.controller_choice = self.main_menu_controller()
 
@@ -77,3 +81,6 @@ class AppControllerExit:
 
     def __call__(self):
         sys.exit()
+    
+
+

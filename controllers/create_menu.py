@@ -14,8 +14,9 @@ class CreateMenu:
         for line in menu_to_show:
             print(line[0] + " : " + line[1])
         while True:
+            print("Enter Your Menu Choice Number")
             entry = input("-->> ")
             for line in menu_to_show:
                 if entry == line[0]:
-                    return str(line[0])
-            print("Enter Your Menu Choice Number")
+                 return str(line[0])
+            

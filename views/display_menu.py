@@ -1,5 +1,5 @@
-import models.players as mp
-import models.tournament as mt
+from models import players
+from models import tournament
 from controllers import database_controller
 from tinydb import TinyDB, Query, where
 from views.display_board import *
@@ -27,7 +27,7 @@ class ShowTournament:
     def __call__(self):
         tdb = TinyDB('tournament_db.json')
         not_started_tournament = False
-        tournaments_db = mt.tdb
+        tournaments_db = tournament.tdb
 
         for t in tournaments_db:
             if t.rounds == []:
@@ -41,6 +41,6 @@ class ShowPlayers:
      
     def __call__(self):
         db = TinyDB('data_base.json')
-        players_database = mp.db   
+        players_database = players.db   
         for p in players_database:
             print({'Last name':p.last_name, 'First name':p.first_name, 'Rank':p.rank})
