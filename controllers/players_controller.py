@@ -3,6 +3,9 @@ from datetime import datetime, date
 from models.players import Player
 from views.players import *
 from controllers import menu_controller
+from .database_controller import DatabaseWorker#
+from .create_menu import CreateMenu   #To do
+
 
 class PlayerController:
 
@@ -48,6 +51,23 @@ class PlayerController:
                     print(p)
                     list_player.append(p)
                 return list_player
+
+
+# To do
+"""class LoadPlayer:
+    def show_in_menu(self, nb_players_to_load, db):
+        all_players = db.table('Player')
+        loaded_player = []
+        for i in nb_players_to_load:
+            return f"You have {str(nb_players_to_load - i)} players to load."
+        print("Chose a player: \n")
+
+        
+        player_menu_display = []
+        for i, player in enumerate(all_players):
+            return f"{str(i+1)} - {player['Last name']} {player['First name']}\n"
+        player_menu_display.append(str(i+1))"""
+
 
 
 """def ordre(ditc_player):

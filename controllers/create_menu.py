@@ -2,7 +2,7 @@ class CreateMenu:
    
     main_menu = [("1", "Players Menu"), ("2", "Tournament Menu"), ("3", "Exit")]
 
-    player_menu = [("1", "Create Player"), ("2", "Update Player's Ranking"), ("3", "Back to Player Menu <<--")]
+    player_menu = [("1", "Create Player"), ("2", "Load Players"), ("3", "Update Player's Ranking"), ("4", "Back to Player Menu <<--")]
 
     tournament_menu = [("1", "Create a New Tournament"), ("2", "Back to Tournament Menu <<--")]
 

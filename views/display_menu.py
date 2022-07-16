@@ -44,3 +44,10 @@ class ShowPlayers:
         players_database = players.db   
         for p in players_database:
             print({'Last name':p.last_name, 'First name':p.first_name, 'Rank':p.rank})
+
+     # To do
+    """def show_selected_players(player_menu_display):
+        print(" ")   
+        print('---------------Selected Players----------------')
+        for i, player in enumerate(player_menu_display):
+            print(f"\n -------------player no {i+1} selected--------------")"""

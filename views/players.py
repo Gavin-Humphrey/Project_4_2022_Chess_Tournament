@@ -15,6 +15,6 @@ def get_all_players(list_player):
     print('===================== Player By Rank =====================')
     print("")
     
-    
+   
 
 

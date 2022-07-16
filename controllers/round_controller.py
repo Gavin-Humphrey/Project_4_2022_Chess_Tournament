@@ -17,7 +17,6 @@ class RoundController:
             except:
                 print("Please enter round start date in format (DD/MM/YYYY")
         
-
         stop_end_date = False
         while not stop_end_date:
             try:
@@ -25,6 +24,6 @@ class RoundController:
                 stop_end_date = True
             except:
                 print("Please enter round end date in format (DD/MM/YYYY")
-    
+                
         return Round(input_Round_name, input_date_begin, input_end_date, list_match)
     

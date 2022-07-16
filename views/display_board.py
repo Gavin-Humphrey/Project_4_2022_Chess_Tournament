@@ -14,6 +14,7 @@ def main():
     
     controller = mc.MainMenuController()#.display_main_menu
     controller()
+    
     #print(create_player())
     
     """db = TinyDB('data_base.json')

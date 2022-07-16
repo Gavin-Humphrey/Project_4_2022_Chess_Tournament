@@ -9,11 +9,11 @@ class Player:
         self.score = score_
             
     
-    def update_score(self, new_score):
-        self.score = new_score
+    def update_score(self, score_match):
+        self.score += score_match
     
     def __str__(self) -> str:
         return "Player's Name: {} {}".format(self.last_name, self.first_name)
-        #return "Player's Name: {} {}; Date of birth: {}; Gender: {}; Rank: {}; Score: {}".format(self.last_name, self.first_name, self.dob, self.sex, self.rank, self.score)
+       
 
     

@@ -14,7 +14,8 @@ class MainMenuController:
         self.view = ShowMain()
         self.menu_to_create = create_menu.CreateMenu()
         self.controller_choice = None
-
+        self.selected_players = ShowPlayers()# To do
+       
     def __call__(self):
     
         self.view.show_menu_detail()
@@ -47,13 +48,17 @@ class PlayerMenuController(MainMenuController):
         self.serialized_player_table = self.db.table('Player')
         self.create_player = pc.PlayerController()
         self.main_menu_controller = MainMenuController()
+       # self.menu_load_player_controller = pc.LoadPlayer.show_in_menu() # To do
+
         
-    def __call__(self):
+    def __call__(self): 
         entry = self.menu_to_create(self.menu_to_create.player_menu)
         if entry == "1":
             self.players_controller = database_controller.DatabaseWorker.save_player_in_db(self.create_player.create_player(), self.db)
             self.controller_choice = self.main_menu_controller()
-        if entry == "2":
+       # if entry == "2":
+         #   self.controller_choice = pc.LoadPlayer.show_in_menu(self.serialized_player_table, self.db)
+        if entry == "3":
             self.controller_choice = self.main_menu_controller()
 
 
@@ -71,7 +76,7 @@ class TournamentMenuController(MainMenuController):
     def __call__(self):
         entry = self.menu_to_create(self.menu_to_create.tournament_menu)
         if entry == "1":
-            self.tournament_control = database_controller.DatabaseWorker.save_tournament_in_db(self.create_tournament.create_tournament(self.db), self.tdb)
+            self.tournament_control = database_controller.DatabaseWorker.save_tournament_in_db(self.create_tournament.create_tournament(self.db, self.tdb), self.tdb)
             self.controller_choice = self.main_menu_controller()
         if entry == "2":
             self.controller_choice = self.main_menu_controller()
