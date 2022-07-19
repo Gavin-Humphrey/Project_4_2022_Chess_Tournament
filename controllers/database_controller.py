@@ -8,10 +8,10 @@ class DatabaseWorker:
     @classmethod
     def get_player_by_name(cls, last_name_, first_name_, db):
         list_found = []
-        #Player = Query()
+        #Player = Query()#
         table_player = db.table('Player')
         list_all_player= table_player.all()
-        #print('all',list_all_player  )
+       # print('all',list_all_player  )#
         for player in list_all_player:
             if player['Last name'] == last_name_ and player['First name'] == first_name_:
                 list_found.append(player)
@@ -50,18 +50,18 @@ class DatabaseWorker:
             list_match = []
             list_round.append({'Round name': e.Round_name, "Start date" : e.date_begin, "End date": e.date_end})
             for m in e.list_match:
-                list_match.append({'Player 1': m.player1,  'Player 2': m.player2, 'Score': m.score})
+                list_match.append({'Player 1': m.player1, 'Player 2': m.player2, 'Score': m.score})
             list_round[-1]["Match"] = list_match
         dict_tournament ['Rounds'] = list_round 
         serialized_tournament_table.insert(dict_tournament)
 
 
-    """def save_tournament(tournment_list, serialized_tournament_table):
+    def save_tournament(tournment_list, serialized_tournament_table):
         truncate_choice = input("Would you like to clear off tournament? type Y for yes ")
         if truncate_choice == 'Y':
             serialized_tournament_table.truncate()
         for t in tournment_list:
-            serialized_tournament_table.insert({'Tournament':t.name, 'Venue': t.place, 'Date': t.date, 'Time': t.time, 'Players': t.players})"""
+            serialized_tournament_table.insert({'Tournament':t.name, 'Venue': t.place, 'Date': t.date, 'Time': t.time, 'Players': t.players})#
 
 
 

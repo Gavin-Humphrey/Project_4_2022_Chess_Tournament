@@ -1,26 +1,29 @@
 import sys
-from controllers.players_controller import *
-from controllers.tournament_controller import TournamentController
+
+#import controllers.players_controller as pc
+#import controllers.tournament_controller as tc
+from controllers import players_controller
+from controllers import tournament_controller
 import models.players as  mp
-from controllers import create_menu
+from controllers.create_menu import CreateMenu
 from views.display_menu import *
-from tinydb import TinyDB, Query, where # just added
+from tinydb import TinyDB, Query, where 
 from controllers.database_controller import *
-import controllers.players_controller as pc
+
+
 
 
 class MainMenuController:
     def __init__(self):
         self.view = ShowMain()
-        self.menu_to_create = create_menu.CreateMenu()
+        self.menu_create = CreateMenu()
         self.controller_choice = None
         self.selected_players = ShowPlayers()# To do
        
     def __call__(self):
     
         self.view.show_menu_detail()
-        entry = self.menu_to_create(self.menu_to_create.main_menu)
-
+        entry = self.menu_create(self.menu_create.main_menu)
         if entry == "1":
             self.controller_choice = PlayerMenuController()
             self.player_menu_controller_choice()
@@ -44,48 +47,54 @@ class PlayerMenuController(MainMenuController):
 
     def __init__(self):
         super().__init__()
+        
         self.db = TinyDB('data_base.json') 
         self.serialized_player_table = self.db.table('Player')
-        self.create_player = pc.PlayerController()
+        self.create_player = players_controller.PlayerController()
         self.main_menu_controller = MainMenuController()
-       # self.menu_load_player_controller = pc.LoadPlayer.show_in_menu() # To do
+        ##self.menu_load_player_controller = pc.LoadPlayer.show_in_menu() # To do
 
         
     def __call__(self): 
-        entry = self.menu_to_create(self.menu_to_create.player_menu)
-        if entry == "1":
-            self.players_controller = database_controller.DatabaseWorker.save_player_in_db(self.create_player.create_player(), self.db)
+        entry = self.menu_create(self.menu_create.player_menu)
+        if entry == "1": 
+            self.controller_choice = database_controller.DatabaseWorker.save_player_in_db(self.create_player.create_player(), self.db)
             self.controller_choice = self.main_menu_controller()
-       # if entry == "2":
-         #   self.controller_choice = pc.LoadPlayer.show_in_menu(self.serialized_player_table, self.db)
+        #if entry == "2":
+            #self.controller_choice = pc.LoadPlayer.show_in_menu(self.serialized_player_table, self.db)
         if entry == "3":
             self.controller_choice = self.main_menu_controller()
 
 
 class TournamentMenuController(MainMenuController):
-     
+
     def __init__(self):
         super().__init__()
         self.db = TinyDB('data_base.json')
         self.tdb = TinyDB('tournament_db.json')
         self.serialized_tournament_table = self.db.table('Tournament')
-        self.create_tournament = TournamentController()  
-        self.main_menu_controller = MainMenuController()
-         
-
+        self.create_tournament = tournament_controller.TournamentController()
+        self.run_tournament = tournament_controller.TournamentController()
+        self.main_menu_controller = MainMenuController
+            
     def __call__(self):
-        entry = self.menu_to_create(self.menu_to_create.tournament_menu)
+        entry = self.menu_create(self.menu_create.tournament_menu)
         if entry == "1":
-            self.tournament_control = database_controller.DatabaseWorker.save_tournament_in_db(self.create_tournament.create_tournament(self.db, self.tdb), self.tdb)
+            self.controller_choice = self.create_tournament.create_tournament(self.db, self.tdb)
             self.controller_choice = self.main_menu_controller()
         if entry == "2":
+            self.name__ = input('Enter the name of tournament you want to search: ')
+            self.controller_choice = self.run_tournament.run_tournament(self.name__, self.tdb)  
             self.controller_choice = self.main_menu_controller()
-
+        if entry == "3":
+            self.controller_choice = self.main_menu_controller()
 
 class AppControllerExit:
 
     def __call__(self):
         sys.exit()
     
+
+
 
 

@@ -13,6 +13,7 @@ def main():
 
     
     controller = mc.MainMenuController()#.display_main_menu
+    #controller = mc.MainMenuController()
     controller()
     
     #print(create_player())
