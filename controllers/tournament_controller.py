@@ -1,5 +1,6 @@
 from datetime import datetime, date
-from tinydb import TinyDB
+
+from tinydb import Query, TinyDB
 import random
 from models import tournament
 from models.players import Player
@@ -7,6 +8,9 @@ from controllers.database_controller import DatabaseWorker
 import controllers.round_controller as RC
 import controllers.match_controller as MC
 import controllers.database_controller as dc
+from models.round import Round
+from views.display_menu import ShowPlayers
+
 
 
 class TournamentController:
@@ -16,7 +20,7 @@ class TournamentController:
         #result = cls.get_tournament_by_name(name__, tdb)
         print('name__',name__)
         cls.run_tournament(name__,tdb)"""
-
+        
         input_name = input("Please enter name of the tournament: ")
         input_place = input("Please enter the venue: ")
         stop = False
@@ -27,14 +31,17 @@ class TournamentController:
                     except:
                         print("Please enter tournament's start date in format (DD/MM/YYYY")
         input_nb_player = input("Please enter the number of players in the tournament: ")
-        serialized_player_table =  db.table('Player')
+        serialized_player_table =  db.table('Player')#
+        all_players = serialized_player_table.all()#
+        show_players_list = ShowPlayers.show_players_in_database(all_players)#
+        """serialized_player_table =  db.table('Player')
         all_players = serialized_player_table.all()
         print('========list player in data base...=======')
         for i, pl in enumerate(all_players):
             print('===========================\n')
             print(f'information for player {i+1}\n')
             print('===========================\n')
-            print(f"indice: {i} | Last name:  {pl['Last name']} | First name:  {pl['First name']}  | Rank:  {pl['Rank']}\n")
+            print(f"indice: {i} | Last name:  {pl['Last name']} | First name:  {pl['First name']}  | Rank:  {pl['Rank']}\n")"""
         indices = []
         choice_ = int(input('Please entrer your choice: '))
         if choice_ == 1:
@@ -137,27 +144,86 @@ class TournamentController:
             if tournament[key_] == tournament_name:
                 return tournament
         return None
-
-
     @classmethod
+    def get_match_tournament(cls, tournament_name, status, db):
+        list_match = []
+        tourn = cls.get_tournament_by_name(tournament_name, db)
+        if tourn:
+            matchs = tourn['Rounds'][-1]['Match']
+            print('matchs', matchs)
+            for match  in matchs:
+                if match['Status'] == status:
+                    list_match.append(match)
+            return list_match
+
+
+
+
+    """@classmethod
     def run_tournament(cls, tournament_name, db):
-        t_dict = cls.get_tournament_by_name(tournament_name,db)
+        t_dict = cls.get_tournament_by_name(tournament_name, db)
        
         if t_dict:
             matchs = t_dict['Rounds'][-1]['Match']
             for i, m in enumerate(matchs):
-                print(f"match {m['Player 1']} vs {m['Player 2']}")
-                score_p1 = float(input(f"entre the score of {m['Player 1']} "))
-                score_p2 = float(input(f"entre the score of {m['Player 2']} "))
+                print(" ")#
+                print(f"     The match that has:\n{m['Player 1']} vs {m['Player 2']} \n has ended and the winner is:")
+                print(" ")#
+                score_p1 = float(input(f"Entre the score of {m['Player 1']}: "))
+                score_p2 = float(input(f"Entre the score of {m['Player 2']}: "))
                 m['Score']= (score_p1, score_p2)
                 t_dict['Rounds'][-1]['Match'][i] = m
-                print(m)
+                print(m) 
                 
         else:
+            print("The tournament you are looking for does't exist in our database")"""
+
+
+
+
+    @classmethod
+    def run_tournament(cls, tournament_name, db):
+        #list_of_finished_match = []
+        t_dict = cls.get_tournament_by_name(tournament_name, db)
+
+        if t_dict:
+            matchs = t_dict['Rounds'][-1]['Match']
+            for i, m in enumerate(matchs):
+                print(" ")#
+                print(f"     The match that has:\n{m['Player 1']} vs {m['Player 2']} \n has ended and the winner is:")
+                print(" ")#
+                score_p1 = float(input(f"Entre the score of {m['Player 1']}: "))
+                score_p2 = float(input(f"Entre the score of {m['Player 2']}: "))
+                m['Score']= (score_p1, score_p2)
+                
+                status = input('Est ce que ce match est terminer taper y si oui')
+                if status.lower() == 'y':
+                    m ['Status'] = "Terminer"
+                else:
+                    m ['Status'] = "Pause"
+
+                t_dict['Rounds'][-1]['Match'][i] = m
+
+            print(t_dict) 
+            tn_name = input('please enter the name of tournament which you want to display their match')
+            st = input('which status')
+            match = cls.get_match_tournament(tn_name, st, db)
+            print(match)
+            DatabaseWorker.save_tournament_in_db(tournament, t_dict, db)#
+                    
+        else:
+            #list_of_finished_match.append([m['Player 1'], score_p1], [m['Player 2'], score_p2])      
             print("The tournament you are looking for does't exist in our database")
+            
+        print(t_dict)
+        
         
 
 
+        
 
+            ########
+        
+ 
         
 

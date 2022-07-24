@@ -1,7 +1,9 @@
-from tinydb import  Query
+from tinydb import  TinyDB, Query, where
+
 #from tinydb import where
-#mport models.players
+#import models.players
 #from models.tournament import Tournament
+#from models.match import Match
 
 
 class DatabaseWorker:
@@ -37,7 +39,7 @@ class DatabaseWorker:
         #get_all_tournament(serialized_tournament_table.all())
         dict_tournament = {}
         serialized_tournament_table = db.table('Tournament')
-
+     
         dict_tournament ['Tournament name'] = tournament.name
         dict_tournament ['Venue'] = tournament.place
         dict_tournament ['Date'] = tournament.date
@@ -48,20 +50,36 @@ class DatabaseWorker:
         list_round = []
         for e in tournament.rounds:
             list_match = []
-            list_round.append({'Round name': e.Round_name, "Start date" : e.date_begin, "End date": e.date_end})
+            list_round.append({'Round name': e.round_name, "Start date" : e.date_begin, "End date": e.date_end})
             for m in e.list_match:
-                list_match.append({'Player 1': m.player1, 'Player 2': m.player2, 'Score': m.score})
+                list_match.append({'Player 1': m.player1, 'Player 2': m.player2, 'Score': m.score, 'Status':m.status})
             list_round[-1]["Match"] = list_match
         dict_tournament ['Rounds'] = list_round 
-        serialized_tournament_table.insert(dict_tournament)
+        serialized_tournament_table.insert(dict_tournament)#
+
+   # To do
+    """def update_db(db, serialized_player_table):
+        db = TinyDB("data_base.json")
+        db.update(
+            serialized_player_table,
+            where('Las name') == serialized_player_table['Last name']
+        )
+        print(f"{serialized_player_table['Last name']} up dated!")
 
 
-    def save_tournament(tournment_list, serialized_tournament_table):
+    def update_player_rank(db, serialized_player_table):
+        db = TinyDB("data_base.json")
+        db.update(
+                {'Rank': serialized_player_table['Rank'], 'Score': serialized_player_table['Score']},
+                where('Last name') == serialized_player_table['Last name']
+        )"""
+       
+    """def save_tournament(tournment_list, serialized_tournament_table):
         truncate_choice = input("Would you like to clear off tournament? type Y for yes ")
         if truncate_choice == 'Y':
             serialized_tournament_table.truncate()
         for t in tournment_list:
-            serialized_tournament_table.insert({'Tournament':t.name, 'Venue': t.place, 'Date': t.date, 'Time': t.time, 'Players': t.players})#
+            serialized_tournament_table.insert({'Tournament':t.name, 'Venue': t.place, 'Date': t.date, 'Time': t.time, 'Players': t.players})#"""
 
 
 

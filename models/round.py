@@ -1,12 +1,12 @@
 
-
+from controllers.tournament_controller import *
 from models.match import Match
 
 
 class Round:
     
-    def __init__(self,Round_name_, date_begin_, date_end_, list_match_):
-        self.Round_name = Round_name_
+    def __init__(self, round_name_, date_begin_, date_end_, list_match_):
+        self.round_name = round_name_
         self.date_begin = date_begin_
         self.date_end = date_end_
         self.list_match = list_match_

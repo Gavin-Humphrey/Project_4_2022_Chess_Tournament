@@ -1,10 +1,13 @@
 from datetime import datetime, date
+from operator import attrgetter
 #from controllers.database_controller import save_player_in_db
 from models.players import Player
 from views.players import *
 from controllers import menu_controller
 from .database_controller import DatabaseWorker#
 from .create_menu import CreateMenu   #To do
+from views import display_menu 
+
 
 
 class PlayerController:
@@ -51,36 +54,41 @@ class PlayerController:
                     print(p)
                     list_player.append(p)
                 return list_player
+    # Working on
+    @classmethod
+    def update_player_ranking(cls, player, list_player, rank, score=True):
+        if score:
+            player.score += player.match_score
+        player.rank = rank
+        p = player.list_player(save_match_score=True)
+        print(p['Last name'])
+
+
 
 
 # To do
-"""class LoadPlayer:
-    def show_in_menu(self, nb_players_to_load, db):
-        all_players = db.table('Player')
-        loaded_player = []
-        for i in nb_players_to_load:
-            return f"You have {str(nb_players_to_load - i)} players to load."
-        print("Chose a player: \n")
+class PlayerReport:
+   
+    def __call__(self, db):
+        self.menu_create = CreateMenu()
+        self.main_menu_controller = menu_controller.MainMenuController()
+        self.display_player = display_menu.DisplayPlayersReport()
+        serialized_player_table = db.table('Player')
+        self.players_db = serialized_player_table.all()
+       
+        self.display_player()
+        entry = self.menu_create(self.menu_create.players_report_menu)
 
-        
-        player_menu_display = []
-        for i, player in enumerate(all_players):
-            return f"{str(i+1)} - {player['Last name']} {player['First name']}\n"
-        player_menu_display.append(str(i+1))"""
+        if entry == "1":
 
-
-
-"""def ordre(ditc_player):
-    return ditc_player ['Rank']
-
-    
-def player_classment(list_player):
-    if len(list_player) != 8:
-        return "We are sorry we can't start a tournament, the number of players has to be 8 and not {}".format(len(list_player))
-    else:
-        return [ e ['Last name'] + ' '+ e ['First name'] for e in sorted(list_player,key = ordre, reverse=True)]
-    
-
-def player_pair(list_player_ranking):
-    if isinstance(list_player_ranking, list):
-        return list(zip(list_player_ranking[:4], list_player_ranking[4:]))"""
+            player_by_name = [(w["Last name"], w['First name'], w['Date of birth'], w['Gender'], w['Rank'])  for w in  self.players_db]
+            player_by_name.sort(key=lambda x : x[0])
+            self.display_player.display_alphabetical(player_by_name)
+            PlayerReport.__call__(self, db)
+        if entry == "2":
+            player_by_name = [(w['Rank'], w["Last name"], w['First name'], w['Date of birth'], w['Gender'])  for w in  self.players_db]
+            player_by_name.sort(key=lambda x : x[0])
+            self.display_player.display_ranking(player_by_name)
+            PlayerReport.__call__(self, db)
+        if entry == "3":
+            self.main_menu_controller()

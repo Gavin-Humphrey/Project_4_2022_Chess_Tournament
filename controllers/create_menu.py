@@ -4,9 +4,14 @@ class CreateMenu:
 
     player_menu = [("1", "Create Player"), ("2", "Load Players"), ("3", "Update Player's Ranking"), ("4", "Back to Control Menu <<--")]
 
-    tournament_menu = [("1", "Create a New Tournament"), ("2", "Run a Tournament#"), ("3", "Back to Tournament Menu <<--")]
+    tournament_menu = [("1", "Create a New Tournament"), ("2", "Run a Tournament#"), ("3", "Back to Control Menu <<--")]
 
     time_control_menu = [("1", "Bullet"), ("2", "Blitz"), ('3', "Rapid")]
+    
+    players_report_menu = [("1", "Alphabetical order"), ("2", "Ranking"), ("3", "Back to Control Menu")]
+                           
+                           
+                          
 
 
     def __call__(self, menu_to_show):
