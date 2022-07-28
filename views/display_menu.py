@@ -5,6 +5,7 @@ from tinydb import TinyDB, Query, where
 from views.display_board import *
 from controllers.database_controller import *
 from prettytable import PrettyTable
+import views.tournament as t
 
 
 class ShowMain:
@@ -97,17 +98,41 @@ class DisplayPlayersReport:
 
 class DisplayTournamentsReport:
 
-    def __call__(self):
+    def __call__(self, all_tournament): # tournament_dict
         print("------------------------------------------------\n"
               "               Tournament Report                \n"
               "------------------------------------------------\n"
               " Display Reports :\n"
               )
+        
+        t.get_all_tournament(all_tournament) # tournament_dict
+        
+    """for i, tournament in enumerate(tournament_dict,1):
+            print('Tournament identifiant: ', i)
+            print(tournament)
+            print()
+    
+        input("Appuyez sur une touche pour revenir au menu principal")"""
 
 
+    
+class DisplayPlayersByTournament:
+    def __call__(self, list_player):
+        print("------------------------------------------------\n"
+              "               Player Report                \n"
+              "------------------------------------------------\n"
+              " Display Reports :\n"
+              )
+        for player  in list_player:
+            #print('================= player ================')
+            print(player)
+            print()
+        #input("Appuyez sur une touche pour revenir au menu principal")
 
+    
 
-
+   
+    
            
 
 

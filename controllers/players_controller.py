@@ -1,5 +1,4 @@
 from datetime import datetime, date
-from operator import attrgetter
 #from controllers.database_controller import save_player_in_db
 from models.players import Player
 from views.players import *
@@ -78,17 +77,19 @@ class PlayerReport:
        
         self.display_player()
         entry = self.menu_create(self.menu_create.players_report_menu)
-
-        if entry == "1":
-
-            player_by_name = [(w["Last name"], w['First name'], w['Date of birth'], w['Gender'], w['Rank'])  for w in  self.players_db]
-            player_by_name.sort(key=lambda x : x[0])
-            self.display_player.display_alphabetical(player_by_name)
-            PlayerReport.__call__(self, db)
-        if entry == "2":
-            player_by_name = [(w['Rank'], w["Last name"], w['First name'], w['Date of birth'], w['Gender'])  for w in  self.players_db]
-            player_by_name.sort(key=lambda x : x[0])
-            self.display_player.display_ranking(player_by_name)
-            PlayerReport.__call__(self, db)
-        if entry == "3":
-            self.main_menu_controller()
+        while True:
+            if entry == "1":
+                player_by_name = [(w["Last name"], w['First name'], w['Date of birth'], w['Gender'], w['Rank'])  for w in  self.players_db]
+                player_by_name.sort(key=lambda x : x[0])
+                self.display_player.display_alphabetical(player_by_name)
+                PlayerReport.__call__(self, db)
+            elif entry == "2":
+                player_by_name = [(w['Rank'], w["Last name"], w['First name'], w['Date of birth'], w['Gender'])  for w in  self.players_db]
+                player_by_name.sort(key=lambda x : x[0])
+                self.display_player.display_ranking(player_by_name)
+                PlayerReport.__call__(self, db)
+            elif entry == "3":
+                self.main_menu_controller()
+            else:
+                return self.main_menu_controller()
+            

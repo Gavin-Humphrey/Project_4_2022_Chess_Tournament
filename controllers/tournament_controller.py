@@ -1,7 +1,8 @@
 from datetime import datetime, date
 
-from tinydb import Query, TinyDB
+from tinydb import TinyDB, Query
 import random
+from models.tournament import Tournament
 from models import tournament
 from models.players import Player
 from controllers.database_controller import DatabaseWorker
@@ -10,6 +11,10 @@ import controllers.match_controller as MC
 import controllers.database_controller as dc
 from models.round import Round
 from views.display_menu import ShowPlayers
+from controllers import menu_controller
+from controllers import create_menu
+from views import display_menu 
+
 
 
 
@@ -189,27 +194,29 @@ class TournamentController:
         if t_dict:
             matchs = t_dict['Rounds'][-1]['Match']
             for i, m in enumerate(matchs):
-                print(" ")#
-                print(f"     The match that has:\n{m['Player 1']} vs {m['Player 2']} \n has ended and the winner is:")
-                print(" ")#
+               
                 score_p1 = float(input(f"Entre the score of {m['Player 1']}: "))
                 score_p2 = float(input(f"Entre the score of {m['Player 2']}: "))
                 m['Score']= (score_p1, score_p2)
                 
-                status = input('Est ce que ce match est terminer taper y si oui')
+                status = input("Has this match ended? Enter 'y' for Yes: ")
                 if status.lower() == 'y':
-                    m ['Status'] = "Terminer"
+                    m ['Status'] = "Ended"
                 else:
-                    m ['Status'] = "Pause"
+                    m ['Status'] = "Paused"
 
                 t_dict['Rounds'][-1]['Match'][i] = m
 
+                print(" ")#
+                print(f"                 The detail and score of the match that has:\n                        {m['Player 1']} vs {m['Player 2']} \n                                 is:")
+                print(" ")#
+
             print(t_dict) 
-            tn_name = input('please enter the name of tournament which you want to display their match')
-            st = input('which status')
+            tn_name = input('please enter the name of tournament which you want to display their match: ')
+            st = input('Which status: ')
             match = cls.get_match_tournament(tn_name, st, db)
             print(match)
-            DatabaseWorker.save_tournament_in_db(tournament, t_dict, db)#
+            #DatabaseWorker.save_tournament_in_db(tournament, t_dict, db)# To do
                     
         else:
             #list_of_finished_match.append([m['Player 1'], score_p1], [m['Player 2'], score_p2])      
@@ -217,12 +224,148 @@ class TournamentController:
             
         print(t_dict)
         
+    
+class TournamentReport:
+
+    def __call__(self):  #, dict_tournament, list_player, db, tdb
+
+        db = TinyDB('data_base.json')
+        Player = Query()
+        Table_player = db.table('Player')
+        tdb = TinyDB('tournament_db.json')
+
+        self.menu_create = create_menu.CreateMenu()
+        self.main_menu_controller = menu_controller.MainMenuController()
+        self.display_player = display_menu.DisplayPlayersReport()
+        self.display_tournament = display_menu.DisplayTournamentsReport()
+        self.display_player_by_tournament = display_menu.DisplayPlayersByTournament()
+        serialized_player_table = db.table('Player')
+        self.players_db = serialized_player_table.all()
+
+        self.serialized_tournament_table = tdb.table('Tournament')
+        self.dict_tournament = self.serialized_tournament_table.all()
         
 
+        serialized_tournament_table = tdb.table('Tournament')
+        self.all_tournament = serialized_tournament_table.all()
+  
+        
+       
+       
+        """self.display_tournament(self.all_tournament )
+        identifiant_tournament = input("Enter Tournament  : ")
+        choice_tournament = self.all_tournament[int(identifiant_tournament)-1]
+        print(choice_tournament)"""
+
+        # Display all the tournaments
+        #self.display_tournament(self.all_tournament)
+        #self.display_tournament(self.dict_tournament)
+        entry = self.menu_create(self.menu_create.tournaments_report_menu)
+        while True:
+            
+            if entry == "1":
+                self.display_tournament(self.all_tournament)
+               # self.display_tournament = self.main_menu_controller(self.all_tournament, self.players_db, db, tdb)  #self.all_tournament, self.players_db, db, tdb
+                input("Enter a letter to returne to Main Menu")
+                TournamentReport.__call__(self)
+            # Choose a tournament
+            if entry == "2":
+                identifiant_tournament = input("Enter Tournament  : ")
+                choice_tournament = self.all_tournament[int(identifiant_tournament)-1]
+                print(
+                    f"Tournament Id:", identifiant_tournament,
+                    "Tournament name:", choice_tournament['Tournament name'], 
+                    "Venue:", choice_tournament['Venue'],
+                    "Date:", choice_tournament['Date'],
+                    "Time-Control:", choice_tournament['Time-Control'],
+                    "Number of Players:", choice_tournament['Number of players'],
+                    "Number of Rounds:", choice_tournament['Number of Rounds']                 
+                    )
+                input("Enter any letter to returne to Main Menu: ")
+                TournamentReport.__call__(self)
+                #self.menu_create()
+                # To print the dictionary of the tournament
+                #print(choice_tournament)
+            else:
+                entry = self.menu_create(self.menu_create.sub_tournaments_report_menu)
+                # Display the players in the chosen Tournament in alphabetical order
+                if entry == "1":
+                    entry = self.menu_create(self.menu_create.players_report_menu)
+                if entry == "1":
+                    #identifiant_tournament = input("Enter Tournament  : ")
+                    choice_tournament = self.all_tournament[int(identifiant_tournament)-1]
+                    list_player_ = [(p['Last name'], p['First name'], p['Rank']) for p in choice_tournament['Players']]
+                    self.display_player_by_tournament(sorted(list_player_, key = lambda x: x[0]))
+                    input("Enter any letter to returne to Main Menu: ")
+                    TournamentReport.__call__(self)
+
+                # Display the players in the chosen Tournament in ranking order
+                if entry == "2":
+                    self.display_player_by_tournament(sorted(list_player_, key = lambda x: x[2],reverse=True))
+                    TournamentReport.__call__(self)
+
+                # Display the Rounds in the chosen Tournament
+                if entry == "2":
+                    print([(r['Round name'], 
+                    r['Start date'], 
+                    r['End date'] ) 
+                    for r in list(choice_tournament['Rounds'])])
+                    input("Enter any letter to returne to Main Menu: ")
+                    TournamentReport.__call__(self)
+
+                if entry == "3":
+                    print([r['Match'] for r in choice_tournament['Rounds']])
+                    input("Enter any letter to returne to Main Menu: ")
+                    TournamentReport.__call__(self)
+
+
+                    # Go to main menu
+                if entry == "4":
+                    valid_choice = False
+                    self.main_menu_controller()
+
+
+
+
+
+
+                    
+                    """list_player_ = [(p['Last name'], p['First name'], p['Rank']) for p in choice_tournament['Players']]
+                    self.display_player_by_tournament(sorted(list_player_, key = lambda x: x[0]))
+                    print('=====================================')
+                    self.display_player_by_tournament(sorted(list_player_, key = lambda x: x[2],reverse=True))
+                    print('==============Round===============')
+                    print(" ")
+                    print([(r['Round name'], r['Start date'], r['End date'] ) for r in list(choice_tournament['Rounds'])])
+                    print("")
+                    print(" ")
+                    print('============== Match ===============')
+                    print("")
+                    print([r['Match'] for r in choice_tournament['Rounds']])
+                    print("")"""
+
+                
 
         
+                    """# Display all the tournaments
+                    #self.display_tournament()
+                    entry = self.menu_create(self.menu_create.tournaments_report_menu)
+                    if entry == "1":
+                        self.display_tournaments = self.main_menu_controller(self.all_tournament, self.players_db, db, tdb)  #self.all_tournament, self.players_db, db, tdb
+                        self.main_menu_controller()
+                    # Choose a tournament
+                    if entry == "2":
+                        identifiant_tournament = input("Enter Tournament  : ")
+                        choice_tournament = self.all_tournament[int(identifiant_tournament)-1]
+                        print(choice_tournament)
+                        TournamentReport.__call__(self)"""
+    
+            # Go to main menu
+            if entry == "2":
 
-            ########
+                self.main_menu_controller()
+
+            print("Enter the number corresponding to the choice you want")  
         
  
         
