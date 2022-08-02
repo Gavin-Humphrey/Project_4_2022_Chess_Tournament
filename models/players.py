@@ -1,6 +1,9 @@
 
 class Player:
-    def __init__(self,  last_name_, first_name_, dob_, gender_, rank_, score_):
+    def __init__(self, last_name_, first_name_, dob_, gender_, rank_, score_):
+
+        #self.id_player = id_player_
+        #id_player_
         self.last_name = last_name_
         self.first_name = first_name_
         self.dob = dob_

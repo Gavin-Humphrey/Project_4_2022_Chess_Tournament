@@ -6,7 +6,7 @@ class Match:
         self.player1 = name_player1_
         self.player2 = name_player2_
         self.score = score_
-        self.status = "create"
+        self.desc = ''
         
     def __str__(self):
         return f"match  {self.player1.last_name} {self.player1.first_name} vs  {self.player2.last_name} {self.player2.first_name}  round:{self.round_name} score : {self.score}"

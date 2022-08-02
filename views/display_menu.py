@@ -1,3 +1,4 @@
+import prettytable
 from models import players
 from models import tournament
 from controllers import database_controller
@@ -6,6 +7,8 @@ from views.display_board import *
 from controllers.database_controller import *
 from prettytable import PrettyTable
 import views.tournament as t
+
+
 
 
 class ShowMain:
@@ -74,15 +77,19 @@ class DisplayPlayersReport:
               " Display Reports :\n"
               )
 
-    def display_alphabetical(self, all_players):
+    def display_alphabetical(self, all_player): # all_players
         print(" ")
         print("              Players In Alphabetical Order")
-        for pl in all_players:
-            #print(pl)
-            x = PrettyTable()
-            x.field_names = ["Last name", "First name", "Date of birth", "Gender", "Rank"]
-            x.add_row(pl)
-            print(x)
+        #print(pl) 
+        for pl in all_player:
+            myTable = PrettyTable(["Last name", "First name", "Date of birth", "Gender", "Rank"])
+            myTable.add_row(pl)
+            print(myTable)
+
+        """x = PrettyTable()
+        x.field_names = ["Last name", "First name", "Date of birth", "Gender", "Rank"]
+        x.add_row(pl)
+        print(x)"""
         print("Press a letter to go back to rapport menu")
         input()
 
@@ -98,14 +105,34 @@ class DisplayPlayersReport:
 
 class DisplayTournamentsReport:
 
-    def __call__(self, all_tournament): # tournament_dict
+    def __call__(self, all_tournament ): # tournament_dict
         print("------------------------------------------------\n"
               "               Tournament Report                \n"
               "------------------------------------------------\n"
               " Display Reports :\n"
-              )
-        
+              ) 
         t.get_all_tournament(all_tournament) # tournament_dict
+    ##
+    """def display_all_tournament_info(self, all_tournament_disp_info):
+        myTable = PrettyTable(["Tournament ID", "Tournament name", "Venue",  "Date"])
+        myTable.add_row(all_tournament_disp_info)
+        print(myTable)"""
+        ##
+
+    def display_tournament_sel(self, tournament_sel):
+        myTable = PrettyTable(["Tournament ID", "Tournament name", "Venue",  "Date", "Time-Control", "Number of players", "Number of Rounds"])
+        myTable.add_row(tournament_sel)
+        print(myTable)
+
+        """for tn in tournament_sel:
+            x = PrettyTable()
+            x.field_names = ["Tournament ID", "Tournament name", "Venue",  "Date", "Time-Control", "Number of players", "Number of Rounds"]
+            x.add_row(tournament_sel)
+            print(x)"""
+            #print(tn)
+            
+       
+       
         
     """for i, tournament in enumerate(tournament_dict,1):
             print('Tournament identifiant: ', i)
@@ -123,10 +150,16 @@ class DisplayPlayersByTournament:
               "------------------------------------------------\n"
               " Display Reports :\n"
               )
+              #player
         for player  in list_player:
             #print('================= player ================')
-            print(player)
-            print()
+            """print(player)
+            print()"""
+            x = PrettyTable()
+            x.field_names = ["Last name", "First name",  "Rank"]
+            x.add_row(player)
+            print(x)
+            
         #input("Appuyez sur une touche pour revenir au menu principal")
 
     
