@@ -219,8 +219,8 @@ class TournamentController:
             all_match_terminated = True
             for i, m in enumerate(matchs):
                 if isinstance(m ['Score'], int):
-                    all_match_terminated = False
-                    response_ = input(f"is the match between {m['Player 1']} and {m['Player 2']} is terminated if yes press 'y' ")
+                    
+                    response_ = input(f"is the match between {m['Player 1']} and {m['Player 2']} is terminated if yes, press 'y' ")
                     if response_.lower() == 'y'  :
                         score_p1 = float(input(f"Entre the score of {m['Player 1']}: "))
                         score_p2 = float(input(f"Entre the score of {m['Player 2']}: "))
@@ -238,13 +238,14 @@ class TournamentController:
                                 p['Score'] = p['Score'] + score_p2
                         m['Score']= tuple([score_p1, score_p2])
                         
-                    r['Match'][i] = m
-                    tournament_table.update({'Rounds': [r]}, tournament["Tournament name"] == tournament_name)
-                    tournament_table.update({'Players': list_player}, tournament["Tournament name"] == tournament_name)
-                    
+                        r['Match'][i] = m
+                        tournament_table.update({'Rounds': [r]}, tournament["Tournament name"] == tournament_name)
+                        tournament_table.update({'Players': list_player}, tournament["Tournament name"] == tournament_name)
+                    else:
+                        all_match_terminated = False
 
             if all_match_terminated :
-                new_r = input('all match are terminated for this round do you wante to start a new round if yes press y: ')
+                new_r = input("All matches are terminated for this round. Do you want to start a new round?  If yes, press 'y': ")
                 if new_r.lower() == 'y':
                     cls.add_round(t_dict, tournament_table, tournament, tournament_name)
 
@@ -279,23 +280,34 @@ class TournamentController:
                 
                 list_finale = [ e ['Last name'] +' '+ e ['First name'] for e in cls.ordre_level_three(sort_one_level)]
                 list_pair = cls.player_pair(list_finale) 
-                list_match = cls.create_matchs(list_pair)
+                print('list_pair', list_pair)
+                list_match_in_round = [r["Match"] for r in round_]
+                list_match_old_round = []
+                for l in list_match_in_round:
+                    for w in l:
+                        list_match_old_round.append((w['Player 1'], w['Player 2']))
 
-                new_round = Round(name_round,round_date_begin, list_match) 
-                round_.append({'Round name': new_round.round_name, "Start date" : new_round.date_begin, "Match":[{'Player 1': m.player1, 'Player 2': m.player2, 'Score': m.score} for m in list_match] } )
-                tournament_table.update({'Rounds': round_}, tournament_query["Tournament name"] == tournament_name_)
+                print("match old", list_match_old_round)
+                list_pair_rest = [z for z in list_pair if z not in list_match_old_round]
+                print("List of remaining matches ", list_pair_rest)
+                list_match = cls.create_matchs(list_pair_rest)
+                if list_match:
+                    new_round = Round(name_round,round_date_begin, list_match) 
+                    round_.append({'Round name': new_round.round_name, "Start date" : new_round.date_begin, "Match":[{'Player 1': m.player1, 'Player 2': m.player2, 'Score': m.score} for m in list_match] } )
+                    tournament_table.update({'Rounds': round_}, tournament_query["Tournament name"] == tournament_name_)
+                else:
+                    print("You can not create a new round because the match list is empty")
             
-                #was supposed to start here
             elif len(round_) == tournament["Number of Rounds"]:
-                print(' vous pouvez pas creer un nouveau round car le nombre de round creer est egale en nombre de round declaree')
+                print('You can not create a new round. Number of rounds attained!')
 
             else:
-                print('sorry you can not start a new round because the matchs of the last'
+                print('Sorry you can not start a new round because the matchs of the last'
                 'round were not all terminated')
 
         
         
-        # Create list pair, sorted by score
+        # Create list pair, sorted by score, rank, and name alphabetical order
     @classmethod
     def ordre_level_three(cls, list_player):
         stop = False
@@ -312,33 +324,7 @@ class TournamentController:
                         
                     
                 
-        return list_order
-
-
-
-        # @classmethod   
-        # def score_order(cls, ditc_player, score):
-        #     return ditc_player['Score']
-        
-        # @classmethod
-        # def player_classment_score(cls, list_player, score):
-        #     if len(list_player) % 2 != 0:
-        #         return "We are sorry we can't start a tournament, the number of players has to be pair"
-        #     else:
-        #         return [ e ['Last name'] +' '+ e ['First name'] + ' '+ e ['Score'] for e in sorted(list_player, key = score_order, reverse=True)]
-        
-        # print("hahahahhahhahah")
-        # @classmethod
-        # def player_pair(cls, player_score_pair):
-        #     player_score_pair = player_classment_score()
-        #     list_pair = player_score_pair()
-        #     if isinstance(player_score_pair, list):
-        #         return list(zip(player_pair[:int(len(player_pair)/2)], player_pair[int(len(player_pair)/2):]))
-        #     print("Letssss gooooo there!!!!!", player_score_pair)
-
-        #if isinstance(list_player_score, list):
-            #return list(zip(list_player_score[:int(len(list_player_score)/2)], list_player_score[int(len(list_player_score)/2):]))
-
+    
 
     """@classmethod
     def load_tournament_detail(cls, tournament_name, all_tournament, db):
