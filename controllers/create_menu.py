@@ -10,7 +10,7 @@ class CreateMenu:
     
     players_report_menu = [("1", "Alphabetical Order"), ("2", "Ranking"), ("3", "Back To Control Menu <<--")]
 
-    tournaments_report_menu = [("1", "Display All Tournaments"), ("2", "Choose A Tournament To Display"),  ("3", "Back To Control Menu <<--")]
+    tournaments_report_menu = [("1", "Display All Tournaments"), ("2", "Want To Display A Particular Tournament?"),  ("3", "Back To Control Menu <<--")]
                                
     sub_tournaments_report_menu = [("1", "Display All Players In This Tournament"),  ("2", "Display All The Rounds In This Tournament"), 
         ("3", "Display All The Matches In This Tournament"), ("4", "Retourn To Control Menu")]

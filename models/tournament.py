@@ -4,7 +4,7 @@ from .round import*
 class Tournament:
 
     
-    def __init__(self, name_, place_, date_, time_control_, nb_player_, players_,  nb_rounds_, round_, desc_="Create"):
+    def __init__(self, name_, place_, date_, time_control_, nb_player_, players_,  nb_rounds_, round_, desc_):
         self.name = name_
         self.place = place_
         self.date = date_

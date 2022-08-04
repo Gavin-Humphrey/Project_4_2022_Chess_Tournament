@@ -74,7 +74,7 @@ class DisplayPlayersReport:
         print("------------------------------------------------\n"
               "                 Display Players                \n"
               "------------------------------------------------\n"
-              " Display Reports :\n"
+             # " Display Reports :\n"
               )
 
     def display_alphabetical(self, all_player): # all_players
@@ -105,13 +105,20 @@ class DisplayPlayersReport:
 
 class DisplayTournamentsReport:
 
-    def __call__(self, all_tournament ): # tournament_dict
+    def __call__(tournament_dict): # tournament_dict #all_tournament
         print("------------------------------------------------\n"
               "               Tournament Report                \n"
               "------------------------------------------------\n"
               " Display Reports :\n"
               ) 
-        t.get_all_tournament(all_tournament) # tournament_dict
+        t.get_all_tournament(tournament_dict) # tournament_dict #all_tournament"""
+
+        myTable = PrettyTable(["Tournament name", "Venue",  "Date", "Time-Control", "Number of players", "Number of Rounds"])
+        myTable.add_row(tournament_dict)
+        print(myTable)
+        print('==========================================================')
+
+            
     ##
     """def display_all_tournament_info(self, all_tournament_disp_info):
         myTable = PrettyTable(["Tournament ID", "Tournament name", "Venue",  "Date"])
@@ -145,10 +152,10 @@ class DisplayTournamentsReport:
     
 class DisplayPlayersByTournament:
     def __call__(self, list_player):
-        print("------------------------------------------------\n"
-              "               Player Report                \n"
-              "------------------------------------------------\n"
-              " Display Reports :\n"
+        print("----------------------------------\n"
+              "           Players                \n"
+              "----------------------------------\n"
+              #" Display Reports :\n"
               )
               #player
         for player  in list_player:

@@ -44,17 +44,19 @@ class DatabaseWorker:
         dict_tournament ['Venue'] = tournament.place
         dict_tournament ['Date'] = tournament.date
         dict_tournament ['Time-Control'] = tournament.time_control
-        dict_tournament ['Number of players'] = tournament.nb_player
-        dict_tournament ['Players'] = tournament.players
+        dict_tournament ['Descrition'] = tournament.desc
         dict_tournament ['Number of Rounds'] = tournament.nb_rounds
         list_round = []
         for e in tournament.rounds:
             list_match = []
             list_round.append({'Round name': e.round_name, "Start date" : e.date_begin, "End date": e.date_end})
             for m in e.list_match:
-                list_match.append({'Player 1': m.player1, 'Player 2': m.player2, 'Score': m.score, 'Status':m.status})
+               # list_match.append({'Player 1': m.player1, 'Player 2': m.player2, 'Score': m.score, 'Status':m.status})
+                list_match.append({'Player 1': m.player1, 'Player 2': m.player2, 'Score': m.score})
             list_round[-1]["Match"] = list_match
-        dict_tournament ['Rounds'] = list_round 
+        dict_tournament ['Rounds'] = list_round
+        dict_tournament ['Number of players'] = tournament.nb_player
+        dict_tournament ['Players'] = tournament.players
         serialized_tournament_table.insert(dict_tournament)#
 
    # To do
