@@ -19,7 +19,6 @@ import views.tournament as t
 
 
 
-
 class TournamentController:
     @classmethod
     def create_tournament(cls, db,tdb):
@@ -181,9 +180,7 @@ class TournamentController:
 
             return list_match
 
-
-
-       
+  
     """@classmethod
     def run_tournament(cls, tournament_name, db):
         t_dict = cls.get_tournament_by_name(tournament_name, db)
@@ -204,8 +201,6 @@ class TournamentController:
             print("The tournament you are looking for does't exist in our database")"""
 
 
-
-
     @classmethod
     def run_tournament(cls, tournament_name, db):
         #list_of_finished_match = []
@@ -223,8 +218,10 @@ class TournamentController:
                     
                     response_ = input(f"is the match between {m['Player 1']} and {m['Player 2']} is terminated if yes, press 'y' ")
                     if response_.lower() == 'y'  :
+                        
                         score_p1 = float(input(f"Entre the score of {m['Player 1']}: "))
                         score_p2 = float(input(f"Entre the score of {m['Player 2']}: "))
+                            
                         name_p1 = m['Player 1'].split(' ')
                         last_name_p1 =  name_p1[0]
                         first_name_p1 = name_p1[1]
@@ -232,6 +229,17 @@ class TournamentController:
                         name_p2 = m['Player 2'].split(' ')
                         last_name_p2 =  name_p2[0]
                         first_name_p2 = name_p2[1]
+                         #started
+                        
+                        dif = score_p1 - score_p2
+                        if dif in [-2, 1]:
+                            print(f"{last_name_p1} {first_name_p1} Will Win This Match!")
+                        elif dif in [-1, 2]:
+                            print(f"{last_name_p2} {first_name_p2} Will Win This Match!") 
+                        else:
+                            print('This Match Will End In A Draw!')
+                            print('')
+                        #endded
                         for p in list_player:
                             if p["Last name"] == last_name_p1 and p['First name'] == first_name_p1:
                                 p['Score'] = p['Score'] + score_p1
@@ -438,11 +446,15 @@ class TournamentReport:
                 print(" ")
                 print([r['Match'] for r in choice_tournament['Rounds']])
                 print(" ")
-                input("Enter any letter to returne to Main Menu: ")
-                
-                
-                """# To print the dictionary of the tournament
-                #print(choice_tournament)"""
+              
+                valid_choice = False
+                TournamentReport.__call__(self)
+                self.main_menu_controller(self)
+
+            
+                """
+                # To print the dictionary of the tournament
+                #print(choice_tournament)
                 entry = self.menu_create(self.menu_create.sub_tournaments_report_menu)
                 # Display the players in the chosen Tournament in alphabetical order
                 if entry == "1":
@@ -475,7 +487,7 @@ class TournamentReport:
                     input("Enter any letter to returne to Main Menu: ")
                     TournamentReport.__call__(self)
 
-                # Display the matches in chosen Tournament   
+                # Display the matches in chosen Tournament 
                 entry = self.menu_create(self.menu_create.sub_tournaments_report_menu)
                 if entry == "3":
                     print([r['Match'] for r in choice_tournament['Rounds']])
