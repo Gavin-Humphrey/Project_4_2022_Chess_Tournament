@@ -10,6 +10,7 @@ class Player:
         self.gender = gender_
         self.rank = rank_
         self.score = score_
+        
             
     
     def update_score(self, score_match):

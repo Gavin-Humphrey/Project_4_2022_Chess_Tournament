@@ -1,6 +1,6 @@
 import json
 from datetime import datetime
-from certifi import where
+#from certifi import where
 
 
 def get_all_players(list_player):

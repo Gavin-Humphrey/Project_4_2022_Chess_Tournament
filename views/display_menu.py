@@ -7,7 +7,7 @@ from views.display_board import *
 from controllers.database_controller import *
 from prettytable import PrettyTable
 import views.tournament as t
-
+from tabulate import tabulate
 
 
 
@@ -59,48 +59,68 @@ class ShowPlayers:
         print(" ")
         for i, pl in enumerate(all_players):
             if i >= 0: i += 1
-            """print('===========================\n')
-            print(f'information for player {i+1}\n')
-            print('===========================\n')
-            print(f"indice: {i} | Last name:  {pl['Last name']} | First name:  {pl['First name']}  | Rank:  {pl['Rank']}\n")"""
             x = PrettyTable()
             x.field_names = ["Index", "Last name", "First name", "Rank"]
             x.add_row([i, pl['Last name'], pl['First name'], pl['Rank']])
             print(x)
+            
 
 class DisplayPlayersReport:
 
     def __call__(self):
-        print("------------------------------------------------\n"
-              "                 Display Players                \n"
-              "------------------------------------------------\n"
+        print("----------------------------------\n"
+              "        Display Players           \n"
+              "----------------------------------\n"
              # " Display Reports :\n"
               )
 
-    def display_alphabetical(self, all_player): # all_players
+    def display_player_scores(self, player_table):
         print(" ")
-        print("              Players In Alphabetical Order")
-        #print(pl) 
-        for pl in all_player:
-            myTable = PrettyTable(["Last name", "First name", "Date of birth", "Gender", "Rank"])
-            myTable.add_row(pl)
-            print(myTable)
+        print(" Players Ranking By Score")
+        for i, player in enumerate( player_table):
+            print(f"\n-- Player no {i+1} --\n ")
+            for k, v in player.items():
+                if k in ["Last name", "First name", "Rank", "Score"]:
+                    print(k+ " : "+ str(v))
+                    print(" ")
+                
+            
 
-        """x = PrettyTable()
-        x.field_names = ["Last name", "First name", "Date of birth", "Gender", "Rank"]
-        x.add_row(pl)
-        print(x)"""
+
+    def display_alphabetical(self, all_players): # all_players
+        print(" ")
+        print("Players In Alphabetical Order")
+        for i, pl in enumerate(all_players):
+            """print(f"\n-- Player no {i+1} --\n ")
+            #if i >= 0: i += 1
+            for k, v in pl.items():
+                if k in ["Last name", "First name", "Date of birth", "Gender", "Rank"]:
+                    print(k+ " : "+ str(v))
+                    print(" ")"""
+             
+            table = [ [pl]]
+            print(tabulate(table))
+            #print(f"\n -------------------- ")
+           
+      
         print("Press a letter to go back to rapport menu")
         input()
 
     def display_ranking(self, all_players):
         print(" ")
-        print("                  Players In Rank Order")
-        for pl in all_players:
+        print("Players In Rank Order")
+        """for pl in all_players:
             x = PrettyTable()
             x.field_names = ["Rank", "Last name", "First name", "Date of birth", "Gender"]
             x.add_row(pl)
-            print(x)
+            print(x)"""
+        for i, pl in enumerate(all_players):
+            print(f"\n-- Player no {i+1} --\n ")
+            for k, v in pl.items():
+                if k in ["Rank", "Last name", "First name", "Date of birth", "Gender"]:
+                    print(k+ " : "+ str(v))
+            #print(f"\n -------------------- ")
+            print(" ")
 
 
 class DisplayTournamentsReport:
@@ -160,12 +180,14 @@ class DisplayPlayersByTournament:
               #player
         for player  in list_player:
             #print('================= player ================')
-            """print(player)
-            print()"""
+            #print(player)
+           # print()
             x = PrettyTable()
             x.field_names = ["Last name", "First name",  "Rank"]
             x.add_row(player)
             print(x)
+
+        
             
         #input("Appuyez sur une touche pour revenir au menu principal")
 

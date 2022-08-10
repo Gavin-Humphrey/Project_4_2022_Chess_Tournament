@@ -48,10 +48,12 @@ class PlayerMenuController(MainMenuController):
 
     def __init__(self):
         super().__init__()
-        
         self.db = TinyDB('data_base.json') 
         self.serialized_player_table = self.db.table('Player')
+        #self.player_table = self.db.table('Player')
+        self.all_player = self.serialized_player_table.all()
         self.create_player = players_controller.PlayerController()
+        #self.players_score_classment = players_controller.PlayerController()
         self.players_report = players_controller.PlayerReport()
         self.main_menu_controller = MainMenuController()
         ##self.menu_load_player_controller = pc.LoadPlayer.show_in_menu() # To do
@@ -59,16 +61,18 @@ class PlayerMenuController(MainMenuController):
         
     def __call__(self): 
         entry = self.menu_create(self.menu_create.player_menu)
-        while True:
-            if entry == "1": 
-                self.controller_choice = database_controller.DatabaseWorker.save_player_in_db(self.create_player.create_player(), self.db)
-                self.controller_choice = self.main_menu_controller()
-            elif entry == "2":
-                self.controller_choice = self.players_report(self.db)
-            elif entry == "3":
-                self.controller_choice = self.main_menu_controller()
-            else:
-                break
+       # while True:
+        if entry == "1": 
+            self.controller_choice = database_controller.DatabaseWorker.save_player_in_db(self.create_player.create_player(), self.db)
+            self.controller_choice = self.main_menu_controller()
+        if entry == "2":
+            self.create_player.update_player_score_rank(self.all_player, self.serialized_player_table)
+        if entry == "3":
+            self.controller_choice = self.players_report(self.db)
+        if entry == "4":
+            self.controller_choice = self.main_menu_controller()
+        #else:
+            #break
 
 class TournamentMenuController(MainMenuController):
 
@@ -84,6 +88,7 @@ class TournamentMenuController(MainMenuController):
         self.create_tournament = tournament_controller.TournamentController()
         self.run_tournament = tournament_controller.TournamentController()
         self.main_menu_controller = MainMenuController()
+        
                
     def __call__(self):
         entry = self.menu_create(self.menu_create.tournament_menu)
@@ -93,11 +98,15 @@ class TournamentMenuController(MainMenuController):
             self.controller_choice = self.main_menu_controller()
         if entry == "2":
             self.name__ = input('Enter the name of tournament you want to search: ')
-            self.controller_choice = self.run_tournament.run_tournament(self.name__, self.tdb)  
+            self.controller_choice = self.run_tournament.run_tournament(self.name__, self.tdb, self.db)  
             self.controller_choice = self.main_menu_controller()
-        if  entry == "3":
-            self.controller_choice =  self.tournament_report_controller()
-        if entry == "4":
+        if  entry == "3": 
+            self.controller_choice = self.run_tournament.get_match_tournament(self.tournament_name, self.status, self.db)
+        if  entry == "4":
+            self.controller_choice = self.tournament_report_controller()
+        if  entry == "5":
+            self.controller_choice = self.create_tournament.remove_tournament(self.db)
+        if  entry == "6":
             self.controller_choice = self.main_menu_controller()
             
           

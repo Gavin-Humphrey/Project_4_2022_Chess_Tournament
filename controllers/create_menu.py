@@ -2,13 +2,15 @@ class CreateMenu:
    
     main_menu = [("1", "Players Menu"), ("2", "Tournament Menu"), ("3", "Exit")]
 
-    player_menu = [("1", "Create Player"), ("2", "Load Players"), ("3", "Update Player's Ranking"), ("4", "Back To Control Menu <<--")]
+    player_menu = [("1", "Create Player"), ("2", "Update Player's Ranking"), ("3", "Load All Players Report"), ("4", "Back To Control Menu <<--")]
 
-    tournament_menu = [("1", "Create A New Tournament"), ("2", "Run A Tournament"), ("3", "Load A Tournament Report"), ("4", "Resume An Ongoing Tournament"), ("5", "Back To Control Menu <<--")]
+    tournament_menu = [("1", "Create A New Tournament"), ("2", "Run A Tournament"), ("3", "Display Tournament"), ("4", "Load A Tournament Report"), ("5", "Delete A Tournament"), ("6", "Back To Control Menu <<--")]
+
+    sub_tournaments_menu = [("1", "Display Finished Matches"), ("2", "Display Matches In Progress"), ("3", "Display All Matches")]##
 
     time_control_menu = [("1", "Bullet"), ("2", "Blitz"), ('3', "Rapid")]
     
-    players_report_menu = [("1", "Alphabetical Order"), ("2", "Ranking"), ("3", "Back To Control Menu <<--")]
+    players_report_menu = [("1", "Display Players Ranking By Score"), ("2", "Alphabetical Order"), ("3", "Ranking"), ("4", "Back To Control Menu <<--")]
 
     tournaments_report_menu = [("1", "Display All Tournaments"), ("2", "Want To Display A Particular Tournament?"),  ("3", "Back To Control Menu <<--")]
                                

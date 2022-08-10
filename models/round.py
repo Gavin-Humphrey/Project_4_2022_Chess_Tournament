@@ -5,15 +5,15 @@ from models.match import Match
 
 class Round:
     
-    def __init__(self, round_name_, date_begin_, list_match_):
+    def __init__(self, round_name_, list_match_):
         self.round_name = round_name_
-        self.date_begin = date_begin_
+        self.date_begin = ''
         self.date_end = ''
         self.list_match = list_match_
 
 
     def __str__(self):
-        return self.Round_name
+        return self.round_name
 
 
     def create_matchs(self):
