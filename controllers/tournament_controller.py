@@ -4,7 +4,7 @@ import time
 #from turtle import update
 from tinydb import TinyDB, Query
 import random
-from models.tournament import Tournament
+from models.tournament import * #Tournament
 from models import tournament
 from models.players import Player
 from controllers.database_controller import DatabaseWorker
@@ -14,12 +14,12 @@ import controllers.players_controller as PC
 import controllers.database_controller as dc
 from prettytable import PrettyTable
 from models.round import Round
-from views.display_menu import ShowPlayers
+from views.display_menu import * #ShowPlayers
 from controllers import menu_controller
 from controllers import create_menu
 from views import display_menu
 import views.tournament as t
-
+from itertools import  permutations
 
 
 class TournamentController:
@@ -31,42 +31,41 @@ class TournamentController:
         #result = cls.get_tournament_by_name(name__, tdb)
         print('name__',name__)
         cls.run_tournament(name__,tdb)"""
-        
-        input_name = input("Please enter name of the tournament: ")
-        input_place = input("Please enter the venue: ")
+
+        input_name = input("Please Enter Tournament Name: ")
+        input_place = input("Please Enter Venue: ")
         stop = False
         while not stop:
                     try:
-                        start_date = datetime.strptime(input("Please enter tournament  date of satrt in (DD/MM/YYYY): "), "%d/%m/%Y").strftime("%d/%m/%Y")
+                        start_date = datetime.strptime(input("Please Enter Tournament Start Date In (DD/MM/YYYY): "), "%d/%m/%Y").strftime("%d/%m/%Y")
                         stop = True
                     except:
-                        print("Please enter tournament's start date in format (DD/MM/YYYY")
+                        print("Please Enter Tournament's Start Date In Format (DD/MM/YYYY")
         
 
         #nb_rounds = input("Please enter the number of rounds for this tournament")
         
         def nb_rounds():   
             nb_rounds = 4
-            print("The number of rounds is 4 by default\n"
-                    "Do you want to change this number ?")
+            print("The Number Of Rounds Is 4 By Default")
             valid_number = False
             while not valid_number:
-                print("Enter 'Y' to change, and 'N' to continuer")
+                print("Enter 'Y' To Change, And 'N' To Continuer")
                 choice = input(": ")
                 if choice == "Y":
-                    nb_rounds = input("Enter number of rounds :")
+                    nb_rounds = input("Enter Number Of Rounds :")
                     if nb_rounds.isdigit():
                         valid_number = True
                     else:
-                        print("Enter digits")
+                        print("Enter Digits")
                 if choice == "N":
                     valid_number = True
             return nb_rounds
         
         def add_time_control():
-            print("Please chose time-control: ")
+            print("Please Choose Time-Control: ")
             time_control = None
-            entry = input("Enter 1 for Bullet; 2 for Blitz; or 3 for Rapid: ")
+            entry = input("Enter 1 For Bullet; 2 For Blitz; Or 3 For Rapid: ")
             if entry == "1":
                 time_control = "Bullet"
             if entry == "2":
@@ -75,11 +74,11 @@ class TournamentController:
                 time_control = "Rapid"
             return time_control
 
-        desc = input("Please add Tournament description here: ")
-        input_nb_player = input("Please enter the number of players in the tournament: ")
+        desc = input("Please Add Tournament Description Here: ")
+        input_nb_player = input("Please Enter The Number Of Players In This Tournament: ")
         serialized_player_table =  db.table('Player')#
         all_players = serialized_player_table.all()#
-        show_players_list = ShowPlayers.show_players_in_database(all_players)#
+        show_players_list = display_menu.ShowPlayers.show_players_in_database(all_players) # 
         """serialized_player_table =  db.table('Player')
         all_players = serialized_player_table.all()
         print('========list player in data base...=======')
@@ -89,11 +88,12 @@ class TournamentController:
             print('===========================\n')
             print(f"indice: {i} | Last name:  {pl['Last name']} | First name:  {pl['First name']}  | Rank:  {pl['Rank']}\n")"""
         indices = []
-        choice_ = int(input('Please entrer your choice: '))
+        choice_ = input('Please Enter Your Choice: ')
         if choice_ == "1": # Check for selecting players' index
+            print("input_nb_player", input_nb_player)
             for i in range(int(input_nb_player)):
-                indices.append(input(f'Please enter the index of {i+1} player  :'))
-            print('indices', indices)
+                indices.append(input(f'Please Enter The Index Of {i+1} Player  :'))
+            print('indices', indices) ####???
         else:
             indices = [ random.randint(0, len(all_players)) for e in range(int(input_nb_player))]
          
@@ -104,9 +104,9 @@ class TournamentController:
             list_players.append(p)
         
         if list_players != []:
-            print('list_player', list_players)
+            list_indice = list(range(int(len(list_players)/2))) # [0, 1, 2, 3]
             list_players_ranking = cls.player_classment(list_players) 
-            list_pair = cls.player_pair(list_players_ranking) 
+            list_pair = cls.player_pair(list_players_ranking, list_indice) 
             list_match = cls.create_matchs(list_pair)
             round1 = RC.RoundController.create_round(list_match)
             tournament_ = tournament.Tournament(input_name, input_place, start_date, add_time_control(),
@@ -122,16 +122,17 @@ class TournamentController:
             list_match.append(MC.MatchController.create_match(name_p1, name_p2))
         return list_match
      
+     # What is this function for? #########
     @classmethod
     def get_player_name(cls, nb_player, db):
         list_player = []
         for i in range(nb_player):
             print(f"Player {i+1} ")
-            first_name = input("Please enter player's first name: ")
-            last_name = input("Please enter players last name: ")
+            first_name = input("Please Enter Player's First Name: ")
+            last_name = input("Please Enter Players Last Name: ")
             p, pfound = DatabaseWorker.get_player_by_name(last_name, first_name, db)
             if not pfound:
-                print(f"Player {last_name} {first_name} does not exist in the database. Please register this player and try again")
+                print(f"{last_name} {first_name} Does Not Exist. Please Register And Try Again")
                 # To do: add menu choice. 1st choice: reenter new player name; 2nd choice: go to the main menu to create a new player
                 return []
             else:
@@ -146,14 +147,14 @@ class TournamentController:
     @classmethod
     def player_classment(cls, list_player):
         if len(list_player) % 2 != 0:
-            return "We are sorry we can't start a tournament, the number of players has to be pair"
+            return "To Start A Tournament, The Number Of Players Has To Be Pair"
         else:
             return [ e ['Last name'] +' '+ e ['First name'] for e in sorted(list_player, key = cls.order, reverse=True)]
         
     @classmethod
-    def player_pair(cls, list_player_ranking):
+    def player_pair(cls, list_player_ranking, indice_conf):
         if isinstance(list_player_ranking, list):
-            return list(zip(list_player_ranking[:int(len(list_player_ranking)/2)], list_player_ranking[int(len(list_player_ranking)/2):]))
+            return list(zip([list_player_ranking[:int(len(list_player_ranking)/2)][i] for i in indice_conf], list_player_ranking[int(len(list_player_ranking)/2):]))
     @classmethod
     def get_tournament_by_name(cls, tournament_name, db):
         tournament_table = db.table('Tournament')
@@ -175,26 +176,29 @@ class TournamentController:
     '''
         
     @classmethod
-    def get_match_tournament(cls, tournament_name, status, db):
-        menu_create = create_menu.CreateMenu()####
+    def get_match_tournament(cls, tournament_name, db):
+        menu_create = create_menu.CreateMenu()
         list_match = []
         tourn = cls.get_tournament_by_name(tournament_name, db)
+        status = menu_create(menu_create.sub_tournaments_menu)
+        
         if tourn:
             matchs = tourn['Rounds'][-1]['Match']
-            #status = menu_create(menu_create.sub_tournaments_menu)
+    
             # List match terminé
             if status == '1':
                 list_match = [match for match in matchs if isinstance(match['Score'], list)]
+
                 # Match non terminé
             elif status == '2':
                 list_match = [match for match in matchs if isinstance(match['Score'], int)]
                 # Tout les match
+
             elif status == '3':
+                #input("Please enter 3 for all match list: ")
                 list_match = matchs
-
             return list_match
-
-
+           
     @classmethod
     def run_tournament(cls, tournament_name, db, pdb):  
         t_dict = cls.get_tournament_by_name(tournament_name, db)
@@ -212,16 +216,16 @@ class TournamentController:
                 if isinstance(m ['Score'], int):
                     random_float = random.uniform(0,1)
                     if random_float >= 0.5:
-                        col1 = 'Dark'
+                        col1 = 'Black'
                         col2 = 'White'
                     else:
-                        col2 = 'Dark'
+                        col2 = 'Black'
                         col1 = 'White'
 
-                    response_ = input(f"is the match between {m['Player 1']} and {m['Player 2']} is terminated if yes, press 'y' ")
+                    response_ = input(f"If The Match Between {m['Player 1']} And {m['Player 2']} Is Terminated, Press 'y' ")
                     if response_.lower() == 'y'  :
-                        score_p1 = float(input(f"Enter the score of {m['Player 1']}: qui a jouer en maillot {col1} "))
-                        score_p2 = float(input(f"Enter the score of {m['Player 2']}:  qui a jouer en maillot {col2}"))
+                        score_p1 = float(input(f"Enter The Score Of {m['Player 1']}: Who Played In {col1} Color: "))
+                        score_p2 = float(input(f"Enter The Score Of {m['Player 2']}: Who Played In {col2} Iolor: "))
                             
                         name_p1 = m['Player 1'].split(' ')
                         last_name_p1 =  name_p1[0]
@@ -234,11 +238,10 @@ class TournamentController:
                         list_score_enable = [(1,0),(0,1),(0.5, 0.5)]
                         stop = False
                         while  not stop:
-
                             if (score_p1, score_p2) not in list_score_enable:
                                 print("Enter 0, 0.5, or 1")   
-                                score_p1 = float(input(f"Enter the score of {m['Player 1']}: qui a jouer en maillot {col1} "))
-                                score_p2 = float(input(f"Enter the score of {m['Player 2']}:  qui a jouer en maillot {col2}"))
+                                score_p1 = float(input(f"Enter The Score Of {m['Player 1']}: Who Played In {col1} Color: "))
+                                score_p2 = float(input(f"Enter The Score Of {m['Player 2']}: Who Played In {col2} Color: "))
                             else:
                                 stop = True
                         
@@ -261,14 +264,13 @@ class TournamentController:
                         r['Match'][i] = m
                         tournament_table.update({'Rounds': [r]}, tournament["Tournament name"] == tournament_name)
                         tournament_table.update({'Players': list_player}, tournament["Tournament name"] == tournament_name)
-      
                     else:
                         all_match_terminated = False
 
             if all_match_terminated :
                 r['End date'] = datetime.now().strftime("%d/%m/%Y %H:%M")
                 tournament_table.update({'Rounds': [r]}, tournament["Tournament name"] == tournament_name)
-                update_score = input("All matches are terminated for this round. do you want to update player score If yes, press 'y':")
+                update_score = input("Round Matches Terminated.Press 'y' To Update Score: ")
                 if update_score.lower() == 'y':
                     matchs = r['Match']
                     score_by_name = {}
@@ -285,26 +287,25 @@ class TournamentController:
                             print(k, "n'existe pas") 
                        
                         player_table.update({'Score': score}, player["Last name"] == k)
-
                     print(matchs)
                 new_r = input(" Do you want to start a new round?  If yes, press 'y': ")
                 if new_r.lower() == 'y':
                     cls.add_round(t_dict, tournament_table, tournament, tournament_name)
 
             #tn_name = input('please enter the name of tournament which you want to display their match: ')
-            st = input('Which match status would you display  : ')
-            match = cls.get_match_tournament(tournament_name, st, db)
+            #st = input('Which match status would you display  : ')
+            match = cls.get_match_tournament(tournament_name, db)#Removed st
             print(match)
             #DatabaseWorker.save_tournament_in_db(tournament, t_dict, db)# To do         
         else:
             #list_of_finished_match.append([m['Player 1'], score_p1], [m['Player 2'], score_p2])      
             print("The tournament you are looking for does't exist in our database")
  
-
     @classmethod
     def add_round(cls, tournament, tournament_table, tournament_query, tournament_name_):
         round_ = tournament['Rounds']
         matchs = round_[-1]['Match']
+        nb_player = int(tournament['Number of players'])
         is_round_ended = True
         for match in matchs:
             if isinstance(match['Score'],int) :
@@ -314,47 +315,61 @@ class TournamentController:
             print("Enter 'Y' to start a new round")
             choice = input(": ")
             if choice.lower() == "y":
-                name_round = input('Please enter the new round name: ')
+                name_round = input('Please Enter The New Round Name: ')
                 round_date_begin = datetime.now().strftime("%d/%m/%Y %H:%M")
                 list_tournament_player = tournament['Players']
                 sort_one_level = sorted (list_tournament_player,key=
                 lambda x:(x['Score'], x['Rank']),reverse= True)
                 
                 list_finale = [ e ['Last name'] +' '+ e ['First name'] for e in cls.ordre_level_three(sort_one_level)]
-                list_pair = cls.player_pair(list_finale)
+                
                 print(" ")
                 print(" ")
-                #print(tournament)# Just added. Verify again
-                print('list_pair', list_pair) # Release later
+                
                 list_match_in_round = [r["Match"] for r in round_]
                 list_match_old_round = []
                 for l in list_match_in_round:
                     for w in l:
                         list_match_old_round.append((w['Player 1'], w['Player 2']))
                 print(" ")
-                #print("List of Remaiming Matches: 0 \n" "Number of Remaining Rounds: 0")# Just created. Try to verify...
                 
-                print("match old", list_match_old_round) #Release later
-                list_pair_rest = [z for z in list_pair if z not in list_match_old_round]
-                print("List of remaining matches ", list_pair_rest) # Release later
-                list_match = cls.create_matchs(list_pair_rest)
-                if list_match:
+
+                all_config  = list(permutations(list(range(int(nb_player/2))) ,int(nb_player/2)))####
+                stop = False
+                indice_conf = 0
+
+                while indice_conf < len(all_config) and not stop:
+                    list_pair = cls.player_pair(list_finale, all_config[indice_conf])
+                    if all([(z,w) not in list_match_old_round and  (w,z) not in list_match_old_round for (z,w) in list_pair ]):
+                        stop = True
+                    indice_conf += 1
+                if indice_conf > len(all_config):
+                    print("Match List Empty. You Cannot Create A New Round")
+                else:
+                    list_match = cls.create_matchs(list_pair)
                     new_round = Round(name_round, list_match)
                     round_.append({'Round name': new_round.round_name, "Start date" : round_date_begin , "Match":[{'Player 1': m.player1, 'Player 2': m.player2, 'Score': m.score} for m in list_match] } )
                     tournament_table.update({'Rounds': round_}, tournament_query["Tournament name"] == tournament_name_)
-                else:
-                    print("You can not create a new round because the match list is empty")
+                #print("List of Remaiming Matches: 0 \n" "Number of Remaining Rounds: 0")# Just created. Try to verify...
+                # print("Last Match:", list_match_old_round) 
+                # list_pair_rest = [z for z in list_pair if z not in list_match_old_round]
+                # print("List of remaining Matches:", list_pair_rest) 
+                # list_match = cls.create_matchs(list_pair_rest)
+                # if list_match:
+                #     new_round = Round(name_round, list_match)
+                #     round_.append({'Round name': new_round.round_name, "Start date" : round_date_begin , "Match":[{'Player 1': m.player1, 'Player 2': m.player2, 'Score': m.score} for m in list_match] } )
+                #     tournament_table.update({'Rounds': round_}, tournament_query["Tournament name"] == tournament_name_)
+                # else:
+                    
                     print(" ")
                     print(" ")
             
             elif len(round_) == tournament["Number of Rounds"]:
-                print('You can not create a new round. Number of rounds attained!')
+                print('You Cannot Create A New Round. Number Of Rounds Attained!')
 
             else:
-                print('Sorry you can not start a new round because the matchs of the last'
-                'round were not all terminated')
+                print('Cannot Start A New Round. Previous Round Not Terminated')
 
-        
         # Create list pair, sorted by score, rank, and name alphabetical order
     @classmethod
     def ordre_level_three(cls, list_player):
@@ -369,22 +384,18 @@ class TournamentController:
                         list_player[i+1] = item_indice_i
                         stop = False
         return list_player
-                        
-                    
+                                         
     @classmethod 
     def remove_tournament(cls, db):
         tournament_table = db.table('Tournament')
         tournament =  Query()
-        tournament_name = input("plese enter the tournament name that you wante to delete:  ")
-        confirmation = input(f'Are you sur that you wqnt to delete the tournament{tournament_name} if yes press y ')
+        tournament_name = input("Enter The Tournament Name You Want To Delete:  ")
+        confirmation = input(f"Are You Sure You Want To Delete {tournament_name}? If Yes Press 'y': ")
         if confirmation.lower() == 'y':
             tournament_table.remove(tournament["Tournament name"] == tournament_name)
-   
-           
+            
 class TournamentReport:
-
     def __call__(self):  #, dict_tournament, list_player, db, tdb
-
         db = TinyDB('data_base.json')
         Player = Query()
         Table_player = db.table('Player')
@@ -425,7 +436,7 @@ class TournamentReport:
         if entry == "2":
             valid_choice = True 
             while valid_choice:
-                identifiant_tournament = input("Enter Tournament ID of The Tournament You Want to Display : ")
+                identifiant_tournament = input("Enter The Tournament ID You Want To Display: ")
                 choice_tournament = self.all_tournament[int(identifiant_tournament)-1]
                 tournament_sel = [
                     identifiant_tournament,
@@ -452,18 +463,15 @@ class TournamentReport:
                 l_round_choice = [(r['Round name'], r['Start date']) 
                 for r in choice_tournament['Rounds']]
                 print(l_round_choice)
-
                 print(" ")
                 print("MATCH")
                 print(" ")
                 print([r['Match'] for r in choice_tournament['Rounds']])
                 print(" ")
-              
                 valid_choice = False
                 TournamentReport.__call__(self)
                 self.main_menu_controller(self)
 
-            
                 """
                 # To print the dictionary of the tournament
                 #print(choice_tournament)
@@ -512,12 +520,6 @@ class TournamentReport:
                     TournamentReport.__call__(self)
                     self.main_menu_controller(self)
 
-
-
-
-
-
-                
                 """list_player_ = [(p['Last name'], p['First name'], p['Rank']) for p in choice_tournament['Players']]
                 self.display_player_by_tournament(sorted(list_player_, key = lambda x: x[0]))
                 print('=====================================')
@@ -532,9 +534,6 @@ class TournamentReport:
                 print([r['Match'] for r in choice_tournament['Rounds']])
                 print("")"""
 
-            
-
-    
                 """# Display all the tournaments
                 #self.display_tournament()
                 entry = self.menu_create(self.menu_create.tournaments_report_menu)
@@ -553,7 +552,7 @@ class TournamentReport:
                 valid_choice = False
                 self.main_menu_controller()
 
-            print("Enter the number corresponding to the choice you want")  
+            print("Enter The Number Corresponding To Your Choice")  
         
  
         

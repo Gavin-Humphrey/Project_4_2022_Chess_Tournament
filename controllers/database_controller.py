@@ -13,7 +13,7 @@ class DatabaseWorker:
         #Player = Query()#
         table_player = db.table('Player')
         list_all_player= table_player.all()
-       # print('all',list_all_player  )#
+       # print('all',list_all_player  )
         for player in list_all_player:
             if player['Last name'] == last_name_ and player['First name'] == first_name_:
                 list_found.append(player)

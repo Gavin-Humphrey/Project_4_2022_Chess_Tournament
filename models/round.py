@@ -1,5 +1,5 @@
 
-from controllers.tournament_controller import *
+#from controllers.tournament_controller import *
 from models.match import Match
 
 

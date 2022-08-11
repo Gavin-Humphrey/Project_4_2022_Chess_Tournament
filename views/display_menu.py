@@ -52,17 +52,23 @@ class ShowPlayers:
 
 
 
-    def show_players_in_database(all_players):
+    def show_players_in_database(all_players): # all_players
 
         print(" ")
         print('========list player in data base...=======')
         print(" ")
-        for i, pl in enumerate(all_players):
+        """for i, pl in enumerate(all_players):
             if i >= 0: i += 1
             x = PrettyTable()
             x.field_names = ["Index", "Last name", "First name", "Rank"]
             x.add_row([i, pl['Last name'], pl['First name'], pl['Rank']])
-            print(x)
+            print(x)"""
+        for i, player in enumerate(all_players):
+            print(f"\n-- Player no {i+1} --\n ")
+            for k, v in player.items():
+                if k in ["Index", "Last name", "First name", "Rank"]:
+                    print(k+ " : "+ str(v))
+                    print(" ")    
             
 
 class DisplayPlayersReport:
@@ -82,7 +88,7 @@ class DisplayPlayersReport:
             for k, v in player.items():
                 if k in ["Last name", "First name", "Rank", "Score"]:
                     print(k+ " : "+ str(v))
-                    print(" ")
+                    #print(" ")
                 
             
 
@@ -91,15 +97,15 @@ class DisplayPlayersReport:
         print(" ")
         print("Players In Alphabetical Order")
         for i, pl in enumerate(all_players):
-            """print(f"\n-- Player no {i+1} --\n ")
+            print(f"\n-- Player no {i+1} --\n ")
             #if i >= 0: i += 1
             for k, v in pl.items():
                 if k in ["Last name", "First name", "Date of birth", "Gender", "Rank"]:
                     print(k+ " : "+ str(v))
-                    print(" ")"""
+                    # print(" ")
              
-            table = [ [pl]]
-            print(tabulate(table))
+            """table = [[pl]]
+            print(tabulate(table))"""
             #print(f"\n -------------------- ")
            
       
