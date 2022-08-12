@@ -79,6 +79,7 @@ class TournamentMenuController(MainMenuController):
         self.create_tournament = tournament_controller.TournamentController()
         self.run_tournament = tournament_controller.TournamentController()
         self.main_menu_controller = MainMenuController()
+       
                   
     def __call__(self):
         entry = self.menu_create(self.menu_create.tournament_menu) 
@@ -87,7 +88,7 @@ class TournamentMenuController(MainMenuController):
             self.controller_choice = self.main_menu_controller()
         if entry == "2":
             self.name__ = input('Enter the name of tournament you want to search: ')
-            self.controller_choice = self.run_tournament.run_tournament(self.name__, self.tdb, self.db)  
+            self.controller_choice = self.run_tournament.run_tournament(self.name__, self.tdb, self.db) 
             self.controller_choice = self.main_menu_controller()
         if  entry == "3": 
             name__ = input('Enter the name of tournament you want to search: ')
