@@ -9,23 +9,23 @@ from controllers import menu_controller as mc
 from controllers import create_menu"""
 
 
-#def main():
+# def main():
 
-    
-    #controller = mc.MainMenuController()#.display_main_menu
-    #controller = mc.MainMenuController()
-    #controller()
-    
-    #print(create_player())
-    
+
+# controller = mc.MainMenuController()#.display_main_menu
+# controller = mc.MainMenuController()
+# controller()
+
+# print(create_player())
+
 """db = TinyDB('data_base.json')
 Player = Query()
 Table_player = db.table('Player')
 #print('trouver', Table_player.all())"""
 
-#dc.DatabaseWorker.save_player_in_db(pc.PlayerController.create_player(), db)
-#get_all_players()
-#get_all_players(serialized_player_table.all())
+# dc.DatabaseWorker.save_player_in_db(pc.PlayerController.create_player(), db)
+# get_all_players()
+# get_all_players(serialized_player_table.all())
 """list_player_order = pc.player_classment(serialized_player_table.all())
 print(list_player_order)
 print("")
@@ -39,8 +39,8 @@ for p1, p2 in pc.player_pair(list_player_order):
 t1 = tc.TournamentController.create_tournament(db)
 dc.DatabaseWorker.save_tournament_in_db(t1, tdb)
 serialized_tournament_table = tdb.table('Tournament')"""
-#save_tournament(create_tournament(), serialized_tournament_table)
-#get_all_tournament(serialized_tournament_table.all())
+# save_tournament(create_tournament(), serialized_tournament_table)
+# get_all_tournament(serialized_tournament_table.all())
 
 """serialized_tournament_table = tdb.table('Tournament')
 
@@ -53,5 +53,4 @@ dict_tournament['rounds'] = list_round
 serialized_tournament_table.insert(dict_tournament)"""
 
 
-#print(create_tournament)"""
-
+# print(create_tournament)"""

@@ -1,6 +1,6 @@
-
 from models.match import Match
 from datetime import datetime, date
+
 
 class MatchController:
     @classmethod
@@ -15,5 +15,3 @@ class MatchController:
                 print("Please enter match date in format (DD/MM/YYYY")"""
 
         return Match(player1_name, player2_name)
-
-        
