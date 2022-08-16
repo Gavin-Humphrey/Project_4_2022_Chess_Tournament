@@ -1,16 +1,19 @@
-from datetime import datetime, date
+# from datetime import datetime, date
+import datetime
 from tinydb import TinyDB, Query
 
 # from controllers.database_controller import save_player_in_db
 from models.players import Player
 from views.players import *
 from controllers import menu_controller
-from .database_controller import DatabaseWorker
-from .create_menu import CreateMenu
+from controllers.database_controller import DatabaseWorker
+from controllers.create_menu import CreateMenu
 from views import display_menu
 
 
 class PlayerController:
+    """Creates and adds players to database by entering player's details, then add update player's scores and ranks to the database"""
+
     @classmethod
     def create_player(cls):
         list_player = []
@@ -26,7 +29,7 @@ class PlayerController:
             else:
                 for i in range(nb_player):
                     stop_rank = False
-                    stop_score = False
+                    # stop_score = False
                     stop_dob = False
                     last_name = input(
                         "Please enter player {} last name: ".format(i + 1)
@@ -64,6 +67,7 @@ class PlayerController:
                     list_player.append(p)
                 return list_player
 
+    # Displays players ranking by scores
     @classmethod
     def display_player_scores(cls, player_table):
         print(" ")
@@ -74,6 +78,7 @@ class PlayerController:
                 if k in ["Last name", "First name", "Rank", "Score"]:
                     print(k + " : " + str(v))
 
+    # Updates  players ranking by scores
     @classmethod
     def update_player_score_rank(cls, all_players, player_table):
         cls.display_player_scores(all_players)
@@ -82,13 +87,13 @@ class PlayerController:
         valid = False
         while not valid:
             choice = input(
-                f"Please Enter Player Identifiant Between 1 And {len(all_players)} That You Want To Update Score | Rank: "
+                f"Please Enter Player ID Between 1 And {len(all_players)} That You Want To Update Score | Rank: "
             )
             try:
                 if int(choice) <= len(all_players) or int(choice) >= 1:
                     last_name = all_players[int(choice) - 1]["Last name"]
                     valid = True
-            except:
+            except:  # Too broad exception clause?????
                 pass
         print("1: update score \n2: update Rank\n3: update Rank\n")
         choice = input("Please Enter Your Choice: ")
@@ -118,19 +123,23 @@ class PlayerController:
 
 
 class PlayerReport:
+    """Displays all the actors, sorts and displays players by ranks, and by alphabets"""
+
     def __call__(self, db):
         self.menu_create = CreateMenu()
         self.main_menu_controller = menu_controller.MainMenuController()
         self.display_player = display_menu.DisplayPlayersReport()
         serialized_player_table = db.table("Player")
         self.players_db = serialized_player_table.all()
-        self.players_score_classment = PlayerController()
+        self.players_score_ranking = PlayerController()
         self.player = Query()
         self.display_player()
+
+        # Select to display all players, by rank, by alphabet, and by score
         entry = self.menu_create(self.menu_create.players_report_menu)
         while True:
             if entry == "1":
-                self.player_score = self.players_score_classment.display_all_players(
+                self.player_score = self.players_score_ranking.display_all_players(
                     serialized_player_table
                 )
                 list_player_score = sorted(

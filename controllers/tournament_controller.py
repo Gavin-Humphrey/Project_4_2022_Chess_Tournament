@@ -1,11 +1,8 @@
-# from cmath import e
 from datetime import datetime, date
 import time
-
-# from turtle import update
 from tinydb import TinyDB, Query
 import random
-from models.tournament import *  # Tournament
+from models.tournament import *  
 from models import tournament
 from models.players import Player
 from controllers.database_controller import DatabaseWorker
@@ -15,7 +12,7 @@ import controllers.players_controller as PC
 import controllers.database_controller as dc
 from prettytable import PrettyTable
 from models.round import Round
-from views.display_menu import *  # ShowPlayers
+from views.display_menu import * 
 from controllers import menu_controller
 from controllers import create_menu
 from views import display_menu
@@ -27,6 +24,7 @@ from itertools import permutations
 class TournamentController:
     @classmethod
     def create_tournament(cls, db, tdb):
+        """Create a tournament by entering all the details, save it in the database, and then run it if neeed be """
 
         input_name = input("Please Enter Tournament Name: ")
         input_place = input("Please Enter Venue: ")
@@ -84,17 +82,17 @@ class TournamentController:
         if choice_ == "1":
             for i in range(int(input_nb_player)):
                 indices.append(input(f"Please Enter The Index Of {i+1} Player  :"))
+                    
         else:
             indices = [
                 random.randint(0, len(all_players)) for e in range(int(input_nb_player))
-            ]
-
-        list_players_ = [all_players[int(e) - 1] for e in indices]
+            ]      
+        list_players_ = [all_players[int(e) - 1] for e in indices]           
         list_players = []
         for p in list_players_:
             p["Score"] = 0
             list_players.append(p)
-
+                     
         if list_players != []:
             list_indice = list(range(int(len(list_players) / 2)))
             list_players_ranking = cls.player_classment(list_players)
@@ -123,9 +121,9 @@ class TournamentController:
             list_match.append(MC.MatchController.create_match(name_p1, name_p2))
         return list_match
 
-    # What is this function for? #########
+    # Checking if a player exists or not in the data base
     @classmethod
-    def get_player_name(cls, nb_player, db):  ###
+    def get_player_name(cls, nb_player, db):  
         list_player = []
         for i in range(nb_player):
             print(f"Player {i+1} ")
@@ -156,6 +154,7 @@ class TournamentController:
                 for e in sorted(list_player, key=cls.order, reverse=True)
             ]
 
+    # Player pairing
     @classmethod
     def player_pair(cls, list_player_ranking, indice_conf):
         if isinstance(list_player_ranking, list):
@@ -337,6 +336,7 @@ class TournamentController:
                         all_match_terminated = False
         return all_match_terminated, r
 
+    # Update score and creat next round
     @classmethod
     def update_create_round(
         cls,
@@ -385,6 +385,7 @@ class TournamentController:
             print(" ")
             print("This Tournament Is Ended")
 
+    # Running the tournament
     @classmethod
     def run_tournament(cls, tournament_name, db, pdb):
 
@@ -410,6 +411,7 @@ class TournamentController:
         else:
             print("The Tournament You Are Looking For Does Not Exist In Our Database")
 
+    # Displays the tournaments, iterates the table with the entered index to permit to resume an unfinished tournament
     @classmethod
     def resume_tournament(cls, db, pdb):
         tournament_table = db.table("Tournament")
@@ -537,6 +539,7 @@ class TournamentController:
                         stop = False
         return list_player
 
+    # Delete a tournament after a strict confirmation
     @classmethod
     def remove_tournament(cls, db):
         tournament_table = db.table("Tournament")
@@ -550,7 +553,9 @@ class TournamentController:
 
 
 class TournamentReport:
-    def __call__(self):  # , dict_tournament, list_player, db, tdb
+    """Displays Tournament report, select and display a chosen tournament, its rounds and matches"""
+
+    def __call__(self):  
         db = TinyDB("data_base.json")
         Player = Query()
         Table_player = db.table("Player")
@@ -569,10 +574,11 @@ class TournamentReport:
         # Display all the tournaments
         # self.display_tournament(self.all_tournament)
         # self.display_tournament(self.dict_tournament)
+        ## Displays all the tournaments
         entry = self.menu_create(self.menu_create.tournaments_report_menu)
         if entry == "1":
             # self.display_tournament(self.all_tournament)
-            ##
+            
             # tournament_display_info = self.display_tournament(tour_info_to_disp)# self.all_tournament
             self.info_to_disp = self.all_tournament
             self.display_all_tournaments.get_all_tournament(self.all_tournament)
@@ -581,7 +587,7 @@ class TournamentReport:
             # self.display_tournament = self.main_menu_controller(self.all_tournament, self.players_db, db, tdb)  #self.all_tournament, self.players_db, db, tdb
             # input("Enter a letter to return to Main Menu")
             TournamentReport.__call__(self)
-            # Choose a tournament
+            ## Display a chosen tournament, its players, rounds, and matches
         if entry == "2":
             valid_choice = True
             while valid_choice:

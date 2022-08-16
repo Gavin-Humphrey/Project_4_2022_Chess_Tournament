@@ -5,10 +5,8 @@ class DatabaseWorker:
     @classmethod
     def get_player_by_name(cls, last_name_, first_name_, db):
         list_found = []
-        # Player = Query()#
         table_player = db.table("Player")
         list_all_player = table_player.all()
-        # print('all',list_all_player  )
         for player in list_all_player:
             if (
                 player["Last name"] == last_name_
@@ -22,7 +20,7 @@ class DatabaseWorker:
     def save_player_in_db(cls, list_player, db):
         serialized_player_table = db.table("Player")
         choice = input(
-            "Would You Like To Eraze the Content Of This Table? Type 'Y' For Yes: "
+            "Would You Like To Erase the Content Of This Table? Type 'Y' For Yes: "
         )
         if choice == "Y":
             serialized_player_table.truncate()
@@ -53,7 +51,7 @@ class DatabaseWorker:
         dict_tournament["Venue"] = tournament.place
         dict_tournament["Date"] = tournament.date
         dict_tournament["Time-Control"] = tournament.time_control
-        dict_tournament["Descrition"] = tournament.desc
+        dict_tournament["Description"] = tournament.desc
         dict_tournament["Number of Rounds"] = tournament.nb_rounds
         list_round = []
         for e in tournament.rounds:
@@ -73,4 +71,4 @@ class DatabaseWorker:
         dict_tournament["Rounds"] = list_round
         dict_tournament["Number of players"] = tournament.nb_player
         dict_tournament["Players"] = tournament.players
-        serialized_tournament_table.insert(dict_tournament)  #
+        serialized_tournament_table.insert(dict_tournament)  

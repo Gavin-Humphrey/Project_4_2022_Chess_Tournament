@@ -4,10 +4,12 @@ from controllers import tournament_controller
 from controllers.create_menu import CreateMenu
 from views.display_menu import *
 from tinydb import TinyDB, Query, where
-from controllers.database_controller import *
+# from controllers.database_controller import *
 
 
 class MainMenuController:
+    """Displays the main menu titles and links to sub-menus"""
+
     def __init__(self):
         self.view = ShowMain()
         self.menu_create = CreateMenu()
@@ -45,10 +47,10 @@ class PlayerMenuController(MainMenuController):
         # self.player_table = self.db.table('Player')
         self.all_player = self.serialized_player_table.all()
         self.create_player = players_controller.PlayerController()
-        # self.players_score_classment = players_controller.PlayerController()
+        # self.players_score_ranking = players_controller.PlayerController()
         self.players_report = players_controller.PlayerReport()
         self.main_menu_controller = MainMenuController()
-        ## self.menu_load_player_controller = pc.LoadPlayer.show_in_menu() # To do
+        # self.menu_load_player_controller = pc.LoadPlayer.show_in_menu()
 
     def __call__(self):
         entry = self.menu_create(self.menu_create.player_menu)
