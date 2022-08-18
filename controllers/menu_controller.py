@@ -44,13 +44,10 @@ class PlayerMenuController(MainMenuController):
         super().__init__()
         self.db = TinyDB("data_base.json")
         self.serialized_player_table = self.db.table("Player")
-        # self.player_table = self.db.table('Player')
         self.all_player = self.serialized_player_table.all()
         self.create_player = players_controller.PlayerController()
-        # self.players_score_ranking = players_controller.PlayerController()
         self.players_report = players_controller.PlayerReport()
         self.main_menu_controller = MainMenuController()
-        # self.menu_load_player_controller = pc.LoadPlayer.show_in_menu()
 
     def __call__(self):
         entry = self.menu_create(self.menu_create.player_menu)
@@ -111,6 +108,7 @@ class TournamentMenuController(MainMenuController):
             name__ = input("Enter The Name Of Tournament You Want To Search: ")
             self.list_match = self.run_tournament.get_match_tournament(name__, self.tdb)
             ViewDisplay.display(self.list_match)
+            self.controller_choice = self.main_menu_controller()
         if entry == "5":
             self.controller_choice = self.tournament_report_controller()
         if entry == "6":

@@ -195,7 +195,6 @@ class TournamentController:
                 list_match = [
                     match for match in matchs if isinstance(match["Score"], list)
                 ]
-
                 # Match non terminé
             elif status == "2":
                 list_match = [
