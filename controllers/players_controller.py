@@ -1,11 +1,9 @@
 from datetime import datetime
-# import datetime
 from tinydb import Query
 from controllers import menu_controller
 from controllers.create_menu import CreateMenu
 from models.players import Player
 from views import display_menu
-# from views.players import *
 from views.display_menu import ViewDisplay
 
 
@@ -15,13 +13,11 @@ class PlayerController:
     then add update player's scores and ranks to the database
     """
 
-    # Too long ????????????????????
     @classmethod
     def get_list_player(cls, nb_player):
         list_player = []
         for i in range(nb_player):
             stop_rank = False
-            # stop_score = False
             stop_dob = False
             last_name = input("Please enter player {} last name: ".format(i + 1))
             first_name = input("Please enter player {} first name: ".format(i + 1))
@@ -66,41 +62,6 @@ class PlayerController:
                 ViewDisplay.display("Please enter a number ")
             else:
                 return cls.get_list_player(nb_player)
-                # for i in range(nb_player):
-                #     stop_rank = False
-                #     # stop_score = False
-
-                #     last_name = input("Please enter player {} last name: ".format(i + 1))
-                #     first_name = input("Please enter player {} first name: ".format(i + 1))
-                #     while not stop_dob:
-                #         try:
-                #             dob = datetime.strptime(
-                #                 input(
-                #                      "Please enter player {} date of birth in (DD/MM/YYYY): ".format(
-                #                          i + 1
-                #                     )
-                #                 ),
-                #                  "%d/%m/%Y",
-                #             ).strftime("%d/%m/%Y")
-                #             stop_dob = True
-                #         except Exception:
-                #              ViewDisplay.display(
-                #                  "Please enter player's date of birth in format (DD/MM/YYYY"
-                #              )
-                #     gender = input("Please enter player {} gender: ".format(i + 1))
-                #     while not stop_rank:
-                #         try:
-                #             rank = int(
-                #                 input("Please enter player {} rank: ".format(i + 1))
-                #             )
-                #             stop_rank = True
-                #         except Exception:
-                #             ViewDisplay.display("Attributed rank should be a number")
-
-                #     p = Player(last_name, first_name, dob, gender, rank)
-                #     ViewDisplay.display(p)
-                #     list_player.append(p)
-                # return list_player
 
     # Displays players ranking by scores
     @classmethod
@@ -135,7 +96,6 @@ class PlayerController:
         )
         choice = input("Please Enter Your Choice: ")
 
-        # choice = input ("please enter 1 if you want to update score, 2 for Rank 3 for twice : ")
         if choice == "1":
             new_score = int(input("Please Enter The New Score : "))
             player_table.update({"Score": new_score}, player["Last name"] == last_name)
@@ -150,9 +110,6 @@ class PlayerController:
 
     @classmethod
     def display_all_players(cls, db):
-        # list_player_ = db.all()
-        # list_player = sorted(list_player_, key= lambda x : x['Score'],reverse=True)
-        # print(list_player)
 
         """player_table = db.table('Player')
         player = Query()
@@ -162,7 +119,6 @@ class PlayerController:
 class PlayerReport:
     """Displays all the actors, sorts and displays players by ranks, and by alphabets"""
 
-    # Too long???????????????????????
     def __call__(self, db):
         self.menu_create = CreateMenu()
         self.main_menu_controller = menu_controller.MainMenuController()

@@ -18,7 +18,6 @@ from views.display_menu import ViewDisplay
 class TournamentController:
     """Create a tournament by entering all the details, save it in the database, and then run it if need be"""
 
-    # Too long ??????????????????
     @classmethod
     def create_tournament(cls, db, tdb):
 
@@ -237,7 +236,6 @@ class TournamentController:
         m["Score"] = tuple([score_p1, score_p2])
         return m
 
-    # ?????????????????????? Too long
     @classmethod
     def play_last_round_match(
         cls, t_dict, tournament_table, tournament_name, tour_query
@@ -426,7 +424,6 @@ class TournamentController:
             except Exception:
                 ViewDisplay.display("Please Enter A Valid Tournament Index")
 
-    # Too long ??????????????????
     @classmethod
     def get_match_combinaition(
         cls,
@@ -523,26 +520,6 @@ class TournamentController:
                     tournament_query,
                     tournament_name_,
                 )
-                # stop = False
-                # indice_conf = 0
-                # while indice_conf < len(all_config) and not stop:
-                #     list_pair = cls.player_pair(list_finale, all_config[indice_conf])
-                #     if all([(z, w) not in list_match_old_round
-                #         and (w, z) not in list_match_old_round for (z, w) in list_pair]):
-                #         stop = True
-                #     indice_conf += 1
-                # if indice_conf > len(all_config):
-                #     ViewDisplay.display("Match List Is Empty. You Cannot Create A New Round")
-                # else:
-                #     list_match, new_round = cls.create_matchs(list_pair), Round(name_round, list_match)
-                #     round_.append(
-                #         { "Round name": new_round.round_name, "Start date": round_date_begin,
-                #             "Match": [
-                #                 {"Player 1": m.player1, "Player 2": m.player2, "Score": m.score}
-                #                 for m in list_match]})
-                #     tournament_table.update({"Rounds": round_},
-                #          tournament_query["Tournament name"] == tournament_name_)
-                #     ViewDisplay.display(" "), ViewDisplay.display(" ")
             elif len(round_) == tournament["Number of Rounds"]:
                 ViewDisplay.display(
                     "You Cannot Create A New Round. Number Of Rounds Attained!"
