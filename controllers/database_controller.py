@@ -1,4 +1,4 @@
-from tinydb import TinyDB, Query, where
+from views.display_menu import ViewDisplay
 
 
 class DatabaseWorker:
@@ -9,8 +9,7 @@ class DatabaseWorker:
         list_all_player = table_player.all()
         for player in list_all_player:
             if (
-                player["Last name"] == last_name_
-                and player["First name"] == first_name_
+                player["Last name"] == last_name_ and player["First name"] == first_name_
             ):
                 list_found.append(player)
                 return player, list_found
@@ -38,7 +37,7 @@ class DatabaseWorker:
                     }
                 )
             else:
-                print(
+                ViewDisplay.display(
                     f"This PLayer: {p.last_name} {p.first_name}, Already Exist In Our Database"
                 )
 
@@ -71,4 +70,4 @@ class DatabaseWorker:
         dict_tournament["Rounds"] = list_round
         dict_tournament["Number of players"] = tournament.nb_player
         dict_tournament["Players"] = tournament.players
-        serialized_tournament_table.insert(dict_tournament)  
+        serialized_tournament_table.insert(dict_tournament)

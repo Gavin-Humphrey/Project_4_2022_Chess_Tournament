@@ -162,7 +162,7 @@
                             ]
                         }
                     ],
-                    "End date": "15/08/2022 23:01"
+                    "End date": "18/08/2022 02:02"
                 }
             ],
             "Number of players": "8",
@@ -244,29 +244,80 @@
                 {
                     "Round name": "Round 1",
                     "Start date": "",
-                    "End date": "",
+                    "End date": "18/08/2022 07:13",
                     "Match": [
                         {
                             "Player 1": "Jolie Angelina",
                             "Player 2": "Francois Gary",
-                            "Score": 0
+                            "Score": [
+                                0.0,
+                                1.0
+                            ]
                         },
                         {
                             "Player 1": "Bent Amel",
                             "Player 2": "Lopez Jennifer",
-                            "Score": 0
+                            "Score": [
+                                0.5,
+                                0.5
+                            ]
                         },
                         {
                             "Player 1": "Clumsy Biggie",
                             "Player 2": "B Cadi",
-                            "Score": 0
+                            "Score": [
+                                0.0,
+                                1.0
+                            ]
                         },
                         {
                             "Player 1": "Rogers Kenny",
                             "Player 2": "Le Pen  Marine",
-                            "Score": 0
+                            "Score": [
+                                1.0,
+                                0.0
+                            ]
                         }
                     ]
+                },
+                {
+                    "Round name": "Round 2",
+                    "Start date": "18/08/2022 07:14",
+                    "Match": [
+                        {
+                            "Player 1": "Rogers Kenny",
+                            "Player 2": "Lopez Jennifer",
+                            "Score": [
+                                0.5,
+                                0.5
+                            ]
+                        },
+                        {
+                            "Player 1": "B Cadi",
+                            "Player 2": "Jolie Angelina",
+                            "Score": [
+                                1.0,
+                                0.0
+                            ]
+                        },
+                        {
+                            "Player 1": "Francois Gary",
+                            "Player 2": "Clumsy Biggie",
+                            "Score": [
+                                0.0,
+                                1.0
+                            ]
+                        },
+                        {
+                            "Player 1": "Bent Amel",
+                            "Player 2": "Le Pen  Marine",
+                            "Score": [
+                                1.0,
+                                0.0
+                            ]
+                        }
+                    ],
+                    "End date": "18/08/2022 07:15"
                 }
             ],
             "Number of players": "8",
@@ -277,7 +328,7 @@
                     "Date of birth": "02/02/1979",
                     "Gender": "f",
                     "Rank": 100,
-                    "Score": 0
+                    "Score": 0.0
                 },
                 {
                     "Last name": "B",
@@ -285,7 +336,7 @@
                     "Date of birth": "02/02/2000",
                     "Gender": "f",
                     "Rank": 150,
-                    "Score": 0
+                    "Score": 2.0
                 },
                 {
                     "Last name": "Lopez",
@@ -293,7 +344,7 @@
                     "Date of birth": "02/02/1978",
                     "Gender": "f",
                     "Rank": 200,
-                    "Score": 0
+                    "Score": 1.0
                 },
                 {
                     "Last name": "Francois",
@@ -301,7 +352,7 @@
                     "Date of birth": "02/02/2000",
                     "Gender": "m",
                     "Rank": 250,
-                    "Score": 0
+                    "Score": 1.0
                 },
                 {
                     "Last name": "Rogers",
@@ -309,7 +360,7 @@
                     "Date of birth": "02/02/1950",
                     "Gender": "m",
                     "Rank": 300,
-                    "Score": 0
+                    "Score": 1.5
                 },
                 {
                     "Last name": "Clumsy",
@@ -317,7 +368,7 @@
                     "Date of birth": "01/01/1989",
                     "Gender": "m",
                     "Rank": 350,
-                    "Score": 0
+                    "Score": 1.0
                 },
                 {
                     "Last name": "Bent",
@@ -325,7 +376,7 @@
                     "Date of birth": "03/02/1987",
                     "Gender": "f",
                     "Rank": 400,
-                    "Score": 0
+                    "Score": 1.5
                 },
                 {
                     "Last name": "Jolie",
@@ -333,7 +384,7 @@
                     "Date of birth": "04/01/1980",
                     "Gender": "f",
                     "Rank": 450,
-                    "Score": 0
+                    "Score": 0.0
                 }
             ]
         },
@@ -550,6 +601,214 @@
             "Venue": "Paris",
             "Date": "02/02/2023",
             "Time-Control": "Rapid",
+            "Description": "Bla bla bla",
+            "Number of Rounds": 4,
+            "Rounds": [
+                {
+                    "Round name": "Round 1",
+                    "Start date": "",
+                    "End date": "",
+                    "Match": [
+                        {
+                            "Player 1": "Jolie Angelina",
+                            "Player 2": "Francois Gary",
+                            "Score": 0
+                        },
+                        {
+                            "Player 1": "Bent Amel",
+                            "Player 2": "Lopez Jennifer",
+                            "Score": 0
+                        },
+                        {
+                            "Player 1": "Clumsy Biggie",
+                            "Player 2": "B Cadi",
+                            "Score": 0
+                        },
+                        {
+                            "Player 1": "Rogers Kenny",
+                            "Player 2": "Le Pen  Marine",
+                            "Score": 0
+                        }
+                    ]
+                }
+            ],
+            "Number of players": "8",
+            "Players": [
+                {
+                    "Last name": "Le Pen ",
+                    "First name": "Marine",
+                    "Date of birth": "02/02/1979",
+                    "Gender": "f",
+                    "Rank": 200,
+                    "Score": 0
+                },
+                {
+                    "Last name": "B",
+                    "First name": "Cadi",
+                    "Date of birth": "02/02/2000",
+                    "Gender": "f",
+                    "Rank": 250,
+                    "Score": 0
+                },
+                {
+                    "Last name": "Lopez",
+                    "First name": "Jennifer",
+                    "Date of birth": "02/02/1978",
+                    "Gender": "f",
+                    "Rank": 300,
+                    "Score": 0
+                },
+                {
+                    "Last name": "Francois",
+                    "First name": "Gary",
+                    "Date of birth": "02/02/2000",
+                    "Gender": "m",
+                    "Rank": 350,
+                    "Score": 0
+                },
+                {
+                    "Last name": "Rogers",
+                    "First name": "Kenny",
+                    "Date of birth": "02/02/1950",
+                    "Gender": "m",
+                    "Rank": 400,
+                    "Score": 0
+                },
+                {
+                    "Last name": "Clumsy",
+                    "First name": "Biggie",
+                    "Date of birth": "01/01/1989",
+                    "Gender": "m",
+                    "Rank": 450,
+                    "Score": 0
+                },
+                {
+                    "Last name": "Bent",
+                    "First name": "Amel",
+                    "Date of birth": "03/02/1987",
+                    "Gender": "f",
+                    "Rank": 500,
+                    "Score": 0
+                },
+                {
+                    "Last name": "Jolie",
+                    "First name": "Angelina",
+                    "Date of birth": "04/01/1980",
+                    "Gender": "f",
+                    "Rank": 550,
+                    "Score": 0
+                }
+            ]
+        },
+        "6": {
+            "Tournament name": "Paris Test 6",
+            "Venue": "Paris",
+            "Date": "02/02/2023",
+            "Time-Control": "Bullet",
+            "Description": "Bla bla bla",
+            "Number of Rounds": 4,
+            "Rounds": [
+                {
+                    "Round name": "Round 1",
+                    "Start date": "",
+                    "End date": "",
+                    "Match": [
+                        {
+                            "Player 1": "Jolie Angelina",
+                            "Player 2": "Francois Gary",
+                            "Score": 0
+                        },
+                        {
+                            "Player 1": "Bent Amel",
+                            "Player 2": "Lopez Jennifer",
+                            "Score": 0
+                        },
+                        {
+                            "Player 1": "Clumsy Biggie",
+                            "Player 2": "B Cadi",
+                            "Score": 0
+                        },
+                        {
+                            "Player 1": "Rogers Kenny",
+                            "Player 2": "Minaj Nicki",
+                            "Score": 0
+                        }
+                    ]
+                }
+            ],
+            "Number of players": "8",
+            "Players": [
+                {
+                    "Last name": "B",
+                    "First name": "Cadi",
+                    "Date of birth": "02/02/2000",
+                    "Gender": "f",
+                    "Rank": 250,
+                    "Score": 0
+                },
+                {
+                    "Last name": "Lopez",
+                    "First name": "Jennifer",
+                    "Date of birth": "02/02/1978",
+                    "Gender": "f",
+                    "Rank": 300,
+                    "Score": 0
+                },
+                {
+                    "Last name": "Francois",
+                    "First name": "Gary",
+                    "Date of birth": "02/02/2000",
+                    "Gender": "m",
+                    "Rank": 350,
+                    "Score": 0
+                },
+                {
+                    "Last name": "Rogers",
+                    "First name": "Kenny",
+                    "Date of birth": "02/02/1950",
+                    "Gender": "m",
+                    "Rank": 400,
+                    "Score": 0
+                },
+                {
+                    "Last name": "Clumsy",
+                    "First name": "Biggie",
+                    "Date of birth": "01/01/1989",
+                    "Gender": "m",
+                    "Rank": 450,
+                    "Score": 0
+                },
+                {
+                    "Last name": "Bent",
+                    "First name": "Amel",
+                    "Date of birth": "03/02/1987",
+                    "Gender": "f",
+                    "Rank": 500,
+                    "Score": 0
+                },
+                {
+                    "Last name": "Jolie",
+                    "First name": "Angelina",
+                    "Date of birth": "04/01/1980",
+                    "Gender": "f",
+                    "Rank": 550,
+                    "Score": 0
+                },
+                {
+                    "Last name": "Minaj",
+                    "First name": "Nicki",
+                    "Date of birth": "03/03/1987",
+                    "Gender": "f",
+                    "Rank": 150,
+                    "Score": 0
+                }
+            ]
+        },
+        "7": {
+            "Tournament name": "Paris Test 7",
+            "Venue": "Paris",
+            "Date": "02/02/2023",
+            "Time-Control": "Blitz",
             "Description": "Bla bla bla",
             "Number of Rounds": 4,
             "Rounds": [

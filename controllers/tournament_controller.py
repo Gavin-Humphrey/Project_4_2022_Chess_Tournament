@@ -1,30 +1,26 @@
-from datetime import datetime, date
-import time
-from tinydb import TinyDB, Query
 import random
-from models.tournament import *  
-from models import tournament
-from models.players import Player
-from controllers.database_controller import DatabaseWorker
-import controllers.round_controller as RC
-import controllers.match_controller as MC
-import controllers.players_controller as PC
-import controllers.database_controller as dc
-from prettytable import PrettyTable
-from models.round import Round
-from views.display_menu import * 
-from controllers import menu_controller
-from controllers import create_menu
-from views import display_menu
-import views.tournament as tv
-import views.tournament as t
+from datetime import datetime
 from itertools import permutations
+from tinydb import Query, TinyDB
+import controllers.database_controller as dc
+import controllers.match_controller as MC
+import controllers.round_controller as RC
+import views.tournament as tv
+from controllers import create_menu, menu_controller
+from controllers.database_controller import DatabaseWorker
+from models import tournament
+from models.round import Round
+# from models.tournament import *
+from views import display_menu
+from views.display_menu import ViewDisplay
 
 
 class TournamentController:
+    """Create a tournament by entering all the details, save it in the database, and then run it if need be"""
+
+    # Too long ??????????????????
     @classmethod
     def create_tournament(cls, db, tdb):
-        """Create a tournament by entering all the details, save it in the database, and then run it if neeed be """
 
         input_name = input("Please Enter Tournament Name: ")
         input_place = input("Please Enter Venue: ")
@@ -36,37 +32,10 @@ class TournamentController:
                     "%d/%m/%Y",
                 ).strftime("%d/%m/%Y")
                 stop = True
-            except:
-                print("Please Enter Tournament's Start Date In Format (DD/MM/YYYY")
-
-        def nb_rounds():
-            nb_rounds = 4
-            print("The Number Of Rounds Is 4 By Default")
-            valid_number = False
-            while not valid_number:
-                print("Enter 'Y' To Change, And 'N' To Continuer")
-                choice = input(": ")
-                if choice == "Y":
-                    nb_rounds = input("Enter Number Of Rounds :")
-                    if nb_rounds.isdigit():
-                        valid_number = True
-                    else:
-                        print("Enter Digits")
-                if choice == "N":
-                    valid_number = True
-            return nb_rounds
-
-        def add_time_control():
-            print("Please Choose Time-Control: ")
-            time_control = None
-            entry = input("Enter 1 For Bullet; 2 For Blitz; Or 3 For Rapid: ")
-            if entry == "1":
-                time_control = "Bullet"
-            if entry == "2":
-                time_control = "Blitz"
-            if entry == "3":
-                time_control = "Rapid"
-            return time_control
+            except Exception:
+                ViewDisplay.display(
+                    "Please Enter Tournament's Start Date In Format (DD/MM/YYYY"
+                )
 
         desc = input("Please Add Tournament Description Here: ")
         input_nb_player = input(
@@ -74,25 +43,20 @@ class TournamentController:
         )
         serialized_player_table = db.table("Player")
         all_players = serialized_player_table.all()
-        show_players_list = display_menu.ShowPlayers.show_players_in_database(
-            all_players
-        )
-        indices = []
+        indices, list_players = [], []
         choice_ = input("Please Enter Your Choice: ")
         if choice_ == "1":
             for i in range(int(input_nb_player)):
                 indices.append(input(f"Please Enter The Index Of {i+1} Player  :"))
-                    
+
         else:
             indices = [
                 random.randint(0, len(all_players)) for e in range(int(input_nb_player))
-            ]      
-        list_players_ = [all_players[int(e) - 1] for e in indices]           
-        list_players = []
+            ]
+        list_players_ = [all_players[int(e) - 1] for e in indices]
         for p in list_players_:
             p["Score"] = 0
             list_players.append(p)
-                     
         if list_players != []:
             list_indice = list(range(int(len(list_players) / 2)))
             list_players_ranking = cls.player_classment(list_players)
@@ -103,16 +67,46 @@ class TournamentController:
                 input_name,
                 input_place,
                 start_date,
-                add_time_control(),
-                nb_rounds(),
+                cls.add_time_control(),
+                cls.nb_rounds(),
                 [round1],
                 input_nb_player,
                 list_players,
                 desc_=desc,
             )
-
             dc.DatabaseWorker.save_tournament_in_db(tournament_, tdb)
             return tournament_
+
+    @classmethod
+    def nb_rounds(cls):
+        nb_rounds = 4
+        ViewDisplay.display("The Number Of Rounds Is 4 By Default")
+        valid_number = False
+        while not valid_number:
+            ViewDisplay.display("Enter 'Y' To Change, And 'N' To Continuer")
+            choice = input(": ")
+            if choice == "Y":
+                nb_rounds = input("Enter Number Of Rounds :")
+                if nb_rounds.isdigit():
+                    valid_number = True
+                else:
+                    ViewDisplay.display("Enter Digits")
+            if choice == "N":
+                valid_number = True
+        return nb_rounds
+
+    @classmethod
+    def add_time_control(cls):
+        ViewDisplay.display("Please Choose Time-Control: ")
+        time_control = None
+        entry = input("Enter 1 For Bullet; 2 For Blitz; Or 3 For Rapid: ")
+        if entry == "1":
+            time_control = "Bullet"
+        if entry == "2":
+            time_control = "Blitz"
+        if entry == "3":
+            time_control = "Rapid"
+        return time_control
 
     @classmethod
     def create_matchs(cls, list_pair):
@@ -121,17 +115,17 @@ class TournamentController:
             list_match.append(MC.MatchController.create_match(name_p1, name_p2))
         return list_match
 
-    # Checking if a player exists or not in the data base
+    # Checking if a player exists or not in the database
     @classmethod
-    def get_player_name(cls, nb_player, db):  
+    def get_player_name(cls, nb_player, db):
         list_player = []
         for i in range(nb_player):
-            print(f"Player {i+1} ")
+            ViewDisplay.display(f"Player {i+1} ")
             first_name = input("Please Enter Player's First Name: ")
             last_name = input("Please Enter Players Last Name: ")
             p, pfound = DatabaseWorker.get_player_by_name(last_name, first_name, db)
             if not pfound:
-                print(
+                ViewDisplay.display(
                     f"{last_name} {first_name} Does Not Exist. Please Register And Try Again"
                 )
                 return []
@@ -164,7 +158,7 @@ class TournamentController:
                         list_player_ranking[: int(len(list_player_ranking) / 2)][i]
                         for i in indice_conf
                     ],
-                    list_player_ranking[int(len(list_player_ranking) / 2) :],
+                    list_player_ranking[int(len(list_player_ranking) / 2):],
                 )
             )
 
@@ -243,13 +237,13 @@ class TournamentController:
         m["Score"] = tuple([score_p1, score_p2])
         return m
 
+    # ?????????????????????? Too long
     @classmethod
     def play_last_round_match(
         cls, t_dict, tournament_table, tournament_name, tour_query
     ):
         if t_dict:
-            list_player = t_dict["Players"]
-            matchs = t_dict["Rounds"][-1]["Match"]
+            list_player, matchs = t_dict["Players"], t_dict["Rounds"][-1]["Match"]
             r = t_dict["Rounds"]
             all_match_terminated = True
             for i, m in enumerate(matchs):
@@ -258,8 +252,7 @@ class TournamentController:
                     if random_float >= 0.5:
                         col1, col2 = "Black", "White"
                     else:
-                        col2, col1 = "Black", "White"
-
+                        col1, col2 = "White", "Black"
                     response_ = input(
                         f"If The Match Between {m['Player 1']} And {m['Player 2']} Is Terminated, Press 'y' "
                     )
@@ -274,12 +267,13 @@ class TournamentController:
                                 f"Enter The Score Of {m['Player 2']}: Who Played In {col2} Color: "
                             )
                         )
-                        name_p1 = m["Player 1"].split(" ")
+                        name_p1, name_p2 = m["Player 1"].split(" "), m[
+                            "Player 2"
+                        ].split(" ")
                         last_name_p1, first_name_p1 = (
                             " ".join(name_p1[0:-1]),
                             name_p1[-1],
                         )
-                        name_p2 = m["Player 2"].split(" ")
                         last_name_p2, first_name_p2 = (
                             " ".join(name_p2[0:-1]),
                             name_p2[-1],
@@ -288,7 +282,7 @@ class TournamentController:
                         stop = False
                         while not stop:
                             if (score_p1, score_p2) not in list_score_enable:
-                                print("Enter 0, 0.5, or 1")
+                                ViewDisplay.display("Enter 0, 0.5, or 1")
                                 score_p1 = float(
                                     input(
                                         f"Enter The Score Of {m['Player 1']}: Who Played In {col1} Color: "
@@ -301,19 +295,18 @@ class TournamentController:
                                 )
                             else:
                                 stop = True
-
                         dif = score_p1 - score_p2
                         if dif in [-2, 1]:
-                            print(
+                            ViewDisplay.display(
                                 f"{last_name_p1} {first_name_p1} Will Win This Match!"
                             )
                         elif dif in [-1, 2]:
-                            print(
+                            ViewDisplay.display(
                                 f"{last_name_p2} {first_name_p2} Will Win This Match!"
                             )
                         else:
-                            print("This Match Will End In A Draw!")
-                        print("")
+                            ViewDisplay.display("This Match Will End In A Draw!")
+                        ViewDisplay.display("")
                         r[-1]["Match"][i] = cls.update_score_all_player(
                             list_player,
                             last_name_p1,
@@ -336,14 +329,12 @@ class TournamentController:
                         all_match_terminated = False
         return all_match_terminated, r
 
-    # Update score and creat next round
     @classmethod
     def update_create_round(
         cls,
         t_dict,
         r,
         tournament_name,
-        db,
         tournament_table,
         player_table,
         tournament,
@@ -372,18 +363,19 @@ class TournamentController:
                 if s:
                     score += s[0]["Score"]
                 else:
-                    print(k, "Does Not Exist")
+                    ViewDisplay.display(k, "Does Not Exist")
 
                 player_table.update({"Score": score}, player["Last name"] == k)
-            print(matchs)
+            ViewDisplay.display(matchs)
 
         if t_dict["Number of Rounds"] > len(r):
             new_r = input(" Do You Want To Start A New Round?  If Yes, Press 'Y': ")
             if new_r.lower() == "y":
                 cls.add_round(t_dict, tournament_table, tournament, tournament_name)
         else:
-            print(" ")
-            print("This Tournament Is Ended")
+            ViewDisplay.display(" ")
+            ViewDisplay.display("This Tournament Is Ended")
+            ViewDisplay.display(" ")
 
     # Running the tournament
     @classmethod
@@ -401,7 +393,6 @@ class TournamentController:
                 t_dict,
                 r,
                 tournament_name,
-                db,
                 tournament_table,
                 player_table,
                 tournament,
@@ -409,7 +400,9 @@ class TournamentController:
             )
 
         else:
-            print("The Tournament You Are Looking For Does Not Exist In Our Database")
+            ViewDisplay.display(
+                "The Tournament You Are Looking For Does Not Exist In Our Database"
+            )
 
     # Displays the tournaments, iterates the table with the entered index to permit to resume an unfinished tournament
     @classmethod
@@ -419,7 +412,7 @@ class TournamentController:
         not_finished_tournament = [
             t for t in all_tournament if not cls.is_tournament_finished(t)
         ]
-        tv.get_all_tournament(not_finished_tournament)
+        tv.TournamentView.get_all_tournament(not_finished_tournament)
 
         enter_index = False
         while not enter_index:
@@ -430,8 +423,55 @@ class TournamentController:
                 ]
                 cls.run_tournament(tourn_to_resume, db, pdb)
                 enter_index = True
-            except:
-                print("Please Enter A Valid Tournament Index")
+            except Exception:
+                ViewDisplay.display("Please Enter A Valid Tournament Index")
+
+    # Too long ??????????????????
+    @classmethod
+    def get_match_combinaition(
+        cls,
+        all_config,
+        list_finale,
+        round_,
+        list_match_old_round,
+        tournament_table,
+        name_round,
+        round_date_begin,
+        tournament_query,
+        tournament_name_,
+    ):
+        stop = False
+        indice_conf = 0
+        while indice_conf < len(all_config) and not stop:
+            list_pair = cls.player_pair(list_finale, all_config[indice_conf])
+            if all(
+                [
+                    (z, w) not in list_match_old_round and (w, z) not in list_match_old_round
+                    for (z, w) in list_pair
+                ]
+            ):
+                stop = True
+            indice_conf += 1
+        if indice_conf > len(all_config):
+            ViewDisplay.display("Match List Is Empty. You Cannot Create A New Round")
+        else:
+            list_match = cls.create_matchs(list_pair)
+            new_round = Round(name_round, list_match)
+            round_.append(
+                {
+                    "Round name": new_round.round_name,
+                    "Start date": round_date_begin,
+                    "Match": [
+                        {"Player 1": m.player1, "Player 2": m.player2, "Score": m.score}
+                        for m in list_match
+                    ],
+                }
+            )
+            tournament_table.update(
+                {"Rounds": round_},
+                tournament_query["Tournament name"] == tournament_name_,
+            )
+            ViewDisplay.display(" "), ViewDisplay.display(" ")
 
     @classmethod
     def add_round(
@@ -446,7 +486,7 @@ class TournamentController:
                 is_round_ended = False
                 break
         if is_round_ended and len(round_) < tournament["Number of Rounds"]:
-            print("Enter 'Y' To Start A New Round")
+            ViewDisplay.display("Enter 'Y' To Start A New Round")
             choice = input(": ")
             if choice.lower() == "y":
                 name_round = input("Please Enter The New Round Name: ")
@@ -457,71 +497,60 @@ class TournamentController:
                     key=lambda x: (x["Score"], x["Rank"]),
                     reverse=True,
                 )
-
                 list_finale = [
                     e["Last name"] + " " + e["First name"]
                     for e in cls.ordre_level_three(sort_one_level)
                 ]
-
-                print(" ")
-                print(" ")
-
-                list_match_in_round = [r["Match"] for r in round_]
-                list_match_old_round = []
-                for l in list_match_in_round:
-                    for w in l:
+                ViewDisplay.display(" "), ViewDisplay.display(" ")
+                list_match_in_round, list_match_old_round = [
+                    r["Match"] for r in round_
+                ], []
+                for lm_ in list_match_in_round:
+                    for w in lm_:
                         list_match_old_round.append((w["Player 1"], w["Player 2"]))
-                print(" ")
-
+                ViewDisplay.display(" ")
                 all_config = list(
                     permutations(list(range(int(nb_player / 2))), int(nb_player / 2))
                 )
-                stop = False
-                indice_conf = 0
-
-                while indice_conf < len(all_config) and not stop:
-                    list_pair = cls.player_pair(list_finale, all_config[indice_conf])
-                    if all(
-                        [
-                            (z, w) not in list_match_old_round
-                            and (w, z) not in list_match_old_round
-                            for (z, w) in list_pair
-                        ]
-                    ):
-                        stop = True
-                    indice_conf += 1
-                if indice_conf > len(all_config):
-                    print("Match List Is Empty. You Cannot Create A New Round")
-                else:
-                    list_match = cls.create_matchs(list_pair)
-                    new_round = Round(name_round, list_match)
-                    round_.append(
-                        {
-                            "Round name": new_round.round_name,
-                            "Start date": round_date_begin,
-                            "Match": [
-                                {
-                                    "Player 1": m.player1,
-                                    "Player 2": m.player2,
-                                    "Score": m.score,
-                                }
-                                for m in list_match
-                            ],
-                        }
-                    )
-                    tournament_table.update(
-                        {"Rounds": round_},
-                        tournament_query["Tournament name"] == tournament_name_,
-                    )
-
-                    print(" ")
-                    print(" ")
-
+                cls.get_match_combinaition(
+                    all_config,
+                    list_finale,
+                    round_,
+                    list_match_old_round,
+                    tournament_table,
+                    name_round,
+                    round_date_begin,
+                    tournament_query,
+                    tournament_name_,
+                )
+                # stop = False
+                # indice_conf = 0
+                # while indice_conf < len(all_config) and not stop:
+                #     list_pair = cls.player_pair(list_finale, all_config[indice_conf])
+                #     if all([(z, w) not in list_match_old_round
+                #         and (w, z) not in list_match_old_round for (z, w) in list_pair]):
+                #         stop = True
+                #     indice_conf += 1
+                # if indice_conf > len(all_config):
+                #     ViewDisplay.display("Match List Is Empty. You Cannot Create A New Round")
+                # else:
+                #     list_match, new_round = cls.create_matchs(list_pair), Round(name_round, list_match)
+                #     round_.append(
+                #         { "Round name": new_round.round_name, "Start date": round_date_begin,
+                #             "Match": [
+                #                 {"Player 1": m.player1, "Player 2": m.player2, "Score": m.score}
+                #                 for m in list_match]})
+                #     tournament_table.update({"Rounds": round_},
+                #          tournament_query["Tournament name"] == tournament_name_)
+                #     ViewDisplay.display(" "), ViewDisplay.display(" ")
             elif len(round_) == tournament["Number of Rounds"]:
-                print("You Cannot Create A New Round. Number Of Rounds Attained!")
-
+                ViewDisplay.display(
+                    "You Cannot Create A New Round. Number Of Rounds Attained!"
+                )
             else:
-                print("Cannot Start A New Round. Previous Round Not Terminated")
+                ViewDisplay.display(
+                    "Cannot Start A New Round. Previous Round Not Terminated"
+                )
 
     @classmethod
     def ordre_level_three(cls, list_player):
@@ -555,39 +584,27 @@ class TournamentController:
 class TournamentReport:
     """Displays Tournament report, select and display a chosen tournament, its rounds and matches"""
 
-    def __call__(self):  
+    def __call__(self):
         db = TinyDB("data_base.json")
-        Player = Query()
-        Table_player = db.table("Player")
         tdb = TinyDB("tournament_db.json")
         self.menu_create = create_menu.CreateMenu()
         self.main_menu_controller = menu_controller.MainMenuController()
         self.display_player = display_menu.DisplayPlayersReport()
         self.display_tournament = display_menu.DisplayTournamentsReport()
         self.display_player_by_tournament = display_menu.DisplayPlayersByTournament()
-        self.display_all_tournaments = t
+        self.display_all_tournaments = tv
         serialized_player_table = db.table("Player")
         self.players_db = serialized_player_table.all()
         serialized_tournament_table = tdb.table("Tournament")
         self.all_tournament = serialized_tournament_table.all()
 
-        # Display all the tournaments
-        # self.display_tournament(self.all_tournament)
-        # self.display_tournament(self.dict_tournament)
-        ## Displays all the tournaments
         entry = self.menu_create(self.menu_create.tournaments_report_menu)
         if entry == "1":
-            # self.display_tournament(self.all_tournament)
-            
-            # tournament_display_info = self.display_tournament(tour_info_to_disp)# self.all_tournament
             self.info_to_disp = self.all_tournament
-            self.display_all_tournaments.get_all_tournament(self.all_tournament)
-
-            ##
-            # self.display_tournament = self.main_menu_controller(self.all_tournament, self.players_db, db, tdb)  #self.all_tournament, self.players_db, db, tdb
-            # input("Enter a letter to return to Main Menu")
+            self.display_all_tournaments.TournamentView.get_all_tournament(
+                self.all_tournament
+            )
             TournamentReport.__call__(self)
-            ## Display a chosen tournament, its players, rounds, and matches
         if entry == "2":
             valid_choice = True
             while valid_choice:
@@ -604,9 +621,9 @@ class TournamentReport:
                     choice_tournament["Number of players"],
                     choice_tournament["Number of Rounds"],
                 ]
-                print(" ")
-                print("TOURNAMENT")
-                print(" ")
+                ViewDisplay.display(" ")
+                ViewDisplay.display("TOURNAMENT")
+                ViewDisplay.display(" ")
                 self.display_tournament.display_tournament_sel(tournament_sel)
 
                 choice_tournament = self.all_tournament[int(identifiant_tournament) - 1]
@@ -617,71 +634,28 @@ class TournamentReport:
                         "Rank": w["Rank"],
                     }
                     for w in choice_tournament["Players"]
-                ]  # [(p['Last name'], p['First name'], p['Rank'])
-                # for p in choice_tournament['Players']]
+                ]
                 self.display_player_by_tournament(
                     sorted(list_player_, key=lambda x: x["Last name"])
                 )
 
-                print(" ")
-                print("ROUND")
-                print(" ")
-                print(choice_tournament["Rounds"])
+                ViewDisplay.display(" ")
+                ViewDisplay.display("ROUND")
+                ViewDisplay.display(" ")
+                ViewDisplay.display(choice_tournament["Rounds"])
                 l_round_choice = [
                     (r["Round name"], r["Start date"])
                     for r in choice_tournament["Rounds"]
                 ]
-                print(l_round_choice)
-                print(" ")
-                print("MATCH")
-                print(" ")
-                print([r["Match"] for r in choice_tournament["Rounds"]])
-                print(" ")
+                ViewDisplay.display(l_round_choice)
+                ViewDisplay.display(" ")
+                ViewDisplay.display("MATCH")
+                ViewDisplay.display(" ")
+                ViewDisplay.display([r["Match"] for r in choice_tournament["Rounds"]])
+                ViewDisplay.display(" ")
                 valid_choice = False
                 TournamentReport.__call__(self)
                 self.main_menu_controller(self)
-
-                """
-                # To print the dictionary of the tournament
-                #print(choice_tournament)
-                entry = self.menu_create(self.menu_create.sub_tournaments_report_menu)
-                # Display the players in the chosen Tournament in alphabetical order
-                if entry == "1":
-                    entry = self.menu_create(self.menu_create.players_report_menu)
-                if entry == "1":
-                    #identifiant_tournament = input("Enter Tournament  : ")
-                    choice_tournament = self.all_tournament[int(identifiant_tournament)-1]
-                    list_player_ = [(p['Last name'], p['First name'], p['Rank']) 
-                    for p in choice_tournament['Players']]
-                    self.display_player_by_tournament(sorted(list_player_, key = lambda x: x[0]))
-                    input("Enter any letter to return to Main Menu: ")
-                    #TournamentReport.__call__(self)
- 
-                    # Display the players in the chosen Tournament in ranking order
-                    entry = self.menu_create(self.menu_create.players_report_menu)
-                    if entry == "2":
-                        choice_tournament = self.all_tournament[int(identifiant_tournament)-1]
-                        self.display_player_by_tournament(sorted(list_player_, key = lambda x: x[2],reverse=True))
-                        input("Enter any letter to return to Main Menu: ")   
-                        #TournamentReport.__call__(self)
-                       
-                # Display the Rounds in the chosen Tournament
-                entry = self.menu_create(self.menu_create.sub_tournaments_report_menu)
-                if entry == "2":
-                    print(choice_tournament['Rounds'])
-                    l_round_choice = [(r['Round name'], r['Start date']) 
-                    for r in choice_tournament['Rounds']]
-                    print(l_round_choice)
-
-                    input("Enter any letter to return to Main Menu: ")
-                    TournamentReport.__call__(self)
-
-                # Display the matches in chosen Tournament 
-                entry = self.menu_create(self.menu_create.sub_tournaments_report_menu)
-                if entry == "3":
-                    print([r['Match'] for r in choice_tournament['Rounds']])
-                    input("Enter any letter to return to Main Menu: ")
-                    #TournamentReport.__call__(self)"""
 
                 # Go to main menu
                 if entry == "4":
@@ -689,22 +663,9 @@ class TournamentReport:
                     TournamentReport.__call__(self)
                     self.main_menu_controller(self)
 
-                """# Display all the tournaments
-                #self.display_tournament()
-                entry = self.menu_create(self.menu_create.tournaments_report_menu)
-                if entry == "1":
-                    self.display_tournaments = self.main_menu_controller(self.all_tournament, self.players_db, db, tdb)  #self.all_tournament, self.players_db, db, tdb
-                    self.main_menu_controller()
-                # Choose a tournament
-                if entry == "2":
-                    identifiant_tournament = input("Enter Tournament  : ")
-                    choice_tournament = self.all_tournament[int(identifiant_tournament)-1]
-                    print(choice_tournament)
-                    TournamentReport.__call__(self)"""
-
         else:  # Go to main menu
             if entry == "3":
                 valid_choice = False
                 self.main_menu_controller()
 
-            print("Enter The Number Corresponding To Your Choice")
+            ViewDisplay.display("Enter The Number Corresponding To Your Choice")

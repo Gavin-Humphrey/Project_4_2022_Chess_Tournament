@@ -1,6 +1,6 @@
 class CreateMenu:
     """Creates the main menu, and sub-menus
-     according to the number choosen"""
+    according to the number chosen"""
 
     main_menu = [("1", "Players Menu"), ("2", "Tournament Menu"), ("3", "Exit")]
     player_menu = [
@@ -32,7 +32,7 @@ class CreateMenu:
     ]
     tournaments_report_menu = [
         ("1", "Display All Tournaments"),
-        ("2", "Want To Display A Particular Tournament?"),
+        ("2", "Choose A Tournament To Display"),
         ("3", "Back To Control Menu <<--"),
     ]
     sub_tournaments_report_menu = [

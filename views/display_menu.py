@@ -1,15 +1,22 @@
-import prettytable
-from models import players
-from models import tournament
-from controllers import database_controller
-from tinydb import TinyDB, Query, where
-from controllers.database_controller import *
+# from models import players
+# from models import tournament
+# from controllers import database_controller
+# from tinydb import TinyDB, Query, where
+# from controllers.database_controller import *
 from prettytable import PrettyTable
 import views.tournament as t
 
 
+class ViewDisplay:
+    @classmethod
+    def display(cls, message: str):
+        """Print a message"""
+        print(message)
+
+
 class ShowMain:
     """Show main menu display"""
+
     def show_menu_detail(self):
 
         print(
@@ -27,7 +34,7 @@ class ShowMain:
 
 class ShowTournament:
     def __call__(self):
-        tdb = TinyDB("tournament_db.json")
+        """tdb = TinyDB("tournament_db.json")
         not_started_tournament = False
         tournaments_db = tournament.tdb
 
@@ -36,7 +43,7 @@ class ShowTournament:
                 print({"Name": t.name, "Venue": t.place})
                 not_started_tournament = True
 
-        return not_started_tournament
+        return not_started_tournament"""
 
 
 class ShowPlayers:
@@ -72,9 +79,8 @@ class DisplayPlayersReport:
             for k, v in player.items():
                 if k in ["Last name", "First name", "Rank", "Score"]:
                     print(k + " : " + str(v))
-               
 
-    def display_alphabetical(self, all_players): 
+    def display_alphabetical(self, all_players):
         print(" ")
         print("Players In Alphabetical Order")
         for i, pl in enumerate(all_players):
@@ -82,7 +88,7 @@ class DisplayPlayersReport:
             for k, v in pl.items():
                 if k in ["Last name", "First name", "Date of birth", "Gender", "Rank"]:
                     print(k + " : " + str(v))
-                    
+
         print("Press A Letter To Go Back To Report Menu")
         input()
 
@@ -100,14 +106,14 @@ class DisplayPlayersReport:
 class DisplayTournamentsReport:
     """Displays all the tournaments, and a selected tournament in detail"""
 
-    def __call__(tournament_dict): 
+    def __call__(tournament_dict):
         print(
             "------------------------------------------------\n"
             "               Tournament Report                \n"
             "------------------------------------------------\n"
             " Display Reports :\n"
         )
-        t.get_all_tournament(tournament_dict) 
+        t.TournamentView.get_all_tournament(tournament_dict)
 
         myTable = PrettyTable(
             [
@@ -123,7 +129,7 @@ class DisplayTournamentsReport:
         print(myTable)
         print("==========================================================")
 
-    # To select and display a tournament 
+    # To select and display a tournament
     def display_tournament_sel(self, tournament_sel):
         myTable = PrettyTable(
             [
@@ -142,7 +148,7 @@ class DisplayTournamentsReport:
 
 class DisplayPlayersByTournament:
     """Displays the players in a selected tournament"""
-    
+
     def __call__(self, list_player):
         print(" ")
         print("------------------\n" "      Players     \n" "------------------\n")

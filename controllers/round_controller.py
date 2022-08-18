@@ -1,4 +1,4 @@
-from models.round import *  
+from models.round import Round
 
 
 class RoundController:

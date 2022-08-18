@@ -7,7 +7,9 @@ class Match:
         self.desc = ""
 
     def __str__(self):
-        return f"match  {self.player1.last_name} {self.player1.first_name} vs  {self.player2.last_name} {self.player2.first_name}  round:{self.round_name} score : {self.score}"
+        return f"match  {self.player1.last_name} {self.player1.first_name} vs " \
+               f"{self.player2.last_name} {self.player2.first_name}  " \
+               f"round:{self.round_name} score:{self.score}"
 
     def update_score(self, new_score):
         self.score = new_score

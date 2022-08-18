@@ -1,5 +1,5 @@
-from models.players import *
-from .round import *
+# from models.players import *
+# from .round import *
 
 
 class Tournament:

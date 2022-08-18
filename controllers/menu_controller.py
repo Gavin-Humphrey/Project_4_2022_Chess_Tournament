@@ -1,10 +1,10 @@
 import sys
-from controllers import players_controller
-from controllers import tournament_controller
+from tinydb import TinyDB
+from controllers import database_controller
+from controllers import players_controller, tournament_controller
 from controllers.create_menu import CreateMenu
-from views.display_menu import *
-from tinydb import TinyDB, Query, where
-# from controllers.database_controller import *
+from views.display_menu import ShowMain, ShowPlayers
+from views.display_menu import ViewDisplay
 
 
 class MainMenuController:
@@ -109,10 +109,8 @@ class TournamentMenuController(MainMenuController):
             self.controller_choice = self.main_menu_controller()
         if entry == "4":
             name__ = input("Enter The Name Of Tournament You Want To Search: ")
-            # self.st = input('Which match status would you display?\n' "Enter 1 for Finished Matches\n" "Enter 2 for Ongoing Matches\n" "Enter 3 for All Matches: ")
             self.list_match = self.run_tournament.get_match_tournament(name__, self.tdb)
-            print(self.list_match)
-            # self.controller_choice = self.run_tournament.get_match_tournament(self.tournament_name, self.status, self.db)
+            ViewDisplay.display(self.list_match)
         if entry == "5":
             self.controller_choice = self.tournament_report_controller()
         if entry == "6":

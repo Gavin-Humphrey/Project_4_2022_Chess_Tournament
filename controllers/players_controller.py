@@ -1,22 +1,60 @@
-# from datetime import datetime, date
-import datetime
-from tinydb import TinyDB, Query
-
-# from controllers.database_controller import save_player_in_db
-from models.players import Player
-from views.players import *
+from datetime import datetime
+# import datetime
+from tinydb import Query
 from controllers import menu_controller
-from controllers.database_controller import DatabaseWorker
 from controllers.create_menu import CreateMenu
+from models.players import Player
 from views import display_menu
+# from views.players import *
+from views.display_menu import ViewDisplay
 
 
 class PlayerController:
-    """Creates and adds players to database by entering player's details, then add update player's scores and ranks to the database"""
+    """
+    Creates and adds players to database by entering player's details,
+    then add update player's scores and ranks to the database
+    """
+
+    # Too long ????????????????????
+    @classmethod
+    def get_list_player(cls, nb_player):
+        list_player = []
+        for i in range(nb_player):
+            stop_rank = False
+            # stop_score = False
+            stop_dob = False
+            last_name = input("Please enter player {} last name: ".format(i + 1))
+            first_name = input("Please enter player {} first name: ".format(i + 1))
+            while not stop_dob:
+                try:
+                    dob = datetime.strptime(
+                        input(
+                            "Please enter player {} date of birth in (DD/MM/YYYY): ".format(
+                                i + 1
+                            )
+                        ),
+                        "%d/%m/%Y",
+                    ).strftime("%d/%m/%Y")
+                    stop_dob = True
+                except Exception:
+                    ViewDisplay.display(
+                        "Please enter player's date of birth in format (DD/MM/YYYY"
+                    )
+            gender = input("Please enter player {} gender: ".format(i + 1))
+            while not stop_rank:
+                try:
+                    rank = int(input("Please enter player {} rank: ".format(i + 1)))
+                    stop_rank = True
+                except Exception:
+                    ViewDisplay.display("Attributed rank should be a number")
+
+            p = Player(last_name, first_name, dob, gender, rank)
+            ViewDisplay.display(p)
+            list_player.append(p)
+        return list_player
 
     @classmethod
     def create_player(cls):
-        list_player = []
         stop = False
         while not stop:
             try:
@@ -24,59 +62,56 @@ class PlayerController:
                     input("Please enter the number of players you want to create: ")
                 )
                 stop = True
-            except:
-                print("Please enter a number ")
+            except Exception:
+                ViewDisplay.display("Please enter a number ")
             else:
-                for i in range(nb_player):
-                    stop_rank = False
-                    # stop_score = False
-                    stop_dob = False
-                    last_name = input(
-                        "Please enter player {} last name: ".format(i + 1)
-                    )
-                    first_name = input(
-                        "Please enter player {} first name: ".format(i + 1)
-                    )
-                    while not stop_dob:
-                        try:
-                            dob = datetime.strptime(
-                                input(
-                                    "Please enter player {} date of birth in (DD/MM/YYYY): ".format(
-                                        i + 1
-                                    )
-                                ),
-                                "%d/%m/%Y",
-                            ).strftime("%d/%m/%Y")
-                            stop_dob = True
-                        except:
-                            print(
-                                "Please enter player's date of birth in format (DD/MM/YYYY"
-                            )
-                    gender = input("Please enter player {} gender: ".format(i + 1))
-                    while not stop_rank:
-                        try:
-                            rank = int(
-                                input("Please enter player {} rank: ".format(i + 1))
-                            )
-                            stop_rank = True
-                        except:
-                            print("Attributed rank should be a number")
+                return cls.get_list_player(nb_player)
+                # for i in range(nb_player):
+                #     stop_rank = False
+                #     # stop_score = False
 
-                    p = Player(last_name, first_name, dob, gender, rank)
-                    print(p)
-                    list_player.append(p)
-                return list_player
+                #     last_name = input("Please enter player {} last name: ".format(i + 1))
+                #     first_name = input("Please enter player {} first name: ".format(i + 1))
+                #     while not stop_dob:
+                #         try:
+                #             dob = datetime.strptime(
+                #                 input(
+                #                      "Please enter player {} date of birth in (DD/MM/YYYY): ".format(
+                #                          i + 1
+                #                     )
+                #                 ),
+                #                  "%d/%m/%Y",
+                #             ).strftime("%d/%m/%Y")
+                #             stop_dob = True
+                #         except Exception:
+                #              ViewDisplay.display(
+                #                  "Please enter player's date of birth in format (DD/MM/YYYY"
+                #              )
+                #     gender = input("Please enter player {} gender: ".format(i + 1))
+                #     while not stop_rank:
+                #         try:
+                #             rank = int(
+                #                 input("Please enter player {} rank: ".format(i + 1))
+                #             )
+                #             stop_rank = True
+                #         except Exception:
+                #             ViewDisplay.display("Attributed rank should be a number")
+
+                #     p = Player(last_name, first_name, dob, gender, rank)
+                #     ViewDisplay.display(p)
+                #     list_player.append(p)
+                # return list_player
 
     # Displays players ranking by scores
     @classmethod
     def display_player_scores(cls, player_table):
-        print(" ")
-        print("   Players Ranking By Score")
+        ViewDisplay.display(" ")
+        ViewDisplay.display("   Players Ranking By Score")
         for i, player in enumerate(player_table, 1):
-            print(f"\n-- Player no {i} --\n")
+            ViewDisplay.display(f"\n-- Player no {i} --\n")
             for k, v in player.items():
                 if k in ["Last name", "First name", "Rank", "Score"]:
-                    print(k + " : " + str(v))
+                    ViewDisplay.display(k + " : " + str(v))
 
     # Updates  players ranking by scores
     @classmethod
@@ -93,9 +128,11 @@ class PlayerController:
                 if int(choice) <= len(all_players) or int(choice) >= 1:
                     last_name = all_players[int(choice) - 1]["Last name"]
                     valid = True
-            except:  # Too broad exception clause?????
+            except Exception:
                 pass
-        print("1: update score \n2: update Rank\n3: update Rank\n")
+        ViewDisplay.display(
+            "1: Update Score \n2: Update Rank\n3: Update Score And Rank\n"
+        )
         choice = input("Please Enter Your Choice: ")
 
         # choice = input ("please enter 1 if you want to update score, 2 for Rank 3 for twice : ")
@@ -125,6 +162,7 @@ class PlayerController:
 class PlayerReport:
     """Displays all the actors, sorts and displays players by ranks, and by alphabets"""
 
+    # Too long???????????????????????
     def __call__(self, db):
         self.menu_create = CreateMenu()
         self.main_menu_controller = menu_controller.MainMenuController()
