@@ -20,4 +20,5 @@ Views/__pycache__/Tournament.cpython-310.pyc
 .idea/
 .gitignore/
 .idea
+/.idea/.gitignore
 Controllers/tineydb_test.py/
