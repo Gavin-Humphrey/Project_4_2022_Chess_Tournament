@@ -15,18 +15,23 @@ Cette application permet de :
 
 Conditions préalables
 
-Commencez par installer Python en premier via https://www.python.org/downloads/. 
+Commencez par installer Python en premier via https://www.python.org/downloads/ 
 
-Vous pouvez installer un environnement virtuel via la commande
-pip install venv dans le terminal, puis installez requirements.txt en entrant :
+Création de l'environnement virtuel
+python -m venv venv 
+
+Activation de l'environnement virtuel :
+Linux, Mac (à toi te me dire):
+source venv/Scripts/activate
+
+Windows:
+venv\Scripts\activate.bat (cmd)
+venv\Scripts\Activate.ps1 (poweshell)
+
+Installation des dépendances
 pip install -r requirements.txt
-afin d'installer toutes les librairies.
-
-Le programme utilise plusieurs librairies externes et modules Python, qui sont listés dans le fichier requirements.txt
-
 
 Start:
-
 Vous pouvez enfin lancer le script depuis un terminal via la commande :
 python main.py
 
