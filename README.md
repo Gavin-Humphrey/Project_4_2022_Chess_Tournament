@@ -31,6 +31,12 @@ venv\Scripts\Activate.ps1 (poweshell)
 Installation des dépendances
 pip install -r requirements.txt
 
+Installation Flake8:
+pip install flake8
+
+Pour générer un rapport flake8 HTML:
+flake8 --format=html --htmldir=flake-report
+
 Start:
 Vous pouvez enfin lancer le script depuis un terminal via la commande :
 python main.py

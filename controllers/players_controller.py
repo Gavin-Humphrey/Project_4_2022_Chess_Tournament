@@ -74,7 +74,7 @@ class PlayerController:
                 if k in ["Last name", "First name", "Rank", "Score"]:
                     ViewDisplay.display(k + " : " + str(v))
 
-    # Updates  players ranking by scores
+    # Updates  players ranking
     @classmethod
     def update_player_score_rank(cls, all_players, player_table):
         cls.display_player_scores(all_players)
@@ -91,17 +91,19 @@ class PlayerController:
                     valid = True
             except Exception:
                 pass
-        ViewDisplay.display(
-            "1: Update Score \n2: Update Rank\n3: Update Score And Rank\n"
+        new_rank = int(input("Please Enter The New Rank : "))
+        player_table.update({"Rank": new_rank}, player["Last name"] == last_name)
+        """ViewDisplay.display(
+            '1: Update Rank\n \n2: Update Score\n3: Update Score And Rank\n'
         )
-        choice = input("Please Enter Your Choice: ")
+        choice = input("Please Enter Your Choice: ")"""
 
         if choice == "1":
-            new_score = int(input("Please Enter The New Score : "))
-            player_table.update({"Score": new_score}, player["Last name"] == last_name)
-        elif choice == "2":
             new_rank = int(input("Please Enter The New Rank : "))
             player_table.update({"Rank": new_rank}, player["Last name"] == last_name)
+        elif choice == "2":
+            new_score = int(input("Please Enter The New Score : "))
+            player_table.update({"Score": new_score}, player["Last name"] == last_name)
         elif choice == "3":
             new_score = int(input("Please Enter The New Score : "))
             new_rank = int(input("Please Enter The New Rank : "))
@@ -111,9 +113,7 @@ class PlayerController:
     @classmethod
     def display_all_players(cls, db):
 
-        """player_table = db.table('Player')
-        player = Query()
-        cls.display_all_players(player_table, db)"""
+        pass
 
 
 class PlayerReport:

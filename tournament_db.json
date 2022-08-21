@@ -317,7 +317,46 @@
                             ]
                         }
                     ],
-                    "End date": "18/08/2022 07:15"
+                    "End date": "20/08/2022 00:36"
+                },
+                {
+                    "Round name": "Round 3",
+                    "Start date": "20/08/2022 00:37",
+                    "Match": [
+                        {
+                            "Player 1": "Bent Amel",
+                            "Player 2": "Francois Gary",
+                            "Score": [
+                                1.0,
+                                0.0
+                            ]
+                        },
+                        {
+                            "Player 1": "B Cadi",
+                            "Player 2": "Lopez Jennifer",
+                            "Score": [
+                                0.5,
+                                0.5
+                            ]
+                        },
+                        {
+                            "Player 1": "Rogers Kenny",
+                            "Player 2": "Jolie Angelina",
+                            "Score": [
+                                0.0,
+                                1.0
+                            ]
+                        },
+                        {
+                            "Player 1": "Clumsy Biggie",
+                            "Player 2": "Le Pen  Marine",
+                            "Score": [
+                                1.0,
+                                0.0
+                            ]
+                        }
+                    ],
+                    "End date": "20/08/2022 00:39"
                 }
             ],
             "Number of players": "8",
@@ -336,7 +375,7 @@
                     "Date of birth": "02/02/2000",
                     "Gender": "f",
                     "Rank": 150,
-                    "Score": 2.0
+                    "Score": 2.5
                 },
                 {
                     "Last name": "Lopez",
@@ -344,7 +383,7 @@
                     "Date of birth": "02/02/1978",
                     "Gender": "f",
                     "Rank": 200,
-                    "Score": 1.0
+                    "Score": 1.5
                 },
                 {
                     "Last name": "Francois",
@@ -368,7 +407,7 @@
                     "Date of birth": "01/01/1989",
                     "Gender": "m",
                     "Rank": 350,
-                    "Score": 1.0
+                    "Score": 2.0
                 },
                 {
                     "Last name": "Bent",
@@ -376,7 +415,7 @@
                     "Date of birth": "03/02/1987",
                     "Gender": "f",
                     "Rank": 400,
-                    "Score": 1.5
+                    "Score": 2.5
                 },
                 {
                     "Last name": "Jolie",
@@ -384,7 +423,7 @@
                     "Date of birth": "04/01/1980",
                     "Gender": "f",
                     "Rank": 450,
-                    "Score": 0.0
+                    "Score": 1.0
                 }
             ]
         },
@@ -808,36 +847,165 @@
             "Tournament name": "Paris Test 7",
             "Venue": "Paris",
             "Date": "02/02/2023",
-            "Time-Control": "Blitz",
+            "Time-Control": "Rapid",
             "Description": "Bla bla bla",
             "Number of Rounds": 4,
             "Rounds": [
                 {
                     "Round name": "Round 1",
                     "Start date": "",
-                    "End date": "",
+                    "End date": "19/08/2022 12:08",
                     "Match": [
                         {
                             "Player 1": "Jolie Angelina",
                             "Player 2": "Francois Gary",
-                            "Score": 0
+                            "Score": [
+                                1.0,
+                                0.0
+                            ]
                         },
                         {
                             "Player 1": "Bent Amel",
                             "Player 2": "Lopez Jennifer",
-                            "Score": 0
+                            "Score": [
+                                0.5,
+                                0.5
+                            ]
                         },
                         {
                             "Player 1": "Clumsy Biggie",
                             "Player 2": "B Cadi",
-                            "Score": 0
+                            "Score": [
+                                1.0,
+                                0.0
+                            ]
                         },
                         {
                             "Player 1": "Rogers Kenny",
                             "Player 2": "Le Pen  Marine",
-                            "Score": 0
+                            "Score": [
+                                0.0,
+                                1.0
+                            ]
                         }
                     ]
+                },
+                {
+                    "Round name": "Round 2",
+                    "Start date": "19/08/2022 12:10",
+                    "Match": [
+                        {
+                            "Player 1": "Jolie Angelina",
+                            "Player 2": "Lopez Jennifer",
+                            "Score": [
+                                1.0,
+                                0.0
+                            ]
+                        },
+                        {
+                            "Player 1": "Clumsy Biggie",
+                            "Player 2": "Rogers Kenny",
+                            "Score": [
+                                0.0,
+                                1.0
+                            ]
+                        },
+                        {
+                            "Player 1": "Le Pen  Marine",
+                            "Player 2": "Francois Gary",
+                            "Score": [
+                                0.5,
+                                0.5
+                            ]
+                        },
+                        {
+                            "Player 1": "Bent Amel",
+                            "Player 2": "B Cadi",
+                            "Score": [
+                                1.0,
+                                0.0
+                            ]
+                        }
+                    ],
+                    "End date": "19/08/2022 12:11"
+                },
+                {
+                    "Round name": "Round 3",
+                    "Start date": "19/08/2022 12:12",
+                    "Match": [
+                        {
+                            "Player 1": "Jolie Angelina",
+                            "Player 2": "Rogers Kenny",
+                            "Score": [
+                                0.5,
+                                0.5
+                            ]
+                        },
+                        {
+                            "Player 1": "Bent Amel",
+                            "Player 2": "Francois Gary",
+                            "Score": [
+                                0.0,
+                                1.0
+                            ]
+                        },
+                        {
+                            "Player 1": "Clumsy Biggie",
+                            "Player 2": "Lopez Jennifer",
+                            "Score": [
+                                1.0,
+                                0.0
+                            ]
+                        },
+                        {
+                            "Player 1": "Le Pen  Marine",
+                            "Player 2": "B Cadi",
+                            "Score": [
+                                0.5,
+                                0.5
+                            ]
+                        }
+                    ],
+                    "End date": "19/08/2022 12:13"
+                },
+                {
+                    "Round name": "Round 4",
+                    "Start date": "19/08/2022 12:14",
+                    "Match": [
+                        {
+                            "Player 1": "Bent Amel",
+                            "Player 2": "Rogers Kenny",
+                            "Score": [
+                                0.0,
+                                1.0
+                            ]
+                        },
+                        {
+                            "Player 1": "Clumsy Biggie",
+                            "Player 2": "Francois Gary",
+                            "Score": [
+                                0.5,
+                                0.5
+                            ]
+                        },
+                        {
+                            "Player 1": "Le Pen  Marine",
+                            "Player 2": "Lopez Jennifer",
+                            "Score": [
+                                0.0,
+                                1.0
+                            ]
+                        },
+                        {
+                            "Player 1": "Jolie Angelina",
+                            "Player 2": "B Cadi",
+                            "Score": [
+                                1.0,
+                                0.0
+                            ]
+                        }
+                    ],
+                    "End date": "19/08/2022 12:15"
                 }
             ],
             "Number of players": "8",
@@ -848,7 +1016,7 @@
                     "Date of birth": "02/02/1979",
                     "Gender": "f",
                     "Rank": 200,
-                    "Score": 0
+                    "Score": 2.0
                 },
                 {
                     "Last name": "B",
@@ -856,7 +1024,7 @@
                     "Date of birth": "02/02/2000",
                     "Gender": "f",
                     "Rank": 250,
-                    "Score": 0
+                    "Score": 0.5
                 },
                 {
                     "Last name": "Lopez",
@@ -864,7 +1032,7 @@
                     "Date of birth": "02/02/1978",
                     "Gender": "f",
                     "Rank": 300,
-                    "Score": 0
+                    "Score": 1.5
                 },
                 {
                     "Last name": "Francois",
@@ -872,7 +1040,7 @@
                     "Date of birth": "02/02/2000",
                     "Gender": "m",
                     "Rank": 350,
-                    "Score": 0
+                    "Score": 2.0
                 },
                 {
                     "Last name": "Rogers",
@@ -880,7 +1048,7 @@
                     "Date of birth": "02/02/1950",
                     "Gender": "m",
                     "Rank": 400,
-                    "Score": 0
+                    "Score": 2.5
                 },
                 {
                     "Last name": "Clumsy",
@@ -888,7 +1056,7 @@
                     "Date of birth": "01/01/1989",
                     "Gender": "m",
                     "Rank": 450,
-                    "Score": 0
+                    "Score": 2.5
                 },
                 {
                     "Last name": "Bent",
@@ -896,7 +1064,7 @@
                     "Date of birth": "03/02/1987",
                     "Gender": "f",
                     "Rank": 500,
-                    "Score": 0
+                    "Score": 1.5
                 },
                 {
                     "Last name": "Jolie",
@@ -904,7 +1072,240 @@
                     "Date of birth": "04/01/1980",
                     "Gender": "f",
                     "Rank": 550,
-                    "Score": 0
+                    "Score": 3.5
+                }
+            ]
+        },
+        "8": {
+            "Tournament name": "Paris Test 10",
+            "Venue": "Paris",
+            "Date": "02/02/2023",
+            "Time-Control": "Bullet",
+            "Description": "Bla bla bla",
+            "Number of Rounds": 4,
+            "Rounds": [
+                {
+                    "Round name": "Round 1",
+                    "Start date": "",
+                    "End date": "21/08/2022 23:18",
+                    "Match": [
+                        {
+                            "Player 1": "Jolie Angelina",
+                            "Player 2": "Francois Gary",
+                            "Score": [
+                                1.0,
+                                0.0
+                            ]
+                        },
+                        {
+                            "Player 1": "Bent Amel",
+                            "Player 2": "Lopez Jennifer",
+                            "Score": [
+                                0.0,
+                                1.0
+                            ]
+                        },
+                        {
+                            "Player 1": "Clumsy Biggie",
+                            "Player 2": "B Cadi",
+                            "Score": [
+                                0.5,
+                                0.5
+                            ]
+                        },
+                        {
+                            "Player 1": "Rogers Kenny",
+                            "Player 2": "Le Pen  Marine",
+                            "Score": [
+                                0.0,
+                                1.0
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "Round name": "Round 2",
+                    "Start date": "21/08/2022 23:19",
+                    "Match": [
+                        {
+                            "Player 1": "Jolie Angelina",
+                            "Player 2": "B Cadi",
+                            "Score": [
+                                1.0,
+                                0.0
+                            ]
+                        },
+                        {
+                            "Player 1": "Le Pen  Marine",
+                            "Player 2": "Bent Amel",
+                            "Score": [
+                                0.0,
+                                1.0
+                            ]
+                        },
+                        {
+                            "Player 1": "Lopez Jennifer",
+                            "Player 2": "Rogers Kenny",
+                            "Score": [
+                                0.5,
+                                0.5
+                            ]
+                        },
+                        {
+                            "Player 1": "Clumsy Biggie",
+                            "Player 2": "Francois Gary",
+                            "Score": [
+                                0.0,
+                                1.0
+                            ]
+                        }
+                    ],
+                    "End date": "21/08/2022 23:26"
+                },
+                {
+                    "Round name": "Round 3",
+                    "Start date": "21/08/2022 23:26",
+                    "Match": [
+                        {
+                            "Player 1": "Jolie Angelina",
+                            "Player 2": "Le Pen  Marine",
+                            "Score": [
+                                0.0,
+                                1.0
+                            ]
+                        },
+                        {
+                            "Player 1": "Lopez Jennifer",
+                            "Player 2": "Clumsy Biggie",
+                            "Score": [
+                                1.0,
+                                0.0
+                            ]
+                        },
+                        {
+                            "Player 1": "Bent Amel",
+                            "Player 2": "Rogers Kenny",
+                            "Score": [
+                                1.0,
+                                0.0
+                            ]
+                        },
+                        {
+                            "Player 1": "Francois Gary",
+                            "Player 2": "B Cadi",
+                            "Score": [
+                                0.0,
+                                1.0
+                            ]
+                        }
+                    ],
+                    "End date": "21/08/2022 23:28"
+                },
+                {
+                    "Round name": "Round 4",
+                    "Start date": "21/08/2022 23:28",
+                    "Match": [
+                        {
+                            "Player 1": "Lopez Jennifer",
+                            "Player 2": "B Cadi",
+                            "Score": [
+                                0.0,
+                                1.0
+                            ]
+                        },
+                        {
+                            "Player 1": "Bent Amel",
+                            "Player 2": "Francois Gary",
+                            "Score": [
+                                1.0,
+                                0.0
+                            ]
+                        },
+                        {
+                            "Player 1": "Le Pen  Marine",
+                            "Player 2": "Clumsy Biggie",
+                            "Score": [
+                                0.0,
+                                1.0
+                            ]
+                        },
+                        {
+                            "Player 1": "Jolie Angelina",
+                            "Player 2": "Rogers Kenny",
+                            "Score": [
+                                1.0,
+                                0.0
+                            ]
+                        }
+                    ],
+                    "End date": "21/08/2022 23:29"
+                }
+            ],
+            "Number of players": "8",
+            "Players": [
+                {
+                    "Last name": "Le Pen ",
+                    "First name": "Marine",
+                    "Date of birth": "02/02/1979",
+                    "Gender": "f",
+                    "Rank": 200,
+                    "Score": 2.0
+                },
+                {
+                    "Last name": "B",
+                    "First name": "Cadi",
+                    "Date of birth": "02/02/2000",
+                    "Gender": "f",
+                    "Rank": 250,
+                    "Score": 2.5
+                },
+                {
+                    "Last name": "Lopez",
+                    "First name": "Jennifer",
+                    "Date of birth": "02/02/1978",
+                    "Gender": "f",
+                    "Rank": 300,
+                    "Score": 2.5
+                },
+                {
+                    "Last name": "Francois",
+                    "First name": "Gary",
+                    "Date of birth": "02/02/2000",
+                    "Gender": "m",
+                    "Rank": 350,
+                    "Score": 1.0
+                },
+                {
+                    "Last name": "Rogers",
+                    "First name": "Kenny",
+                    "Date of birth": "02/02/1950",
+                    "Gender": "m",
+                    "Rank": 400,
+                    "Score": 0.5
+                },
+                {
+                    "Last name": "Clumsy",
+                    "First name": "Biggie",
+                    "Date of birth": "01/01/1989",
+                    "Gender": "m",
+                    "Rank": 450,
+                    "Score": 1.5
+                },
+                {
+                    "Last name": "Bent",
+                    "First name": "Amel",
+                    "Date of birth": "03/02/1987",
+                    "Gender": "f",
+                    "Rank": 500,
+                    "Score": 3.0
+                },
+                {
+                    "Last name": "Jolie",
+                    "First name": "Angelina",
+                    "Date of birth": "04/01/1980",
+                    "Gender": "f",
+                    "Rank": 550,
+                    "Score": 3.0
                 }
             ]
         }

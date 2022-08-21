@@ -1,6 +1,3 @@
-# from models.players import *
-# from .round import *
-
 
 class Tournament:
     def __init__(

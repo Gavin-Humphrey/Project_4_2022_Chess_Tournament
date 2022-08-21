@@ -1,8 +1,3 @@
-# from models import players
-# from models import tournament
-# from controllers import database_controller
-# from tinydb import TinyDB, Query, where
-# from controllers.database_controller import *
 from prettytable import PrettyTable
 import views.tournament as t
 

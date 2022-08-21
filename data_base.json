@@ -1,1 +1,100 @@
-{"Player": {"1": {"Last name": "Le Pen ", "First name": "Marine", "Date of birth": "02/02/1979", "Gender": "f", "Rank": 200, "Score": 3.5}, "2": {"Last name": "B", "First name": "Cadi", "Date of birth": "02/02/2000", "Gender": "f", "Rank": 250, "Score": 4.5}, "3": {"Last name": "Lopez", "First name": "Jennifer", "Date of birth": "02/02/1978", "Gender": "f", "Rank": 300, "Score": 5.0}, "4": {"Last name": "Francois", "First name": "Gary", "Date of birth": "02/02/2000", "Gender": "m", "Rank": 350, "Score": 4.0}, "5": {"Last name": "Rogers", "First name": "Kenny", "Date of birth": "02/02/1950", "Gender": "m", "Rank": 400, "Score": 4.5}, "6": {"Last name": "Clumsy", "First name": "Biggie", "Date of birth": "01/01/1989", "Gender": "m", "Rank": 450, "Score": 2.0}, "7": {"Last name": "Bent", "First name": "Amel", "Date of birth": "03/02/1987", "Gender": "f", "Rank": 500, "Score": 4.5}, "8": {"Last name": "Jolie", "First name": "Angelina", "Date of birth": "04/01/1980", "Gender": "f", "Rank": 550, "Score": 4.0}, "9": {"Last name": "Minaj", "First name": "Nicki", "Date of birth": "03/03/1987", "Gender": "f", "Rank": 150, "Score": 0}, "10": {"Last name": "Fils", "First name": "Ben", "Date of birth": "04/02/1999", "Gender": "m", "Rank": 100, "Score": 0}, "11": {"Last name": "Macron", "First name": "Francois", "Date of birth": "05/03/1996", "Gender": "m", "Rank": 50, "Score": 0}}}
+{
+    "Player": {
+        "1": {
+            "Last name": "Le Pen ",
+            "First name": "Marine",
+            "Date of birth": "02/02/1979",
+            "Gender": "f",
+            "Rank": 200,
+            "Score": 10.5
+        },
+        "2": {
+            "Last name": "B",
+            "First name": "Cadi",
+            "Date of birth": "02/02/2000",
+            "Gender": "f",
+            "Rank": 250,
+            "Score": 10.5
+        },
+        "3": {
+            "Last name": "Lopez",
+            "First name": "Jennifer",
+            "Date of birth": "02/02/1978",
+            "Gender": "f",
+            "Rank": 300,
+            "Score": 14.0
+        },
+        "4": {
+            "Last name": "Francois",
+            "First name": "Gary",
+            "Date of birth": "02/02/2000",
+            "Gender": "m",
+            "Rank": 350,
+            "Score": 10.0
+        },
+        "5": {
+            "Last name": "Rogers",
+            "First name": "Kenny",
+            "Date of birth": "02/02/1950",
+            "Gender": "m",
+            "Rank": 400,
+            "Score": 9.5
+        },
+        "6": {
+            "Last name": "Clumsy",
+            "First name": "Biggie",
+            "Date of birth": "01/01/1989",
+            "Gender": "m",
+            "Rank": 450,
+            "Score": 9.5
+        },
+        "7": {
+            "Last name": "Bent",
+            "First name": "Amel",
+            "Date of birth": "03/02/1987",
+            "Gender": "f",
+            "Rank": 500,
+            "Score": 15.5
+        },
+        "8": {
+            "Last name": "Jolie",
+            "First name": "Angelina",
+            "Date of birth": "04/01/1980",
+            "Gender": "f",
+            "Rank": 550,
+            "Score": 16.5
+        },
+        "9": {
+            "Last name": "Minaj",
+            "First name": "Nicki",
+            "Date of birth": "03/03/1987",
+            "Gender": "f",
+            "Rank": 150,
+            "Score": 0
+        },
+        "10": {
+            "Last name": "Fils",
+            "First name": "Ben",
+            "Date of birth": "04/02/1999",
+            "Gender": "m",
+            "Rank": 100,
+            "Score": 0
+        },
+        "11": {
+            "Last name": "Macron",
+            "First name": "Francois",
+            "Date of birth": "05/03/1996",
+            "Gender": "m",
+            "Rank": 70,
+            "Score": 0
+        },
+        "12": {
+            "Last name": "Yves",
+            "First name": "Man",
+            "Date of birth": "02/02/1995",
+            "Gender": "m",
+            "Rank": 10,
+            "Score": 0
+        }
+    }
+}
